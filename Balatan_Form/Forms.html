@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KD Product Design Form</title>
+  <link rel="stylesheet" href="Forms.css">
+</head>
+<body>
+
+<div class="form-header">
+  <h1>KD Product Design Form</h1>
+  <h3>Fill in your details and see all records below.</h3>
+</div>
+
+<form id="kdForm" enctype="multipart/form-data">
+  <input type="hidden" name="id" id="recordId">
+  <textarea name="customer" id="customer" rows="5" placeholder="Customer's design"></textarea>
+  <input type="file" name="customerFile" id="customerFile">
+
+  <h4>Tops</h4>
+  <label>Jersey Sando</label>
+  <select name="jerseySando" id="jerseySando">
+    <option value="">-- None --</option>
+    <option value="jerseySandoOrdinary">Ordinary CUT</option>
+    <option value="jerseySandoNBA">NBA CUT</option>
+    <option value="jerseySandoNoRib">REVERSIBLE W/O RIBBINGS</option>
+    <option value="jerseySandoRib">REVERSIBLE W RIBBINGS</option>
+  </select>
+
+  <label>Neck</label>
+  <select name="jerseyNeck" id="jerseyNeck">
+    <option value="">-- None --</option>
+    <option value="jerseyRound">ROUND NECK</option>
+    <option value="jerseyV">V-NECK</option>
+    <option value="jerseyW">W-NECK</option>
+  </select>
+
+  <label>Size</label>
+  <select name="jerseySandoSize" id="jerseySandoSize">
+    <option value="">-- None --</option>
+    <option value="sandoMale">MALE SIZE</option>
+    <option value="sandoFemale">FEMALE SIZE</option>
+    <option value="sandoKids">KIDS SIZE</option>
+  </select>
+
+  <label>Longsleeves</label>
+  <select name="longsleeves" id="longsleeves">
+    <option value="">-- None --</option>
+    <option value="longsleevesMale">MALE SIZE</option>
+    <option value="longsleevesFemale">FEMALE SIZE</option>
+    <option value="longsleevesKid">KIDS SIZE</option>
+  </select>
+
+  <label>T-shirt</label>
+  <select name="tshirt" id="tshirt">
+    <option value="">-- None --</option>
+    <option value="tshirtRound">ROUND NECK</option>
+    <option value="tshirtV">V-NECK</option>
+    <option value="tshirtFull">FULL COLLAR</option>
+    <option value="tshirtHalf">HALF COLLAR</option>
+  </select>
+
+  <label>T-shirt Size</label>
+  <select name="tshirtSize" id="tshirtSize">
+    <option value="">-- None --</option>
+    <option value="tshirtMale">MALE SIZE</option>
+    <option value="tshirtFemale">FEMALE SIZE</option>
+    <option value="tshirtKid">KIDS SIZE</option>
+  </select>
+
+  <label>Polo Shirt</label>
+  <select name="poloSize" id="poloSize">
+    <option value="">-- None --</option>
+    <option value="poloYonex">YONEX COLLAR</option>
+    <option value="poloKnitted">V-NECK</option>
+    <option value="poloFull">KNITTED COLLAR</option>
+    <option value="poloHalf">CHINESE COLLAR</option>
+  </select>
+
+  <label>Others</label>
+  <select name="others" id="others">
+    <option value="">-- None --</option>
+    <option value="othersButton">BUTTONS</option>
+    <option value="othersZipper">ZIPPER</option>
+  </select>
+
+  <h4>Bottoms</h4>
+  <label>Jersey Short</label>
+  <select name="jerseyShort" id="jerseyShort">
+    <option value="">-- None --</option>
+    <option value="shortNormal">NORMAL CUT</option>
+    <option value="shortKnee">ABOVE THE KNEE</option>
+    <option value="shortUnisex">UNISEX</option>
+    <option value="shortCycling">CYCLING</option>
+  </select>
+
+  <label>Short Size</label>
+  <select name="shortSize" id="shortSize">
+    <option value="">-- None --</option>
+    <option value="shortAdult">ADULT SIZE</option>
+    <option value="shortKids">KIDS SIZE</option>
+  </select>
+
+  <label>Jogging Pants</label>
+  <select name="joggingPants" id="joggingPants">
+    <option value="">-- None --</option>
+    <option value="joggingAdult">ADULT SIZE</option>
+    <option value="joggingKid">KIDS SIZE</option>
+  </select>
+
+  <h4>Accessories & Others</h4>
+  <label>Warmer</label>
+  <select name="warmer" id="warmer">
+    <option value="">-- None --</option>
+    <option value="warmerMale">MALE CUT SIZE</option>
+    <option value="warmerFemale">FEMALE CUT SIZE</option>
+    <option value="warmerKid">KIDS CUT SIZE</option>
+  </select>
+
+  <label>Sublimation and DTF</label>
+  <select name="sublimationDTF" id="sublimationDTF">
+    <option value="">-- None --</option>
+    <option value="printOnly">PRINT ONLY</option>
+    <option value="printAndPress">PRINT AND PRESS ONLY</option>
+  </select>
+
+  <label>Other services</label>
+  <select name="otherService" id="otherService">
+    <option value="">-- None --</option>
+    <option value="lanyard">LANYARD</option>
+    <option value="meshCap">MESH CAP</option>
+    <option value="banners">BANNERS</option>
+    <option value="armSleeve">ARM SLEEVE</option>
+    <option value="mugs">MUGS</option>
+    <option value="layout">LAYOUT ONLY</option>
+  </select>
+
+  <h4>Colors</h4>
+  <div class="color-selection">
+    <label><input type="checkbox" name="colorSelection[]" value="red"> Red</label>
+    <label><input type="checkbox" name="colorSelection[]" value="blue"> Blue</label>
+    <label><input type="checkbox" name="colorSelection[]" value="green"> Green</label>
+    <label><input type="checkbox" name="colorSelection[]" value="yellow"> Yellow</label>
+    <label><input type="checkbox" name="colorSelection[]" value="black"> Black</label>
+    <label><input type="checkbox" name="colorSelection[]" value="white"> White</label>
+  </div>
+
+  <input type="submit" value="Submit">
+</form>
+
+<h2 style="text-align: center;">All Records </h2>
+<table border="1" cellpadding="5" cellspacing="0" id="recordsTable">
+  <thead>
+    <tr>
+      <th>Customer's comment</th>
+      <th>Tops</th>
+      <th>Bottoms</th>
+      <th>Accessories</th>
+      <th>Colors</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script src="Forms.js"></script>
+</body>
+</html>
