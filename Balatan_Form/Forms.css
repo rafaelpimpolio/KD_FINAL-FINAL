@@ -294,7 +294,7 @@ select.error, .color-selection label.error {
 
 .section-column {
   flex: 1;
-  background-color: rgba(26, 115, 232, 0.1);
+  background-color: rgba(37, 119, 226, 0.1);
   padding: 15px 20px;
   border-radius: 12px;
   box-sizing: border-box;
