@@ -36,16 +36,21 @@ function AddRecord()
         ? implode(',', $_POST['colorSelection'])
         : '';
 
+    // ✅ NEW: Material Type
+    $materialType = isset($_POST['materialType']) 
+        ? implode(',', $_POST['materialType']) 
+        : '';
+
     $sql = "INSERT INTO kd_form (
         customer, customerFile, jerseySando, jerseyNeck, jerseySandoSize,
         longsleeves, tshirt, tshirtSize, poloSize, others,
         jerseyShort, shortSize, joggingPants, warmer,
-        sublimationDTF, otherService, colorSelection, created_at
+        sublimationDTF, otherService, colorSelection, materialType, created_at
     ) VALUES (
         :customer, :customerFile, :jerseySando, :jerseyNeck, :jerseySandoSize,
         :longsleeves, :tshirt, :tshirtSize, :poloSize, :others,
         :jerseyShort, :shortSize, :joggingPants, :warmer,
-        :sublimationDTF, :otherService, :colorSelection, NOW()
+        :sublimationDTF, :otherService, :colorSelection, :materialType, NOW()
     )";
 
     try {
@@ -66,7 +71,8 @@ function AddRecord()
             ':warmer' => $_POST['warmer'] ?? '',
             ':sublimationDTF' => $_POST['sublimationDTF'] ?? '',
             ':otherService' => $_POST['otherService'] ?? '',
-            ':colorSelection' => $colorSelection
+            ':colorSelection' => $colorSelection,
+            ':materialType' => $materialType
         ]);
 
         echo json_encode(["status" => "success", "message" => "Record added successfully."]);
@@ -81,6 +87,11 @@ function UpdateRecord()
 
     $colorSelection = isset($_POST['colorSelection'])
         ? implode(',', $_POST['colorSelection'])
+        : '';
+
+    // ✅ NEW: Material Type
+    $materialType = isset($_POST['materialType']) 
+        ? implode(',', $_POST['materialType']) 
         : '';
 
     $customerFile = '';
@@ -108,7 +119,8 @@ function UpdateRecord()
         warmer = :warmer,
         sublimationDTF = :sublimationDTF,
         otherService = :otherService,
-        colorSelection = :colorSelection
+        colorSelection = :colorSelection,
+        materialType = :materialType
         WHERE id = :id";
 
     Database::ManageRecord($pdo, $sql, [
@@ -129,7 +141,8 @@ function UpdateRecord()
         ':warmer' => $_POST['warmer'] ?? '',
         ':sublimationDTF' => $_POST['sublimationDTF'] ?? '',
         ':otherService' => $_POST['otherService'] ?? '',
-        ':colorSelection' => $colorSelection
+        ':colorSelection' => $colorSelection,
+        ':materialType' => $materialType
     ]);
 
     echo json_encode(["status" => "success", "message" => "Record updated"]);
@@ -163,3 +176,4 @@ function GetRecord()
 
     echo json_encode($row);
 }
+?>
