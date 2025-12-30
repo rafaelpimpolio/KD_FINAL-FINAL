@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const selectionError = document.createElement("div");
   selectionError.id = "selection-error";
+  selectionError.style.color = "red";
+  selectionError.style.marginTop = "6px";
   form.appendChild(selectionError);
 
   function loadRecords() {
@@ -19,8 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
         tr.innerHTML = `
           <td>${row.customer || ''}</td>
           <td>
-            ${row.jerseySando || ''}, ${row.jerseyNeck || ''}, ${row.jerseySandoSize || ''}, 
-            ${row.longsleeves || ''}, ${row.tshirt || ''}, ${row.tshirtSize || ''}, 
+            ${row.jerseySando || ''}, ${row.jerseyNeck || ''}, ${row.jerseySandoSize || ''},
+            ${row.longsleeves || ''}, ${row.tshirt || ''}, ${row.tshirtSize || ''},
             ${row.poloSize || ''}, ${row.others || ''}
           </td>
           <td>
@@ -30,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ${row.warmer || ''}, ${row.sublimationDTF || ''}, ${row.otherService || ''}
           </td>
           <td>${row.colorSelection || ''}</td>
+          <td>${row.materialType || ''}</td>
           <td>
             <button class="btn-edit" onclick="editRecord(${row.id})">Edit</button>
             <button class="btn-delete" onclick="deleteRecord(${row.id})">Delete</button>
@@ -41,30 +44,52 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function validateForm() {
-    let hasSelection = false;
-
-    // Reset previous errors
+    let isValid = true;
     selectionError.textContent = "";
-    form.querySelectorAll("select").forEach(s => s.classList.remove("error"));
-    form.querySelectorAll(".color-selection label").forEach(l => l.classList.remove("error"));
 
-    // Check selects
+    form.querySelectorAll("select").forEach(s => s.classList.remove("error"));
+    form.querySelectorAll(".color-selection label, .material-checkbox").forEach(l => l.classList.remove("error"));
+    form.querySelectorAll(".radio-group input").forEach(r => r.classList.remove("error"));
+
     form.querySelectorAll("select").forEach(select => {
-      if (select.value) hasSelection = true;
-      else select.classList.add("error");
+      if (!select.value) {
+        select.classList.add("error");
+        isValid = false;
+      }
     });
 
-    // Check colors
-    const colorChecked = Array.from(form.querySelectorAll('input[name="colorSelection[]"]')).some(cb => cb.checked);
-    if (colorChecked) hasSelection = true;
-    else form.querySelectorAll(".color-selection label").forEach(l => l.classList.add("error"));
+    const radioGroups = [
+      "jerseySandoSize", "longsleeves", "tshirtSize",
+      "shortSize", "joggingPants", "warmer"
+    ];
 
-    if (!hasSelection) {
-      selectionError.textContent = "You must select at least one option!";
-      return false;
+    radioGroups.forEach(name => {
+      const checked = form.querySelector(`input[name="${name}"]:checked`);
+      if (!checked) {
+        document.querySelectorAll(`input[name="${name}"]`).forEach(r => r.classList.add("error"));
+        isValid = false;
+      }
+    });
+
+    const colorChecked = Array.from(form.querySelectorAll('input[name="colorSelection[]"]')).some(cb => cb.checked);
+    if (!colorChecked) {
+      form.querySelectorAll('input[name="colorSelection[]"]').forEach(cb => {
+        cb.parentElement.classList.add("error");
+      });
+      isValid = false;
     }
 
-    return true;
+    const materialChecked = Array.from(form.querySelectorAll('input[name="materialType[]"]')).some(cb => cb.checked);
+    if (!materialChecked) {
+      form.querySelectorAll('input[name="materialType[]"]').forEach(cb => {
+        cb.parentElement.classList.add("error");
+      });
+      isValid = false;
+    }
+
+    if (!isValid) selectionError.textContent = "Please complete all required selections!";
+
+    return isValid;
   }
 
   form.addEventListener("submit", function (e) {
@@ -86,9 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
       alert(data.message);
       form.reset();
       document.getElementById("recordId").value = "";
-      form.querySelectorAll("select").forEach(s => s.classList.remove("selected-option", "error"));
-      form.querySelectorAll(".color-selection label").forEach(l => l.classList.remove("error"));
       selectionError.textContent = "";
+      document.querySelectorAll("select").forEach(s => s.classList.remove("selected"));
       loadRecords();
     });
   });
@@ -117,12 +141,28 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("recordId").value = row.id;
       document.getElementById("customer").value = row.customer || '';
 
-      const selects = ["jerseySando","jerseyNeck","jerseySandoSize","longsleeves","tshirt","tshirtSize","poloSize","others","jerseyShort","shortSize","joggingPants","warmer","sublimationDTF","otherService"];
+      const selects = [
+        "jerseySando","jerseyNeck","tshirt","poloSize","others",
+        "jerseyShort","sublimationDTF","otherService"
+      ];
+
       selects.forEach(id => {
         const s = document.getElementById(id);
-        s.value = row[id] || '';
-        if(s.value) s.classList.add("selected-option");
-        else s.classList.remove("selected-option");
+        if (s) {
+          s.value = row[id] || '';
+          if (s.value) s.classList.add("selected");
+        }
+      });
+
+      const radioGroups = [
+        "jerseySandoSize", "longsleeves", "tshirtSize",
+        "shortSize", "joggingPants", "warmer"
+      ];
+
+      radioGroups.forEach(name => {
+        document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+          radio.checked = radio.value === row[name];
+        });
       });
 
       document.querySelectorAll('input[name="colorSelection[]"]').forEach(cb => cb.checked = false);
@@ -133,14 +173,23 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       }
 
+      document.querySelectorAll('input[name="materialType[]"]').forEach(cb => cb.checked = false);
+      if (row.materialType) {
+        row.materialType.split(",").forEach(material => {
+          const checkbox = document.querySelector(`input[name="materialType[]"][value="${material.trim()}"]`);
+          if (checkbox) checkbox.checked = true;
+        });
+      }
+
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   };
 
-  form.querySelectorAll("select").forEach(select => {
+  document.querySelectorAll("select").forEach(select => {
+    select.classList.add("select-with-check");
     select.addEventListener("change", () => {
-      if(select.value) select.classList.add("selected-option");
-      else select.classList.remove("selected-option");
+      if (select.value) select.classList.add("selected");
+      else select.classList.remove("selected");
     });
   });
 
