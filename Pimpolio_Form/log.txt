@@ -411,3 +411,15 @@
 2025-12-30 7:04 am - func_name = DisplayCustomer
 2025-12-30 7:06 am - func_name = DisplayCustomer
 2025-12-30 8:37 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 8:49 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 8:50 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 8:54 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 8:54 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 8:54 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 8:56 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 8:58 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 8:58 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 8:59 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 9:05 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 9:05 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 9:07 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
