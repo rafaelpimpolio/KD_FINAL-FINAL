@@ -1,22 +1,38 @@
+:root {
+  --border-color: #8faecc;
+  --border-strong: #1a73e8;
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-image: url("./images/Blue_Shirts.png");
-  background-size: cover;
-  background-position: center;
   margin: 0;
   padding: 0;
-  color: #333;
+}
+
+html, body {
+  background: linear-gradient(135deg, #0a1a2a, #0b2f4a);
 }
 
 .form-header {
   text-align: center;
   margin: 20px 0;
+  margin-top: 120px;
+  background-color: white;
+  box-shadow: 0px 3px 10px rgba(0,0,0,0.25);
+  padding: 30px;
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0px 3px 10px rgba(0,0,0,0.25);
+}
+
+.kd {
+  text-align: center;
 }
 
 .form-header h1 {
   font-size: 2.2em;
   margin-bottom: 8px;
-  color: #1a1a1a;
+  color: #003b7a;
 }
 
 .form-header h3 {
@@ -24,9 +40,11 @@ body {
   color: #555;
 }
 
+/* ===== FORM CONTAINER ===== */
 form {
   background: rgba(255,255,255,0.95);
   border-radius: 12px;
+  border: 2px solid var(--border-color);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   padding: 25px 30px;
   max-width: 700px;
@@ -38,6 +56,7 @@ form:hover {
   transform: translateY(-2px);
 }
 
+/* ===== LABELS ===== */
 label {
   display: block;
   margin-top: 15px;
@@ -46,22 +65,32 @@ label {
   color: #333;
 }
 
+/* ===== INPUTS ===== */
+input,
 select,
 textarea {
   width: 100%;
   padding: 10px 12px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1.5px solid var(--border-color);
   box-sizing: border-box;
   font-size: 0.95em;
   transition: 0.3s;
+  background-color: #fff;
 }
 
+input:focus,
 select:focus,
 textarea:focus {
   outline: none;
-  border-color: #1a73e8;
-  box-shadow: 0 0 6px rgba(26, 115, 232, 0.2);
+  border-color: var(--border-strong);
+  box-shadow: 0 0 6px rgba(26, 115, 232, 0.25);
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: #155ab6;
 }
 
 textarea {
@@ -69,13 +98,15 @@ textarea {
   min-height: 70px;
 }
 
+/* ===== SELECT CHECK ICON ===== */
 select.selected-option {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='green'%3E%3Cpath d='M6.173 11.414L3.05 8.29l-.707.707 3.83 3.828L13.657 5.414l-.707-.707z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
-  background-size: 32px 32px;
+  background-size: 24px 24px;
 }
 
+/* ===== COLOR SELECTION ===== */
 .color-selection {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -95,138 +126,30 @@ select.selected-option {
   height: 16px;
 }
 
+/* ===== SUBMIT BUTTON ===== */
 input[type="submit"] {
-  display: block;
-  width: 100%;
   background-color: #1a73e8;
   color: #fff;
-  padding: 12px;
-  border: none;
+  border: 2px solid #1a73e8;
   border-radius: 8px;
   font-size: 1em;
   cursor: pointer;
   margin-top: 20px;
-  transition: 0.3s;
 }
 
 input[type="submit"]:hover {
   background-color: #155ab6;
-  transform: translateY(-1px);
+  border-color: #155ab6;
 }
 
-#customer-error {
-  color: red;
-  font-size: 0.85em;
-  margin-top: 4px;
-}
-
-#recordsTable {
-  width: 90%;
-  margin: 40px auto;
-  border-collapse: collapse;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-  background: rgba(255,255,255,0.95);
-}
-
-#recordsTable thead {
-  background-color: #1a73e8;
-  color: #fff;
-}
-
-#recordsTable thead th {
-  padding: 12px;
-  font-size: 0.9em;
-}
-
-#recordsTable tbody td {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-  font-size: 0.85em;
-  word-wrap: break-word;
-}
-
-#recordsTable tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-#recordsTable tbody tr:hover {
-  background-color: #e8f0fe;
-}
-
-button.btn-edit, button.btn-delete {
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 0.8em;
-  transition: 0.3s;
-}
-
-button.btn-edit {
-  background-color: #1a73e8;
-  color: #fff;
-  border: none;
-}
-
-button.btn-edit:hover {
-  background-color: #155ab6;
-}
-
-button.btn-delete {
-  background-color: #e53935;
-  color: #fff;
-  border: none;
-}
-
-button.btn-delete:hover {
-  background-color: #b71c1c;
-}
-
-input[type="file"] {
-  display: inline-block;
-  max-width: 150px;
-  padding: 6px 10px;
-  font-size: 0.9em;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background-color: #1a73e8;
-  color: #fff;
-  cursor: pointer;
-}
-
-input[type="file"]::-webkit-file-upload-button {
-  visibility: hidden;
-}
-
-input[type="file"]::before {
-  content: 'Choose File';
-  display: inline-block;
-  background: #1a73e8;
-  color: white;
-  border-radius: 6px;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-size: 0.9em;
-  white-space: nowrap;
-  -webkit-user-select: none;
-  transition: 0.3s;
-}
-
-input[type="file"]:hover::before {
-  background: #155ab6;
-}
-
-#selection-error {
-  color: red;
-  font-size: 0.85em;
-  margin-top: 4px;
-}
-
-select.error, .color-selection label.error {
-  border: 1px solid red;
+/* ===== ERROR STATES ===== */
+select.error,
+.color-selection label.error {
+  border: 2px solid red;
   border-radius: 6px;
 }
 
+/* ===== RADIO BUTTONS ===== */
 .radio-group {
   display: flex;
   gap: 14px;
@@ -244,47 +167,49 @@ select.error, .color-selection label.error {
 
 .radio-group input[type="radio"] {
   appearance: none;
-  -webkit-appearance: none;
   width: 16px;
   height: 16px;
-  border: 2px solid #1a73e8;
+  border: 2px solid var(--border-strong);
   border-radius: 50%;
   position: relative;
   cursor: pointer;
+  background-color: white;
 }
 
-.radio-group input[type="radio"]:checked::before {  
+.radio-group input[type="radio"]:checked::before {
   content: "";
   position: absolute;
   top: 3px;
   left: 3px;
   width: 8px;
   height: 8px;
-  background: #1a73e8;
+  background: var(--border-strong);
   border-radius: 50%;
 }
 
-.radio-group input[type="radio"]:hover {
-  box-shadow: 0 0 4px rgba(26, 115, 232, 0.5);
-}
-
-.radio-group.error label {
-  color: red;
-}
-
+/* ===== CHECKBOXES ===== */
+.material-checkbox-label input[type="checkbox"],
 .material-checkbox {
   width: 18px;
   height: 18px;
+  border: 2px solid var(--border-strong);
+  border-radius: 4px;
+  appearance: none;
   cursor: pointer;
-  vertical-align: middle;
-  margin-right: 6px;
+  background-color: white;
 }
 
-.material-checkbox:checked {
-  background-color: #1a73e8;
-  border: 2px solid #1a73e8;
+.material-checkbox-label input[type="checkbox"]:checked::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background: var(--border-strong);
 }
 
+/* ===== SECTIONS ===== */
 .section-row {
   display: flex;
   gap: 20px;
@@ -297,67 +222,44 @@ select.error, .color-selection label.error {
   background-color: rgba(37, 119, 226, 0.1);
   padding: 15px 20px;
   border-radius: 12px;
-  box-sizing: border-box;
+  border: 1.5px solid var(--border-color);
 }
 
 .section-column h4 {
-  margin-bottom: 12px;
   font-size: 1.1em;
-  color: #1a1a1a;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 6px;
   color: #1a73e8;
+  border-bottom: 1.5px solid var(--border-color);
+  padding-bottom: 6px;
   margin-bottom: 12px;
 }
 
-.radio-group label, .material-checkbox-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  margin-bottom: 6px;
+/* ===== TABLE ===== */
+#recordsTable {
+  width: 90%;
+  margin: 40px auto;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--border-color);
+  background: rgba(255,255,255,0.95);
 }
 
-.material-checkbox-label input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  border: 2px solid #1a73e8;
-  border-radius: 4px;
-  appearance: none;
-  -webkit-appearance: none;
-  position: relative;
-  cursor: pointer;
-  transition: all 0.2s;
+#recordsTable th,
+#recordsTable td {
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  font-size: 0.85em;
 }
 
-.material-checkbox-label input[type="checkbox"]:checked::before {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 12px;
-  height: 12px;
-  background: #1a73e8;
-  border-radius: 2px;
+#recordsTable thead {
+  background-color: #1a73e8;
+  color: #fff;
 }
 
-form > .section-row + .section-row {
-  margin-top: 25px;
+#recordsTable tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-.section-column:hover {
-  transform: translateY(-1px);
-  transition: 0.3s ease;
-}
-
-.select-with-check {
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 20px 20px;
-  transition: all 0.3s;
-}
-
-.select-with-check.selected {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='green'%3E%3Cpath d='M6.173 11.414L3.05 8.29l-.707.707 3.83 3.828L13.657 5.414l-.707-.707z'/%3E%3C/svg%3E");
+#recordsTable tbody tr:hover {
+  background-color: #e8f0fe;
 }
