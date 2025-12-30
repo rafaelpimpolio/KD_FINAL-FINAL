@@ -1,0 +1,22 @@
+.form-tabs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 30px;
+}
+
+.form-tab {
+    text-decoration: none;
+    padding: 18px;
+    text-align: center;
+    background: #065084;
+    color: #fff;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.form-tab:hover {
+    background: #333;
+    transform: translateY(-3px);
+}
