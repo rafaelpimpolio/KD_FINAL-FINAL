@@ -447,3 +447,142 @@
 2025-12-30 10:58 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
 2025-12-30 10:59 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
 2025-12-30 11:00 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 11:17 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 11:17 am - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 1:20 pm - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 1:20 pm - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 1:20 pm - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 1:22 pm - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 1:22 pm - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 1:29 pm - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 1:29 pm - DB Connection Error: SQLSTATE[HY000] [1049] Unknown database 'kd_database'
+2025-12-30 1:35 pm - POST DATA: {"customerID":"","firstName":"Rafael","lastName":"Pimpolio","phone":"09754153780","email":"akoadipadi@gmail.com","barangay":"Bonifacio","city":"San Fernando","province":"Camarines Sur","postalCode":"4415","func_name":"AddCustomer"}
+2025-12-30 1:35 pm - Function 'AddCustomer' not allowed
+2025-12-30 1:35 pm - POST DATA: {"func_name":"DisplayCustomer"}
+2025-12-30 1:35 pm - Function 'DisplayCustomer' not allowed
+2025-12-30 1:38 pm - POST DATA: {"customerID":"","firstName":"Rafael","lastName":"Pimpolio","phone":"09754153780","email":"akoadipadi@gmail.com","barangay":"Bonifacio","city":"San Fernando","province":"Camarines Sur","postalCode":"4415","func_name":"AddCustomer"}
+2025-12-30 1:38 pm - Function 'AddCustomer' not allowed
+2025-12-30 1:38 pm - POST DATA: {"func_name":"DisplayCustomer"}
+2025-12-30 1:38 pm - Function 'DisplayCustomer' not allowed
+2025-12-30 1:41 pm - func_name = DisplayCustomer
+2025-12-30 1:42 pm - customerID = 
+2025-12-30 1:42 pm - firstName = Rafael
+2025-12-30 1:42 pm - lastName = Pimpolio
+2025-12-30 1:42 pm - phone = 09754153780
+2025-12-30 1:42 pm - email = akoadipadi@gmail.com
+2025-12-30 1:42 pm - barangay = Bonifacio
+2025-12-30 1:42 pm - city = San Fernando
+2025-12-30 1:42 pm - province = Camarines Sur
+2025-12-30 1:42 pm - postalCode = 4419
+2025-12-30 1:42 pm - func_name = AddCustomer
+2025-12-30 1:42 pm - DB Error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kd_sportswear`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
+2025-12-30 1:42 pm - AddCustomer Error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kd_sportswear`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
+2025-12-30 1:42 pm - func_name = DisplayCustomer
+2025-12-30 1:42 pm - customerID = 
+2025-12-30 1:42 pm - firstName = Rafael
+2025-12-30 1:42 pm - lastName = Pimpolio
+2025-12-30 1:42 pm - phone = 09754153780
+2025-12-30 1:42 pm - email = akoadipadi@gmail.com
+2025-12-30 1:42 pm - barangay = Bonifacio
+2025-12-30 1:42 pm - city = San Fernando
+2025-12-30 1:42 pm - province = Camarines Sur
+2025-12-30 1:42 pm - postalCode = 4419
+2025-12-30 1:42 pm - func_name = AddCustomer
+2025-12-30 1:42 pm - DB Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'kd_databse.customer' doesn't exist
+2025-12-30 1:42 pm - AddCustomer Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'kd_databse.customer' doesn't exist
+2025-12-30 1:42 pm - func_name = DisplayCustomer
+2025-12-30 2:07 pm - customerID = 
+2025-12-30 2:07 pm - firstName = Rafael
+2025-12-30 2:07 pm - lastName = Pimpolio
+2025-12-30 2:07 pm - phone = 09754153780
+2025-12-30 2:07 pm - email = akoadipadi@gmail.com
+2025-12-30 2:07 pm - barangay = Bonifacio
+2025-12-30 2:07 pm - city = San Fernando
+2025-12-30 2:07 pm - province = Camarines Sur
+2025-12-30 2:07 pm - postalCode = 4419
+2025-12-30 2:07 pm - func_name = AddCustomer
+2025-12-30 2:07 pm - DB Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'kd_databse.customer' doesn't exist
+2025-12-30 2:07 pm - AddCustomer Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'kd_databse.customer' doesn't exist
+2025-12-30 2:07 pm - func_name = DisplayCustomer
+2025-12-30 2:09 pm - func_name = DisplayCustomer
+2025-12-30 2:10 pm - customerID = 
+2025-12-30 2:10 pm - firstName = Rem
+2025-12-30 2:10 pm - lastName = Balatan
+2025-12-30 2:10 pm - phone = 09123456789
+2025-12-30 2:10 pm - email = rem@gmail.com
+2025-12-30 2:10 pm - barangay = Duman
+2025-12-30 2:10 pm - city = samo
+2025-12-30 2:10 pm - province = secret
+2025-12-30 2:10 pm - postalCode = 4419
+2025-12-30 2:10 pm - func_name = AddCustomer
+2025-12-30 2:10 pm - DB Error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kd_sportswear`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
+2025-12-30 2:10 pm - AddCustomer Error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kd_sportswear`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
+2025-12-30 2:10 pm - func_name = DisplayCustomer
+2025-12-30 2:10 pm - func_name = DisplayCustomer
+2025-12-30 2:13 pm - func_name = DisplayCustomer
+2025-12-30 2:18 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:19 pm - customerID = 
+2025-12-30 2:19 pm - firstName = Rem
+2025-12-30 2:19 pm - lastName = Balatan
+2025-12-30 2:19 pm - phone = 09123456789
+2025-12-30 2:19 pm - email = rem@gmail.com
+2025-12-30 2:19 pm - barangay = Bonifacio
+2025-12-30 2:19 pm - city = San Fernando
+2025-12-30 2:19 pm - province = secret
+2025-12-30 2:19 pm - postalCode = 4419
+2025-12-30 2:19 pm - func_name = AddCustomer
+2025-12-30 2:19 pm - func_name = DisplayCustomer
+2025-12-30 2:20 pm - func_name = DisplayCustomer
+2025-12-30 2:20 pm - func_name = DisplayCustomer
+2025-12-30 2:20 pm - func_name = DisplayCustomer
+2025-12-30 2:21 pm - func_name = DisplayCustomer
+2025-12-30 2:23 pm - func_name = DisplayCustomer
+2025-12-30 2:28 pm - func_name = DisplayCustomer
+2025-12-30 2:28 pm - func_name = DisplayCustomer
+2025-12-30 2:28 pm - func_name = DisplayCustomer
+2025-12-30 2:35 pm - func_name = DisplayCustomer
+2025-12-30 2:37 pm - func_name = DisplayCustomer
+2025-12-30 2:37 pm - func_name = DisplayCustomer
+2025-12-30 2:37 pm - func_name = DisplayCustomer
+2025-12-30 2:37 pm - func_name = DisplayCustomer
+2025-12-30 2:37 pm - func_name = DisplayCustomer
+2025-12-30 2:37 pm - func_name = DisplayCustomer
+2025-12-30 2:37 pm - func_name = DisplayCustomer
+2025-12-30 2:37 pm - func_name = DisplayCustomer
+2025-12-30 2:37 pm - func_name = DisplayCustomer
+2025-12-30 2:37 pm - func_name = DisplayCustomer
+2025-12-30 2:38 pm - func_name = DisplayCustomer
+2025-12-30 2:39 pm - func_name = DisplayCustomer
+2025-12-30 2:40 pm - func_name = DisplayCustomer
+2025-12-30 2:40 pm - func_name = DisplayCustomer
+2025-12-30 2:44 pm - func_name = DisplayCustomer
