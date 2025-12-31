@@ -3,7 +3,7 @@
 function DisplayCustomerList() {
     $.ajax({
         type: "POST",
-        url: "/Pimpolio_Form/crud.php",
+        url: "crud.php",
         data: { func_name: "DisplayCustomer" }
     })
     .done(function(msg) {
@@ -175,32 +175,4 @@ $(document).on("click", ".btnDelete", function(e) {
 $(document).ready(function () {
     DisplayCustomerList();
 });
-
-function deleteCustomer(id) {
-    $.post(
-        "crud.php",
-        {
-            func_name: "DeleteCustomer",
-            customerID: id
-        },
-        function (res) {
-            let response;
-
-            try {
-                response = JSON.parse(res);
-            } catch (e) {
-                alert("Invalid server response");
-                return;
-            }
-
-            if (response.success) {
-                $.alert("Customer deleted successfully");
-                location.reload();
-            } else {
-                $.alert(response.error || "Delete failed");
-            }
-        }
-    );
-}
-
 
