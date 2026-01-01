@@ -599,3 +599,32 @@
 2025-12-31 4:22 am - func_name = DisplayCustomer
 2025-12-31 4:22 am - func_name = DisplayCustomer
 2025-12-31 4:22 am - func_name = DisplayCustomer
+2026-01-01 12:19 pm - func_name = DisplayCustomer
+2026-01-01 12:26 pm - func_name = DisplayCustomer
+2026-01-01 12:26 pm - customerID = 
+2026-01-01 12:26 pm - firstName = DION DALE
+2026-01-01 12:26 pm - lastName = DURO
+2026-01-01 12:26 pm - phone = 09123456789
+2026-01-01 12:26 pm - email = DDDURO5@GMAIL.COM
+2026-01-01 12:26 pm - barangay = DIGDI
+2026-01-01 12:26 pm - city = NIGA
+2026-01-01 12:26 pm - province = HARANI
+2026-01-01 12:26 pm - postalCode = 1234
+2026-01-01 12:26 pm - func_name = AddCustomer
+2026-01-01 12:26 pm - DB Error: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'kd_database.customer' doesn't exist in engine
+2026-01-01 12:26 pm - AddCustomer Error: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'kd_database.customer' doesn't exist in engine
+2026-01-01 12:26 pm - func_name = DisplayCustomer
+2026-01-01 12:27 pm - customerID = 
+2026-01-01 12:27 pm - firstName = DION DALE
+2026-01-01 12:27 pm - lastName = DURO
+2026-01-01 12:27 pm - phone = 09123456789
+2026-01-01 12:27 pm - email = diondale.duro@unc.edu.ph
+2026-01-01 12:27 pm - barangay = DIGDI
+2026-01-01 12:27 pm - city = NIGA
+2026-01-01 12:27 pm - province = HARANI
+2026-01-01 12:27 pm - postalCode = 1234
+2026-01-01 12:27 pm - func_name = AddCustomer
+2026-01-01 12:27 pm - DB Error: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'kd_database.customer' doesn't exist in engine
+2026-01-01 12:27 pm - AddCustomer Error: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'kd_database.customer' doesn't exist in engine
+2026-01-01 12:27 pm - func_name = DisplayCustomer
+2026-01-01 12:35 pm - func_name = DisplayCustomer
