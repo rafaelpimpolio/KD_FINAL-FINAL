@@ -1,0 +1,31 @@
+body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f2f5; padding: 40px; }
+.container { display: flex; flex-direction: column; align-items: center; gap: 40px; }
+
+form { 
+  background: white; padding: 25px; border-radius: 12px; width: 400px; 
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+}
+
+.form-group { margin-bottom: 15px; }
+label { font-weight: 600; display: block; margin-bottom: 5px; }
+input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+
+.error { color: #dc3545; font-size: 0.8em; margin-top: 5px; }
+button { width: 100%; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+#submitBtn { background: #007bff; color: white; }
+
+.table-container { 
+  background: white; padding: 20px; border-radius: 12px; width: 100%; max-width: 900px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+}
+
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+th { background: #f8f9fa; color: #333; }
+
+.status-pill { padding: 4px 10px; border-radius: 20px; font-size: 0.85em; font-weight: bold; }
+.status-active { background: #e6fffa; color: #234e52; }
+.status-inactive { background: #fff5f5; color: #822727; }
+
+.btn-edit { background: #fff3cd; color: #856404; width: auto; padding: 5px 10px; margin-right: 5px; }
+.btn-delete { background: #f8d7da; color: #721c24; width: auto; padding: 5px 10px; }
