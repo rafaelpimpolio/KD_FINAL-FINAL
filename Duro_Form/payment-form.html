@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KD Sportswear & Apparel - Payment Form</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="payment.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar" id="navbar">
+    <div class="container">
+        <a href="../home.html#home" class="navbar-brand">KD Sportswear & Apparel</a>
+        <ul class="navbar-menu" id="navbarMenu">
+            <li><a href="../home.html#home" class="nav-link">Home</a></li>
+            <li><a href="../home.html#about" class="nav-link">About</a></li>
+            <li><a href="../home.html#latest-designs" class="nav-link">Latest Designs</a></li>
+            <li><a href="../home.html#gallery" class="nav-link">Gallery</a></li>
+            <li><a href="../home.html#services" class="nav-link">Services</a></li>
+            <li><a href="../home.html#testimonials" class="nav-link">Testimonials</a></li>
+            <li><a href="../home.html#contact" class="nav-link">Contact</a></li>
+            <li><a href="../forms.html" class="nav-link">Forms</a></li>
+        </ul>
+        <button class="navbar-toggle" id="navbarToggle">
+            <span id="menuIcon">☰</span>
+        </button>
+    </div>
+</nav>
+
+<!-- HEADER -->
+<div class="header">
+    <h1>KD SPORTSWEAR & APPAREL</h1>
+    <p class="sub">Sublimation • Custom Jerseys • Apparel Printing</p>
+</div>
+
+<div class="container-main">
+    <div class="row">
+
+        <!-- LEFT SIDE: PAYMENT FORM -->
+        <div class="col-lg-3">
+            <div class="form-container">
+                <h2>Payment Details</h2>
+
+                <form class="needs-validation" method="POST" action="payment_crud.php?action=create" novalidate>
+
+                    <input type="hidden" name="payment_id">
+
+                    <div class="mb-3">
+                        <label class="form-label">Transaction ID</label>
+                        <input type="number" class="form-control" name="transaction_id" required>
+                        <div class="invalid-feedback">Transaction ID is required.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Payment Reference</label>
+                        <input type="text" class="form-control" name="payment_reference" required minlength="5">
+                        <div class="invalid-feedback">Enter at least 5 characters.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Transaction Status</label>
+                        <select class="form-select" name="transaction_status" required>
+                            <option value="">Select Status</option>
+                            <option>Pending</option>
+                            <option>Completed</option>
+                            <option>Failed</option>
+                        </select>
+                        <div class="invalid-feedback">Please select status.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Payment Method</label>
+                        <select class="form-select" name="method_payment" required>
+                            <option value="">Select Method</option>
+                            <option>Cash</option>
+                            <option>GCash</option>
+                            <option>Bank Transfer</option>
+                        </select>
+                        <div class="invalid-feedback">Please select payment method.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Payment Date</label>
+                        <input type="date" class="form-control" name="payment_date" required>
+                        <div class="invalid-feedback">Payment date required.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Amount</label>
+                        <input type="number" class="form-control" name="amount" required min="1">
+                        <div class="invalid-feedback">Amount must be greater than 0.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Balance</label>
+                        <input type="number" class="form-control" name="balance" required min="0">
+                        <div class="invalid-feedback">Balance cannot be negative.</div>
+                    </div>
+
+                    <button class="btn btn-primary w-100" type="submit">
+                        CONFIRM PAYMENT
+                    </button>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- RIGHT SIDE: PAYMENT LIST -->
+        <div class="col-lg-9">
+            <div class="table-container">
+                <h2>Payment Records</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped" id="paymentTable">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Transaction ID</th>
+                            <th>Reference</th>
+                            <th>Status</th>
+                            <th>Method</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Balance</th>
+                            <th style="width: 140px;">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="paymentTableBody">
+                        <!-- Payments load here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+
+            <div class="footer-section">
+                <h3>KD Sportswear & Apparel</h3>
+                <p>Custom apparel design shop creating unique t-shirts and jerseys since 2023.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#latest-designs">Latest Designs</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li>Custom T-Shirts</li>
+                    <li>Team Jerseys</li>
+                    <li>Community Shirts</li>
+                    <li>Special Orders</li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li>J. Hernandez Avenue,</li>
+                    <li>Sta. Cruz, Naga City</li>
+                    <li>0998 976 5742</li>
+                    <li>kdsportswear2023@gmail.com</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 KD Sportswear & Apparel. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+(() => {
+    'use strict';
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+})();
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('payment_crud.php?action=read')
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById('paymentTableBody').innerHTML = data;
+        });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+[2026-01-01 15:15:41] Action: CREATE | Employee ID: 123 | Name: Time Zone | Position: Manager | Email: 321@gmail.com
+[2026-01-01 15:36:30] Action: UPDATE | Employee ID: 123 | Name: Time Zone | 
+[2026-01-01 15:38:00] Action: UPDATE | Employee ID: 123 | Name: Time Zone | 
+[2026-01-01 15:38:04] Action: UPDATE | Employee ID: 21 | Name: Ivan qweqw | 
+[2026-01-01 15:38:46] Action: CREATE | Employee ID: 212 | Name: Time Zone | Position: Supervisor | Email: 1232@gmail.com
+[2026-01-01 15:41:48] Action: DELETE | Employee ID: 21 | Name: Ivan qweqw | Permanently removed from database
+[2026-01-01 15:41:56] Action: UPDATE | Employee ID: 123 | Name: Time Zone | 
+[2026-01-01 15:43:04] Action: UPDATE | Employee ID: 212 | Name: Time Zone | 
+[2026-01-01 15:43:13] Action: DELETE | Employee ID: 123 | Name: Time Zone | Permanently removed from database
+[2026-01-01 15:47:04] Action: CREATE | Employee ID: 123 | Name: Time wwwa | Position: Manager | Email: 321@gmail.com
+[2026-01-01 16:02:13] Action: UPDATE | Employee ID: 212 | Name: Time Zone | 
