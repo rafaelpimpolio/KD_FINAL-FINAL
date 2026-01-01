@@ -43,13 +43,11 @@ document.addEventListener("DOMContentLoaded", function () {
   function validateDropdowns() {
     let selectedCount = 0;
 
-    // 🔹 Reset errors
     dropdownIds.forEach(id => {
       const el = document.getElementById(id);
       if (el) el.classList.remove("input-error");
     });
-
-    // 🔹 Count selections
+   
     dropdownIds.forEach(id => {
       const el = document.getElementById(id);
       if (el && el.value !== "") {
@@ -67,15 +65,12 @@ document.addEventListener("DOMContentLoaded", function () {
     return true;
   }
 
-  // ✅ Add green check mark on dropdown selection
   function setupDropdownCheckmarks() {
     dropdownIds.forEach(id => {
       const selectEl = document.getElementById(id);
       if (selectEl) {
-        // Initial check (for edit mode)
         if (selectEl.value !== "") selectEl.classList.add("selected-option");
 
-        // On change
         selectEl.addEventListener("change", () => {
           if (selectEl.value !== "") {
             selectEl.classList.add("selected-option");
@@ -110,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
         alert(data.message);
         form.reset();
         document.getElementById("recordId").value = "";
-        setupDropdownCheckmarks(); // Reset checkmarks
+        setupDropdownCheckmarks(); 
         loadRecords();
       });
   });
@@ -143,7 +138,6 @@ document.addEventListener("DOMContentLoaded", function () {
           const el = document.getElementById(id);
           if (el) {
             el.value = row[id] || "";
-            // ✅ Show green check mark if value exists
             if (el.value !== "") el.classList.add("selected-option");
             else el.classList.remove("selected-option");
           }

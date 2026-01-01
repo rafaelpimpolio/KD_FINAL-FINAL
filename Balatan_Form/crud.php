@@ -27,7 +27,6 @@ function AddRecord()
 {
     global $pdo;
 
-    // ✅ SERVER-SIDE DROPDOWN VALIDATION
     $dropdownFields = [
         'jerseySando',
         'jerseyNeck',
