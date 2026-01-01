@@ -37,7 +37,7 @@ class Database
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
             echo "Error fetching record: " . $e->getMessage();
-            return false;
+            return false;x
         }
     }
 
