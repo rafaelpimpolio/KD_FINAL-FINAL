@@ -12,7 +12,6 @@ if (function_exists($func_name)) {
     echo json_encode(["status" => "error", "message" => "Invalid function"]);
 }
 
-/* ================= DISPLAY ================= */
 
 function DisplayRecord()
 {
@@ -21,7 +20,6 @@ function DisplayRecord()
     echo json_encode(Database::GetAllData($pdo, $sql));
 }
 
-/* ================= ADD ================= */
 
 function AddRecord()
 {
@@ -54,7 +52,6 @@ function AddRecord()
         return;
     }
 
-    /* ===== FILE UPLOAD ===== */
     $customerFile = '';
     if (!empty($_FILES['customerFile']['name']) && $_FILES['customerFile']['error'] === 0) {
         $targetDir = "uploads/";
@@ -65,12 +62,10 @@ function AddRecord()
         move_uploaded_file($_FILES['customerFile']['tmp_name'], $customerFile);
     }
 
-    /* ===== NORMAL VALUES ===== */
     $colorSelection = isset($_POST['colorSelection'])
         ? implode(',', $_POST['colorSelection'])
         : '';
 
-    // ✅ FIXED: radio = string
     $materialType = $_POST['materialType'] ?? '';
 
     $sql = "INSERT INTO kd_form (
@@ -109,7 +104,6 @@ function AddRecord()
     echo json_encode(["status" => "success", "message" => "Record added successfully."]);
 }
 
-/* ================= UPDATE ================= */
 
 function UpdateRecord()
 {
@@ -119,7 +113,6 @@ function UpdateRecord()
         ? implode(',', $_POST['colorSelection'])
         : '';
 
-    // ✅ FIXED
     $materialType = $_POST['materialType'] ?? '';
 
     $customerFile = '';

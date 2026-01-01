@@ -125,27 +125,46 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   window.editRecord = function (id) {
-    fetch("crud.php", {
-      method: "POST",
-      body: new URLSearchParams({ func_name: "GetRecord", id })
-    })
-      .then(res => res.json())
-      .then(row => {
-        document.getElementById("recordId").value = row.id;
-        document.getElementById("customer").value = row.customer || "";
+  fetch("crud.php", {
+    method: "POST",
+    body: new URLSearchParams({ func_name: "GetRecord", id })
+  })
+    .then(res => res.json())
+    .then(row => {
+      document.getElementById("recordId").value = row.id;
 
-        dropdownIds.forEach(id => {
-          const el = document.getElementById(id);
-          if (el) {
-            el.value = row[id] || "";
-            if (el.value !== "") el.classList.add("selected-option");
-            else el.classList.remove("selected-option");
-          }
+      document.getElementById("customer").value = row.customer || "";
+
+      dropdownIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.value = row[id] || "";
+          el.classList.toggle("selected-option", el.value !== "");
+        }
+      });
+
+      document.querySelectorAll("input[type='radio']").forEach(radio => {
+        radio.checked = radio.value === row[radio.name];
+      });
+
+      document
+        .querySelectorAll("input[name='colorSelection[]']")
+        .forEach(cb => {
+          cb.checked = row.colorSelection
+            ? row.colorSelection.split(",").includes(cb.value)
+            : false;
         });
 
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-  };
+      document
+        .querySelectorAll("input[name='materialType']")
+        .forEach(radio => {
+          radio.checked = radio.value === row.materialType;
+        });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+};
+
 
   setupDropdownCheckmarks();
   loadRecords();
