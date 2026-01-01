@@ -170,7 +170,7 @@ function handleEditForm() {
                 <label>Status</label>
                 <select class="form-select" name="transaction_status" required>
                     <option <?= $payment['transaction_status']=="Pending"?"selected":"" ?>>Pending</option>
-                    <option <?= $payment['transaction_status']=="Paid"?"selected":"" ?>>Paid</option>
+                    <option <?= $payment['transaction_status']=="Completed"?"selected":"" ?>>Completed</option>
                     <option <?= $payment['transaction_status']=="Failed"?"selected":"" ?>>Failed</option>
                 </select>
             </div>
@@ -285,7 +285,7 @@ function showAlert($type, $message) {
 ?>
 <script>
     alert("<?= strip_tags($message) ?>");
-    window.location.href = "payment.html";
+    window.location.href = "payment-form.html";
 </script>
 <?php
     exit();

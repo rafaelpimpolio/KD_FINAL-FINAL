@@ -628,3 +628,5 @@
 2026-01-01 12:27 pm - AddCustomer Error: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'kd_database.customer' doesn't exist in engine
 2026-01-01 12:27 pm - func_name = DisplayCustomer
 2026-01-01 12:35 pm - func_name = DisplayCustomer
+2026-01-01 12:52 pm - func_name = DisplayCustomer
+2026-01-01 12:52 pm - func_name = DisplayCustomer
