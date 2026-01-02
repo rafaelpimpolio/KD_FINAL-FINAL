@@ -99,34 +99,11 @@
                 </div>
             </div>
 
-            <button class="btn btn-primary w-100" id="btnSaveCustomer" type="submit">CONFIRM</button>
+            <button class="btn btn-primary w-100" id="btnSaveCustomer" type="submit">Create Account</button>
         </form>
     </div>
 
     <hr class="my-4">
-
-    <!-- CUSTOMER LIST -->
-    <div class="table-responsive">
-        <h2 class="text-center mt-4" style="color: white;">Customer List</h2>
-        <table class="table table-striped" id="customerTable">
-            <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Barangay</th>
-                    <th>City</th>
-                    <th>Province</th>
-                    <th>Postal</th>
-                    <th style="width: 140px;">Action</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -184,5 +161,17 @@
     <script src="js/jquery-confirm.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/crud.js"></script>
+
+    <script>
+    document.getElementById("customerForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Assume account creation is successful here
+
+        // Redirect back to login tab
+        window.location.href = "../depota.html?tab=login";
+    });
+    </script>
+
 </body>
 </html>
