@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $size = $_POST['size'] ?? '';
     $fabric_type = $_POST['fabric_type'] ?? '';
     $color = isset($_POST['color']) ? implode(',', $_POST['color']) : '';
-    
+
     // Handle file upload
     $design_file = '';
     if (!empty($_FILES['design_file']['name']) && $_FILES['design_file']['error'] === 0) {
