@@ -632,3 +632,14 @@
 2026-01-01 12:52 pm - func_name = DisplayCustomer
 2026-01-02 8:10 am - func_name = DisplayCustomer
 2026-01-02 8:28 am - func_name = DisplayCustomer
+2026-01-02 9:15 am - func_name = DisplayCustomer
+2026-01-02 9:15 am - func_name = DisplayCustomer
+2026-01-02 9:15 am - func_name = DeleteCustomer
+2026-01-02 9:15 am - customerID = 11
+2026-01-02 9:15 am - func_name = DisplayCustomer
+2026-01-02 9:15 am - func_name = DeleteCustomer
+2026-01-02 9:15 am - customerID = 10
+2026-01-02 9:15 am - func_name = DisplayCustomer
+2026-01-02 9:15 am - func_name = DeleteCustomer
+2026-01-02 9:15 am - customerID = 4
+2026-01-02 9:15 am - func_name = DisplayCustomer

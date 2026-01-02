@@ -63,47 +63,19 @@
                     </form>
                 </div>
 
-                <!-- Sign Up -->
-                <div class="tab-content" id="signup">
-                    <form>
-                        <div class="form-group">
-                            <label for="signup-role">Register As</label>
-                            <select id="signup-role" required>
-                                <option value="">Select role</option>
-                                <option value="customer">Customer</option>
-                                <option value="employee">Employee</option>
-                            </select>
-                        </div>
+    <!-- Sign Up -->
+    <div class="tab-content" id="signup">
+        <div style="text-align:center;">
+            <p style="margin-bottom:1rem;">
+                Create a customer account by filling out our registration form.
+            </p>
 
-                        <div class="form-group">
-                            <label for="signup-name">Full Name</label>
-                            <input type="text" id="signup-name" placeholder="Your full name" required>
-                        </div>
+            <button id="goToCustomerForm" class="btn btn-primary" style="width:100%;">
+                Proceed to Customer Registration
+            </button>
+        </div>
+    </div>
 
-                        <div class="form-group">
-                            <label for="signup-email">Email</label>
-                            <input type="email" id="signup-email" placeholder="you@email.com" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="signup-password">Password</label>
-                            <input type="password" id="signup-password" placeholder="Create a password" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="signup-confirm">Confirm Password</label>
-                            <input type="password" id="signup-confirm" placeholder="Confirm password" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">
-                            Create Account
-                        </button>
-
-                        <p style="font-size:0.75rem; color:var(--color-muted-foreground); margin-top:1rem;">
-                            By signing up, you agree to our terms and policies.
-                        </p>
-                    </form>
-                </div>
             </div>
         </div>
     </section>
@@ -134,6 +106,13 @@
             });
         });
     </script>
+
+    <script>
+    document.getElementById("goToCustomerForm").addEventListener("click", () => {
+        window.location.href = "./Pimpolio_Form/customer.html";
+    });
+    </script>
+
 
 </body>
 </html>
