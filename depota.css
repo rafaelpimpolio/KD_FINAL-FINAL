@@ -28,8 +28,6 @@ html, body {
   background: linear-gradient(135deg, #0a1a2a, #0b2f4a);
 }
 
-
-/* Navbar */
 .navbar {
     background: #ffffff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
@@ -63,7 +61,6 @@ html, body {
     box-shadow: var(--shadow);
 }
 
-/* Section Header */
 .section-header {
     text-align: center;
     margin-bottom: 2rem;
@@ -79,7 +76,6 @@ html, body {
     font-size: 0.95rem;
 }
 
-/* Tabs */
 .tabs {
     width: 100%;
 }

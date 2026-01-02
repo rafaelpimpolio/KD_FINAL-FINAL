@@ -75,8 +75,7 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
+     <footer>
         <div class="container">
             <div class="footer-bottom" style="text-align:center;">
                 <p style="color: rgba(255,255,255,0.8); font-size:0.875rem;">
@@ -86,28 +85,7 @@
         </div>
     </footer>
 
-    <!-- Simple Tabs Script -->
-    <script>
-        const tabButtons = document.querySelectorAll(".tab-btn");
-        const tabContents = document.querySelectorAll(".tab-content");
-
-        tabButtons.forEach(btn => {
-            btn.addEventListener("click", () => {
-                tabButtons.forEach(b => b.classList.remove("active"));
-                tabContents.forEach(c => c.classList.remove("active"));
-
-                btn.classList.add("active");
-                document.getElementById(btn.dataset.tab).classList.add("active");
-            });
-        });
-    </script>
-
-    <script>
-    document.getElementById("goToCustomerForm").addEventListener("click", () => {
-        window.location.href = "./Pimpolio_Form/customer.html";
-    });
-    </script>
-
-
+    <!-- External JS -->
+    <script src="auth.js" defer></script>
 </body>
 </html>
