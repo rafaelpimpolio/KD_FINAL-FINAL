@@ -21,8 +21,8 @@ html, body {
   box-shadow: 0px 3px 10px rgba(0,0,0,0.25);
   padding: 30px;
   border: 2px solid var(--border-color);
-  border-radius: 12px;
   box-shadow: 0px 3px 10px rgba(0,0,0,0.25);
+  border-bottom: 5px solid #007bff;
 }
 
 .kd {
@@ -30,9 +30,10 @@ html, body {
 }
 
 .form-header h1 {
-  font-size: 2.2em;
-  margin-bottom: 8px;
-  color: #003b7a;
+  font-size: 28px;
+    font-weight: 800;
+    color: #003b7a;
+    letter-spacing: 1px;
 }
 
 .form-header h3 {
@@ -40,7 +41,6 @@ html, body {
   color: #555;
 }
 
-/* ===== FORM CONTAINER ===== */
 form {
   background: rgba(255,255,255,0.95);
   border-radius: 12px;
@@ -49,6 +49,7 @@ form {
   padding: 25px 30px;
   max-width: 700px;
   margin: 0 auto 40px auto;
+  border-top: 5px solid #007bff;
   transition: all 0.3s ease;
 }
 
@@ -56,7 +57,6 @@ form:hover {
   transform: translateY(-2px);
 }
 
-/* ===== LABELS ===== */
 label {
   display: block;
   margin-top: 15px;
@@ -65,7 +65,6 @@ label {
   color: #333;
 }
 
-/* ===== INPUTS ===== */
 input,
 select,
 textarea {
@@ -98,7 +97,6 @@ textarea {
   min-height: 70px;
 }
 
-/* ===== SELECT CHECK ICON ===== */
 select.selected-option {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='green'%3E%3Cpath d='M6.173 11.414L3.05 8.29l-.707.707 3.83 3.828L13.657 5.414l-.707-.707z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -106,7 +104,6 @@ select.selected-option {
   background-size: 24px 24px;
 }
 
-/* ===== COLOR SELECTION ===== */
 .color-selection {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -126,7 +123,6 @@ select.selected-option {
   height: 16px;
 }
 
-/* ===== SUBMIT BUTTON ===== */
 input[type="submit"] {
   background-color: #1a73e8;
   color: #fff;
@@ -147,7 +143,6 @@ input[type="submit"]:hover {
   box-shadow: none !important;
 }
 
-/* ===== RADIO BUTTONS ===== */
 .radio-group {
   display: flex;
   gap: 14px;
@@ -185,7 +180,6 @@ input[type="submit"]:hover {
   border-radius: 50%;
 }
 
-/* ===== CHECKBOXES ===== */
 .material-checkbox-label input[type="checkbox"],
 .material-checkbox {
   width: 18px;
@@ -207,7 +201,6 @@ input[type="submit"]:hover {
   background: var(--border-strong);
 }
 
-/* ===== SECTIONS ===== */
 .section-row {
   display: flex;
   gap: 20px;
@@ -278,7 +271,6 @@ input[type="submit"]:hover {
   transition: all 0.25s ease;
 }
 
-/* EDIT BUTTON (GREEN) */
 .btn-edit {
   background-color: #2e7d32; /* green */
   color: white;
@@ -290,7 +282,6 @@ input[type="submit"]:hover {
   transform: translateY(-1px);
 }
 
-/* DELETE BUTTON (RED) */
 .btn-delete {
   background-color: #d32f2f; /* red */
   color: white;
@@ -303,7 +294,6 @@ input[type="submit"]:hover {
   transform: translateY(-1px);
 }
 
-/* BUTTONS INSIDE TABLE */
 #recordsTable td button {
   margin: 2px 0;
 }

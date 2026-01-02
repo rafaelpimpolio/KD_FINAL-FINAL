@@ -1,0 +1,36 @@
+<?php
+require "connect.php";
+$pdo = Database::Connection();
+$func_name = (isset($_POST['func_name'])) ? $_POST['func_name'] : "DisplayRecord";
+
+if (function_exists($func_name)) {
+    $func_name();
+}
+
+
+
+function DisplayRecord()
+{
+
+    $pdo = $GLOBALS['pdo'];
+    $sql = "select * from tbstudent";
+    $data = Database::GetAllData($pdo, $sql);
+    echo json_encode($data);
+}
+
+
+9:24 am   func_name = DisplayRecord    
+9:25 am   func_name = AddRecord    
+9:25 am   orderID =     
+9:25 am   inquiryID =     
+9:25 am   employeeID =     
+9:25 am   dateTimeLocal = 2026-01-02T16:24    
+9:25 am   status = pending    
+9:25 am   func_name = DisplayRecord    
+9:25 am   func_name = UpdateRecord    
+9:25 am   orderID = 5    
+9:25 am   inquiryID = 0    
+9:25 am   employeeID = 0    
+9:25 am   dateTimeLocal = 2026-01-02T15:39    
+9:25 am   status = delivered    
+9:25 am   func_name = DisplayRecord    
