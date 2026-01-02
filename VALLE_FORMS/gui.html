@@ -1,77 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>  
-        <meta charset ="UTF-8">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>KD-APPAREL</title>
+
+        <!-- Stylesheets -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/jquery-confirm.min.css">
         <link rel="stylesheet" href="css/gui.css">
-        
-        <script type="text/javascript" src="js/jquery-min.js"></script>
-        <script type="text/javascript" src="js/popper.min.js"></script>
-        <script type="text/javascript" src="js/jquery-confirm.js"></script>
-        <title>KD-APPAREL</title>
 
+        <!-- JavaScript Libraries -->
+        <script src="js/jquery-min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/jquery-confirm.js"></script>
     </head>
-    
     <body>
         <!-- Navigation -->
-        <nav class="navbar" id="navbar">
+         <nav class="navbar" id="navbar">
             <div class="container">
                 <a href="../home.html#home" class="navbar-brand">KD Sportswear & Apparel</a>    
                 <ul class="navbar-menu" id="navbarMenu">
-                         <li><a href="../home.html#home" class="nav-link">Home</a></li>
-                         <li><a href="../home.html#about" class="nav-link">About</a></li>
-                         <li><a href="../home.html#latest-designs" class="nav-link">Latest Designs</a></li>
-                         <li><a href="../home.html#gallery" class="nav-link">Gallery</a></li>
-                         <li><a href="../home.html#services" class="nav-link">Services</a></li>
-                         <li><a href="../home.html#testimonials" class="nav-link">Testimonials</a></li>
-                         <li><a href="../home.html#contact" class="nav-link">Contact</a></li>
-                         <li><a href="../forms.html" class="nav-link">Forms</a></li>
+                    <li><a href="../home.html#home" class="nav-link">Home</a></li>
+                    <li><a href="../home.html#about" class="nav-link">About</a></li>
+                    <li><a href="../home.html#latest-designs" class="nav-link">Latest Designs</a></li>
+                    <li><a href="../home.html#gallery" class="nav-link">Gallery</a></li>
+                    <li><a href="../home.html#services" class="nav-link">Services</a></li>
+                    <li><a href="../home.html#testimonials" class="nav-link">Testimonials</a></li>
+                    <li><a href="../home.html#contact" class="nav-link">Contact</a></li>
+                    <li><a href="../forms.html" class="nav-link">Forms</a></li>
                 </ul>
+                
                 <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
                     <span id="menuIcon">☰</span>
                 </button>
             </div>
         </nav>
-
+        
         <!-- HEADER -->
          <div class="header">
-             <h1>KD SPORTSWEAR & APPAREL</h1>
-             <p class="sub">Sublimation • Custom Jerseys • Apparel Printing</p>
+            <h1>KD SPORTSWEAR & APPAREL</h1>
+            <p class="sub">Sublimation • Custom Jerseys • Apparel Printing</p>
         </div>
-        <div class="container mt-4">
-
-
-            <!-- Order form -->
-            <form id="orderForm" class="needs-validation" novalidate>
-
-                <!-- Bootstrap row with spacing -->
+        
+        
+        <!-- Form Container -->
+         <div class="container mt-4">
+            <form id="orderForm" novalidate>
                 <div class="row g-3">
-
-                    <!-- Hidden order ID -->
-                    <input type="hidden" id="orderID" name="orderID">
-
-                     <!-- Hidden inquiry ID -->
-                    <input type="hidden" id="inquiryID" name="inquiryID">
-
-                    <!-- Hidden employeeID -->
-                    <input type="hidden" id="employeeID" name="employeeID">
-
-                    <!-- Date and time input -->
+                    <!-- Hidden Inputs -->
+                     <input type="hidden" id="orderID" name="orderID">
+                     <input type="hidden" id="inquiryID" name="inquiryID">
+                     <input type="hidden" id="employeeID" name="employeeID">
+                     
+                     
+                     
+                     <!-- Date & Time -->
                     <div class="col-md-4">
-                        <input type="datetime-local"
-                               class="form-control"
-                               id="dateTimeLocal"
-                               name="dateTimeLocal"
-                               required> <!-- Date & time picker -->
+                        <input type="datetime-local" 
+                        class="form-control" 
+                        id="dateTimeLocal" 
+                        name="dateTimeLocal" 
+                        required>
+                        <!-- Validation message -->
                         <div class="invalid-feedback">
-                            Date & Time is required.
-                        </div> <!-- Validation message -->
+                        Date & Time is required.
+                        </div>
                     </div>
-
+                    
                     <!-- Status input -->
-                    <div class="col-md-3">
+                     <div class="col-md-3">
                         <select class="form-control" id="status" name="status" required>
                             <option value="" disabled selected>Select status</option>
                             <option value="pending">Pending</option>
@@ -80,27 +78,28 @@
                             <option value="delivered">Delivered</option>
                             <option value="cancelled">Cancelled</option>
                         </select>
+                        <!-- Validation message -->
                         <div class="invalid-feedback">
                             Status is required.
-                        </div> <!-- Validation message -->
+                        </div>
                     </div>
-
-                    <!-- Save button -->
-                    <div class="col-12">
-                        <button type="submit"
-                                id="btnSaveRecord"
-                                class="btn btn-primary w-100">
-                            SAVE RECORD
-                        </button> <!-- Submit form -->
+                    
+                    
+                    <!-- Save Button -->
+                     <div class="col-12">
+                        <button type="submit" 
+                            id="btnSaveRecord" 
+                            class="btn btn-primary w-100">
+                            SAVE RECORD 
+                        </button>
                     </div>
-
-                </div> <!-- End row -->
-
+                </div>  <!-- End row -->
             </form> <!-- End form -->
-
+            
             <hr class="my-4">
-
-            <table class="table table-bordered" id="tableOrder">
+            
+            <!-- Orders Table -->
+             <table class="table table-bordered" id="tableOrder">
                 <thead>
                     <tr>
                         <th>Order ID</th>
@@ -113,9 +112,8 @@
                 </thead>
                 <tbody></tbody>
             </table>
-
         </div>
-        
+
         <!-- Footer -->
         <footer>
             <div class="container">
@@ -167,12 +165,9 @@
                 </div>
             </div>
         </footer>
-    </body>
 
+    <!-- Scripts -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/crud.js"></script>
+</body>
 </html>
-
-<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="js/crud.js"></script>
-
-<script>
-</script>

@@ -9,3 +9,40 @@
 [2026-01-01 15:43:13] Action: DELETE | Employee ID: 123 | Name: Time Zone | Permanently removed from database
 [2026-01-01 15:47:04] Action: CREATE | Employee ID: 123 | Name: Time wwwa | Position: Manager | Email: 321@gmail.com
 [2026-01-01 16:02:13] Action: UPDATE | Employee ID: 212 | Name: Time Zone | 
+[2026-01-01 20:05:22] Action: CREATE | Employee ID: 12 | Name: Ivan qweqw | Position: Supervisor | Email: 123@gmail.com
+[2026-01-01 20:08:42] Action: UPDATE | Employee ID: 12 | Name: Ivan qweqw | Position: Supervisor → Manager
+[2026-01-01 20:08:52] Action: UPDATE | Employee ID: 12 | Name: Ivan Yah | LastName: qweqw → Yah
+[2026-01-01 20:09:01] Action: UPDATE | Employee ID: 123 | Name: Time Zone | LastName: wwwa → Zone | Position: Manager → Staff
+[2026-01-01 20:09:38] Action: DELETE | Employee ID: 212 | Name: Time Zone | Permanently removed from database
+[2026-01-01 20:09:42] Action: UPDATE | Employee ID: 123 | Name: Time Zone | 
+[2026-01-01 21:29:56] Action: DELETE | Employee ID: 12 | Name: Ivan Yah | Permanently removed from database
+[2026-01-01 21:29:59] Action: DELETE | Employee ID: 123 | Name: Time Zone | Permanently removed from database
+[2026-01-01 21:32:52] Action: CREATE | Employee ID: 21 | Name: Time Zone | Position: Manager | Email: 321@gmail.com
+[2026-01-01 21:33:12] Action: UPDATE | Employee ID: 21 | Name: Time Zone | Email: 321@gmail.com → 3221@gmail.com
+[2026-01-02 10:17:48] Action: CREATE | Employee ID: 123 | Name: Time Zone | Position: Supervisor | Email: 123@gmail.com
+[2026-01-02 10:18:00] Action: DELETE | Employee ID: 123 | Name: Time Zone | Permanently removed from database
+[2026-01-02 10:21:45] Action: CREATE | Employee ID: 123 | Name: icaa qweqw | Position: Manager | Email: 1232@gmail.com
+[2026-01-02 10:22:01] Action: CREATE | Employee ID: 212 | Name: yw ads | Position: Supervisor | Email: 123@gmail.com
+[2026-01-02 10:22:34] Action: CREATE | Employee ID: 22 | Name: We Wa | Position: Staff | Email: 3211@gmail.com
+[2026-01-02 10:22:55] Action: CREATE | Employee ID: 456 | Name: Wa Wi | Position: Supervisor | Email: 32221@gmail.com
+[2026-01-02 10:23:21] Action: CREATE | Employee ID: 234 | Name: Ad da | Position: Supervisor | Email: 12321@gmail.com
+[2026-01-02 10:23:40] Action: CREATE | Employee ID: 44 | Name: Wei Wai | Position: Supervisor | Email: 12322@gmail.com
+[2026-01-02 10:24:15] Action: CREATE | Employee ID: 2122 | Name: Wae Way | Position: Manager | Email: 12432@gmail.com
+[2026-01-02 10:24:28] Action: DELETE | Employee ID: 21 | Name: Time Zone | Permanently removed from database
+[2026-01-02 10:24:31] Action: DELETE | Employee ID: 44 | Name: Wei Wai | Permanently removed from database
+[2026-01-02 10:24:34] Action: DELETE | Employee ID: 234 | Name: Ad da | Permanently removed from database
+[2026-01-02 10:24:37] Action: DELETE | Employee ID: 212 | Name: yw ads | Permanently removed from database
+[2026-01-02 10:24:40] Action: DELETE | Employee ID: 123 | Name: icaa qweqw | Permanently removed from database
+[2026-01-02 10:25:23] Action: UPDATE | Employee ID: 456 | Name: Lex Dima | FirstName: Wa → Lex | LastName: Wi → Dima | Email: 32221@gmail.com → Dex121@gmail.com
+[2026-01-02 12:06:22] Action: UPDATE | Employee ID: 21 | Name: Ivan Magan | FirstName: We → Ivan | LastName: Wa → Magan | Position: Staff → Manager | Email: 3211@gmail.com → Ivn1@gmail.com
+[2026-01-02 12:12:28] Action: UPDATE | Employee ID: 2122 | Name: Wae Way | 
+[2026-01-02 12:12:32] Action: UPDATE | Employee ID: 2122 | Name: Wae Way | 
+[2026-01-02 12:12:36] Action: DELETE | Employee ID: 2122 | Name: Wae Way | Permanently removed from database
+[2026-01-02 12:43:22] Action: CREATE | Employee ID: 212 | Name: Time Zone | Position: Manager | Email: 12432@gmail.com
+[2026-01-02 12:50:28] Action: UPDATE | Employee ID: 212 | Name: Time Zone | 
+[2026-01-02 12:51:36] Action: UPDATE | Employee ID: 212 | Name: Time Zone | 
+[2026-01-02 12:53:28] Action: UPDATE | Employee ID: 212 | Name: Time Zone | 
+[2026-01-02 16:22:31] Action: UPDATE | Employee ID: 212 | Name: Time Zone | 
+[2026-01-02 16:22:50] Action: CREATE | Employee ID: 560988 | Name: Ivan wwwa | Position: Manager | Email: 1232@gmail.com
+[2026-01-02 16:22:59] Action: DELETE | Employee ID: 212 | Name: Time Zone | Permanently removed from database
+[2026-01-02 16:41:45] Action: CREATE | Employee ID: 243015 | Name: Wae Date | Position: Supervisor | Email: 124322a@gmail.com

@@ -3,120 +3,156 @@
 require "connect.php";
 
 $pdo = Database::Connection();
+
+// Log POST data for debugging
 Database::WritePost($_POST);
 
 $func_name = $_POST['func_name'] ?? "DisplayRecord";
 
 if (function_exists($func_name)) {
-    $func_name();
+    $func_name($pdo);
 } else {
-    Database::WriteLog($func_name . " not exist");
+    Database::WriteLog("$func_name does not exist");
+    echo json_encode([
+        "status" => "error",
+        "message" => "$func_name does not exist"
+    ]);
 }
 
 /* ============================
    DISPLAY RECORDS
 ============================ */
-function DisplayRecord()
+function DisplayRecord(PDO $pdo)
 {
-    $pdo = $GLOBALS['pdo'];
+    try {
+        $sql = "SELECT OrderID, InquiryID, EmployeeID, DateTime, Status
+                FROM tborder
+                ORDER BY OrderID DESC";
 
-    $sql = "SELECT 
-                OrderID,
-                InquiryID,
-                EmployeeID,
-                DateTime,
-                Status
-            FROM tborder
-            ORDER BY OrderID DESC";
+        $data = Database::GetAllData($pdo, $sql);
 
-    $data = Database::GetAllData($pdo, $sql);
-    echo json_encode($data);
+        echo json_encode([
+            "status" => "success",
+            "data"   => $data
+        ]);
+    } catch (Exception $e) {
+        echo json_encode([
+            "status" => "error",
+            "message" => $e->getMessage()
+        ]);
+    }
 }
 
 /* ============================
    ADD RECORD
 ============================ */
-function AddRecord()
+function AddRecord(PDO $pdo)
 {
-    $inquiryID  = $_POST['inquiryID'] ?? null;
-    $employeeID = $_POST['employeeID'] ?? null;
-    $dateTime   = $_POST['dateTimeLocal'] ?? date('Y-m-d H:i:s');
-    $status     = $_POST['status'] ?? "pending";
+    $inquiryID  = trim($_POST['inquiryID'] ?? null);
+    $employeeID = trim($_POST['employeeID'] ?? null);
+    $dateTime   = trim($_POST['dateTimeLocal'] ?? date('Y-m-d H:i:s'));
+    $status     = trim($_POST['status'] ?? "pending");
 
-    $pdo = $GLOBALS['pdo'];
+    try {
+        $sql = "INSERT INTO tborder (InquiryID, EmployeeID, DateTime, Status)
+                VALUES (:inquiryID, :employeeID, :dateTime, :status)";
 
-    $sql = "INSERT INTO tborder 
-            (InquiryID, EmployeeID, DateTime, Status)
-            VALUES 
-            (:inquiryID, :employeeID, :dateTime, :status)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ":inquiryID"  => $inquiryID,
+            ":employeeID" => $employeeID,
+            ":dateTime"   => $dateTime,
+            ":status"     => $status
+        ]);
 
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        ":inquiryID"  => $inquiryID,
-        ":employeeID" => $employeeID,
-        ":dateTime"   => $dateTime,
-        ":status"     => $status
-    ]);
-
-    echo json_encode("Successfully Inserted");
+        echo json_encode([
+            "status" => "success",
+            "message" => "Record successfully inserted."
+        ]);
+    } catch (Exception $e) {
+        echo json_encode([
+            "status" => "error",
+            "message" => $e->getMessage()
+        ]);
+    }
 }
 
 /* ============================
    UPDATE RECORD
 ============================ */
-function UpdateRecord()
+function UpdateRecord(PDO $pdo)
 {
-    $orderID    = $_POST['orderID'] ?? "";
-    $inquiryID  = $_POST['inquiryID'] ?? null;
-    $employeeID = $_POST['employeeID'] ?? null;
-    $dateTime   = $_POST['dateTimeLocal'] ?? date('Y-m-d H:i:s');
-    $status     = $_POST['status'] ?? "pending";
+    $orderID    = trim($_POST['orderID'] ?? "");
+    $inquiryID  = trim($_POST['inquiryID'] ?? null);
+    $employeeID = trim($_POST['employeeID'] ?? null);
+    $dateTime   = trim($_POST['dateTimeLocal'] ?? date('Y-m-d H:i:s'));
+    $status     = trim($_POST['status'] ?? "pending");
 
     if ($orderID === "") {
-        echo json_encode("OrderID is required.");
+        echo json_encode([
+            "status" => "error",
+            "message" => "OrderID is required."
+        ]);
         return;
     }
 
-    $pdo = $GLOBALS['pdo'];
+    try {
+        $sql = "UPDATE tborder
+                SET InquiryID = :inquiryID,
+                    EmployeeID = :employeeID,
+                    DateTime = :dateTime,
+                    Status = :status
+                WHERE OrderID = :orderID";
 
-    $sql = "UPDATE tborder
-            SET InquiryID  = :inquiryID,
-                EmployeeID = :employeeID,
-                DateTime   = :dateTime,
-                Status     = :status
-            WHERE OrderID  = :orderID";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ":inquiryID"  => $inquiryID,
+            ":employeeID" => $employeeID,
+            ":dateTime"   => $dateTime,
+            ":status"     => $status,
+            ":orderID"    => $orderID
+        ]);
 
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        ":inquiryID"  => $inquiryID,
-        ":employeeID" => $employeeID,
-        ":dateTime"   => $dateTime,
-        ":status"     => $status,
-        ":orderID"    => $orderID
-    ]);
-
-    echo json_encode("Successfully Updated");
+        echo json_encode([
+            "status" => "success",
+            "message" => "Record successfully updated."
+        ]);
+    } catch (Exception $e) {
+        echo json_encode([
+            "status" => "error",
+            "message" => $e->getMessage()
+        ]);
+    }
 }
 
 /* ============================
    DELETE RECORD
 ============================ */
-function DeleteRecord()
+function DeleteRecord(PDO $pdo)
 {
-    $orderID = $_POST['orderID'] ?? "";
+    $orderID = trim($_POST['orderID'] ?? "");
 
     if ($orderID === "") {
-        echo json_encode("OrderID is required.");
+        echo json_encode([
+            "status" => "error",
+            "message" => "OrderID is required."
+        ]);
         return;
     }
 
-    $pdo = $GLOBALS['pdo'];
+    try {
+        $sql = "DELETE FROM tborder WHERE OrderID = :orderID";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([":orderID" => $orderID]);
 
-    $sql = "DELETE FROM tborder WHERE OrderID = :orderID";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        ":orderID" => $orderID
-    ]);
-
-    echo json_encode("Successfully Deleted");
+        echo json_encode([
+            "status" => "success",
+            "message" => "Record successfully deleted."
+        ]);
+    } catch (Exception $e) {
+        echo json_encode([
+            "status" => "error",
+            "message" => $e->getMessage()
+        ]);
+    }
 }

@@ -1,6 +1,31 @@
 <?php
 require_once __DIR__ . '/connect.php';
 
+// Helper function to generate unique employee ID
+function generateEmployeeID($conn) {
+    $unique = false;
+    $employee_id = '';
+
+    while (!$unique) {
+        // Generate random 6-digit ID
+        $employee_id = str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
+
+        // Check if it already exists
+        $checkSql = "SELECT id FROM employees WHERE employee_id = ?";
+        $checkStmt = $conn->prepare($checkSql);
+        $checkStmt->bind_param("s", $employee_id);
+        $checkStmt->execute();
+        $result = $checkStmt->get_result();
+
+        if ($result->num_rows === 0) {
+            $unique = true;
+        }
+        $checkStmt->close();
+    }
+
+    return $employee_id;
+}
+
 $action = isset($_GET['action']) ? $_GET['action'] : (isset($_POST['action']) ? $_POST['action'] : 'read');
 
 switch ($action) {
@@ -27,27 +52,14 @@ function handleCreate() {
     global $conn;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $employee_id = htmlspecialchars(trim($_POST['employee_id']));
         $first_name = htmlspecialchars(trim($_POST['first_name']));
         $last_name = htmlspecialchars(trim($_POST['last_name']));
         $job_position = htmlspecialchars(trim($_POST['job_position']));
         $phone_number = htmlspecialchars(trim($_POST['phone_number']));
         $email = htmlspecialchars(trim($_POST['email']));
 
-        // Check if employee_id already exists
-        $checkIdSql = "SELECT id FROM employees WHERE employee_id = ?";
-        $checkIdStmt = $conn->prepare($checkIdSql);
-        $checkIdStmt->bind_param("s", $employee_id);
-        $checkIdStmt->execute();
-        $checkIdResult = $checkIdStmt->get_result();
-
-        if ($checkIdResult->num_rows > 0) {
-            showAlert("danger", "Employee ID <strong>$employee_id</strong> already exists. Please use a different ID.");
-            writeLog("CREATE_FAILED", $employee_id, $first_name, $last_name, "Duplicate Employee ID");
-            $checkIdStmt->close();
-            return;
-        }
-        $checkIdStmt->close();
+        // Generate unique employee ID
+        $employee_id = generateEmployeeID($conn);
 
         // Check if email already exists
         $checkEmailSql = "SELECT id FROM employees WHERE email = ?";
@@ -72,7 +84,7 @@ function handleCreate() {
 
         if ($stmt->execute()) {
             writeLog("CREATE", $employee_id, $first_name, $last_name, "Position: $job_position | Email: $email");
-            showAlert("success", "Employee added successfully.");
+            showAlert("success", "Employee added successfully with ID: <strong>$employee_id</strong>");
         } else {
             showAlert("danger", "Error: " . $stmt->error);
             writeLog("CREATE_FAILED", $employee_id, $first_name, $last_name, "Error: " . $stmt->error);
@@ -150,12 +162,6 @@ function handleEditForm() {
                     <input type="hidden" name="id" value="<?php echo $employee['id']; ?>">
 
                     <div class="mb-3">
-                        <label class="form-label">Employee ID</label>
-                        <input type="text" class="form-control" name="employee_id" value="<?php echo htmlspecialchars($employee['employee_id']); ?>" required pattern="[0-9]{2,10}">
-                        <div class="invalid-feedback">Please enter a valid Employee ID.</div>
-                    </div>
-
-                    <div class="mb-3">
                         <label class="form-label">First Name</label>
                         <input type="text" class="form-control" name="first_name" value="<?php echo htmlspecialchars($employee['first_name']); ?>" required pattern="[A-Za-z ]+">
                         <div class="invalid-feedback">First name should contain only letters.</div>
@@ -222,7 +228,6 @@ function handleUpdate() {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         $id = intval($_POST['id']);
-        $employee_id = htmlspecialchars(trim($_POST['employee_id']));
         $first_name = htmlspecialchars(trim($_POST['first_name']));
         $last_name = htmlspecialchars(trim($_POST['last_name']));
         $job_position = htmlspecialchars(trim($_POST['job_position']));
@@ -247,15 +252,15 @@ function handleUpdate() {
 
         if ($checkEmailResult->num_rows > 0) {
             showAlert("danger", "Email <strong>$email</strong> is already used by another employee.");
-            writeLog("UPDATE_FAILED", $employee_id, $first_name, $last_name, "Duplicate Email");
+            writeLog("UPDATE_FAILED", $oldEmployee['employee_id'], $first_name, $last_name, "Duplicate Email");
             $checkEmailStmt->close();
             return;
         }
         $checkEmailStmt->close();
 
-        $sql = "UPDATE employees SET employee_id=?, first_name=?, last_name=?, job_position=?, phone_number=?, email=? WHERE id=?";
+        $sql = "UPDATE employees SET first_name=?, last_name=?, job_position=?, phone_number=?, email=? WHERE id=?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssssi", $employee_id, $first_name, $last_name, $job_position, $phone_number, $email, $id);
+        $stmt->bind_param("sssssi", $first_name, $last_name, $job_position, $phone_number, $email, $id);
 
         if ($stmt->execute()) {
             $changes = [];
@@ -266,12 +271,12 @@ function handleUpdate() {
             if ($oldEmployee['email'] !== $email) $changes[] = "Email: {$oldEmployee['email']} → $email";
 
             $changeDetails = implode(" | ", $changes);
-            writeLog("UPDATE", $employee_id, $first_name, $last_name, $changeDetails);
+            writeLog("UPDATE", $oldEmployee['employee_id'], $first_name, $last_name, $changeDetails);
 
             showAlert("success", "Employee updated successfully.");
         } else {
             showAlert("danger", "Error: " . $stmt->error);
-            writeLog("UPDATE_FAILED", $employee_id, $first_name, $last_name, "Error: " . $stmt->error);
+            writeLog("UPDATE_FAILED", $oldEmployee['employee_id'], $first_name, $last_name, "Error: " . $stmt->error);
         }
         $stmt->close();
     }

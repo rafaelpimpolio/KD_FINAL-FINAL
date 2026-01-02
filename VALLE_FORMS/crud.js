@@ -1,5 +1,5 @@
 // ===============================
-// Element References (MATCH GUI)
+// Element References
 // ===============================
 const orderForm     = $("#orderForm");
 const dateTimeLocal = $("#dateTimeLocal");
@@ -11,7 +11,7 @@ const employeeID    = $("#employeeID");
 const btnSaveRecord = $("#btnSaveRecord");
 const tableBody     = $("#tableOrder tbody");
 
-// hidden variable for edit mode
+// Hidden variable for edit mode
 let currentOrderID = "";
 
 // ===============================
@@ -27,10 +27,27 @@ $(document).ready(function () {
 orderForm.on("submit", function (e) {
     e.preventDefault();
 
-    if (!this.checkValidity()) {
-        this.classList.add("was-validated");
-        return;
+    // Use the raw DOM element to check validity
+    const formEl = this;
+
+    if (!formEl.checkValidity()) {
+        // Add Bootstrap validation class
+        formEl.classList.add("was-validated");
+
+        // Optional: highlight invalid inputs with red border
+        $(formEl).find("input, select").each(function() {
+            if (!this.checkValidity()) {
+                $(this).addClass("is-invalid");
+            } else {
+                $(this).removeClass("is-invalid");
+            }
+        });
+
+        return; // Stop submission
     }
+
+    // If valid, remove invalid classes
+    $(formEl).find("input, select").removeClass("is-invalid");
 
     saveOrder();
 });
@@ -39,30 +56,40 @@ orderForm.on("submit", function (e) {
 // Save Order (Add / Update)
 // ===============================
 function saveOrder() {
+    const funcName = currentOrderID === "" ? "AddRecord" : "UpdateRecord";
 
-    let funcName = currentOrderID === ""
-        ? "AddRecord"
-        : "UpdateRecord";
-
-    let postData = {
+    const postData = {
         func_name: funcName,
         orderID: currentOrderID,
-        inquiryID: inquiryID.val(),
-        employeeID: employeeID.val(),
-        dateTimeLocal: dateTimeLocal.val(),
+        inquiryID: inquiryID.val().trim(),
+        employeeID: employeeID.val().trim(),
+        dateTimeLocal: dateTimeLocal.val().trim(),
         status: status.val()
     };
+
+    btnSaveRecord.prop("disabled", true);
 
     $.ajax({
         type: "POST",
         url: "crud.php",
         data: postData
-    }).done(function (msg) {
-        let message = JSON.parse(msg);
-        $.alert({ title: "Order", content: message });
+    }).done(function (response) {
+        let res = JSON.parse(response);
+
+        if (res.status === "success") {
+            $.alert({ title: "Success", content: res.message });
+        } else if (res.status === "error") {
+            $.alert({ title: "Error", content: res.message });
+        } else {
+            $.alert({ title: "Info", content: JSON.stringify(res) });
+        }
 
         resetForm();
         displayOrderList();
+    }).fail(function () {
+        $.alert({ title: "Error", content: "AJAX request failed." });
+    }).always(function () {
+        btnSaveRecord.prop("disabled", false);
     });
 }
 
@@ -74,26 +101,35 @@ function displayOrderList() {
         type: "POST",
         url: "crud.php",
         data: { func_name: "DisplayRecord" }
-    }).done(function (msg) {
-
-        let orders = JSON.parse(msg);
+    }).done(function (response) {
+        let res = JSON.parse(response);
         tableBody.empty();
 
-        orders.forEach(order => {
-            tableBody.append(`
-                <tr>
-                    <td>${order.OrderID}</td>
-                    <td>${order.InquiryID ?? ""}</td>
-                    <td>${order.EmployeeID ?? ""}</td>
-                    <td>${order.DateTime}</td>
-                    <td>${order.Status}</td>
-                    <td>
-                        <button class="btnEdit btn btn-warning btn-sm me-1">EDIT</button>
-                        <button class="btnDelete btn btn-danger btn-sm">DELETE</button>
-                    </td>
-                </tr>
-            `);
-        });
+        if (res.status === "success" && Array.isArray(res.data)) {
+            res.data.forEach(order => {
+                const dateValue = order.DateTime ? order.DateTime.replace(" ", "T").slice(0, 16) : "";
+                const inquiry  = order.InquiryID ?? "";
+                const employee = order.EmployeeID ?? "";
+
+                tableBody.append(`
+                    <tr>
+                        <td>${order.OrderID}</td>
+                        <td>${inquiry}</td>
+                        <td>${employee}</td>
+                        <td>${order.DateTime}</td>
+                        <td>${order.Status}</td>
+                        <td>
+                            <button class="btnEdit btn btn-warning btn-sm me-1">EDIT</button>
+                            <button class="btnDelete btn btn-danger btn-sm">DELETE</button>
+                        </td>
+                    </tr>
+                `);
+            });
+        } else {
+            $.alert({ title: "Info", content: res.message || "No orders found." });
+        }
+    }).fail(function () {
+        $.alert({ title: "Error", content: "Failed to load orders." });
     });
 }
 
@@ -101,32 +137,35 @@ function displayOrderList() {
 // Edit Order
 // ===============================
 $(document).on("click", ".btnEdit", function () {
-
-    let row = $(this).closest("tr");
+    const row = $(this).closest("tr");
 
     currentOrderID = row.find("td:eq(0)").text().trim();
     inquiryID.val(row.find("td:eq(1)").text().trim());
     employeeID.val(row.find("td:eq(2)").text().trim());
-    dateTimeLocal.val(row.find("td:eq(3)").text().trim());
+
+    const dt = row.find("td:eq(3)").text().trim();
+    dateTimeLocal.val(dt ? dt.replace(" ", "T").slice(0, 16) : "");
+
     status.val(row.find("td:eq(4)").text().trim());
 
     btnSaveRecord.text("SAVE CHANGES");
+
+    // Remove previous validation highlights
+    orderForm[0].classList.remove("was-validated");
+    $(orderForm).find("input, select").removeClass("is-invalid");
 });
 
 // ===============================
 // Delete Order
 // ===============================
 $(document).on("click", ".btnDelete", function () {
-
-    let orderID = $(this).closest("tr").find("td:eq(0)").text().trim();
+    const orderID = $(this).closest("tr").find("td:eq(0)").text().trim();
 
     $.confirm({
         title: "Delete Order",
         content: "Are you sure you want to delete Order ID: " + orderID + "?",
         buttons: {
-            Yes: function () {
-                deleteOrder(orderID);
-            },
+            Yes: function () { deleteOrder(orderID); },
             No: function () {}
         }
     });
@@ -136,18 +175,22 @@ $(document).on("click", ".btnDelete", function () {
 // Delete Order Function
 // ===============================
 function deleteOrder(orderID) {
-
     $.ajax({
         type: "POST",
         url: "crud.php",
-        data: {
-            func_name: "DeleteRecord",
-            orderID: orderID
+        data: { func_name: "DeleteRecord", orderID }
+    }).done(function (response) {
+        const res = JSON.parse(response);
+
+        if (res.status === "success") {
+            $.alert({ title: "Deleted", content: res.message });
+        } else {
+            $.alert({ title: "Error", content: res.message || "Failed to delete." });
         }
-    }).done(function (msg) {
-        let message = JSON.parse(msg);
-        $.alert({ title: "Order Deleted", content: message });
+
         displayOrderList();
+    }).fail(function () {
+        $.alert({ title: "Error", content: "AJAX request failed." });
     });
 }
 
@@ -155,7 +198,6 @@ function deleteOrder(orderID) {
 // Reset Form
 // ===============================
 function resetForm() {
-
     currentOrderID = "";
     inquiryID.val("");
     employeeID.val("");
@@ -164,4 +206,5 @@ function resetForm() {
 
     btnSaveRecord.text("SAVE RECORD");
     orderForm[0].classList.remove("was-validated");
+    $(orderForm).find("input, select").removeClass("is-invalid");
 }
