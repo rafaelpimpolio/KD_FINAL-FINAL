@@ -54,25 +54,24 @@
  /* ================================
     HEADER STYLING
  ================================ */
-.header {
-    background: white; /* Sets background to white */
-    color: #0d6efd; /* Sets text color to blue */
-    padding: 40px 20px; /* Adds padding around the header */
-    text-align: center; /* Centers the text */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Keeps the subtle shadow */
-}
+ .header {
+     background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+     color: #ffffff;
+     padding: 40px 20px;
+     text-align: center;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+ }
 
-.header h1 {
-    font-weight: 800; /* Keeps the font weight bold */
-    letter-spacing: 1px; /* Slightly increases letter spacing */
-    margin-bottom: 8px; /* Adds a margin below the heading */
-}
+ .header h1 {
+     font-weight: 800;
+     letter-spacing: 1px;
+     margin-bottom: 8px;
+ }
 
-.header .sub {
-    font-size: 1rem; /* Sets the font size for the subheading */
-    opacity: 0.9; /* Makes the text slightly transparent */
-    color: #0d6efd; /* Ensures subheading text is also blue */
-}
+ .header .sub {
+     font-size: 1rem;
+     opacity: 0.9;
+ }
 
  /* ================================
     Container & Heading Styling
