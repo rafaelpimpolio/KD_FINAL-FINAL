@@ -1,3 +1,4 @@
+// Tabs
 const tabButtons = document.querySelectorAll(".tab-btn");
 const tabContents = document.querySelectorAll(".tab-content");
 
@@ -11,6 +12,29 @@ tabButtons.forEach(btn => {
     });
 });
 
+// Login redirect logic
+const loginForm = document.getElementById("loginForm");
+
+if (loginForm) {
+    loginForm.addEventListener("submit", (e) => {
+        e.preventDefault(); // stop reload
+
+        const role = document.getElementById("login-role").value;
+
+        if (!role) {
+            alert("Please select a role");
+            return;
+        }
+
+        if (role === "customer") {
+            window.location.href = "customer.html";
+        } else if (role === "employee") {
+            window.location.href = "employee.html";
+        }
+    });
+}
+
+// Sign-up redirect
 const goToCustomerForm = document.getElementById("goToCustomerForm");
 if (goToCustomerForm) {
     goToCustomerForm.addEventListener("click", () => {
