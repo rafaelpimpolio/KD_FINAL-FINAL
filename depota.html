@@ -79,6 +79,7 @@
                     </form>
                 </div>
 
+                <!-- Sign Up -->
                 <div class="tab-content" id="signup">
                     <form>
                         <div class="form-group">
@@ -110,15 +111,6 @@
                             <input type="password" id="signup-confirm" placeholder="Confirm password" required>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">
-                            Create Account
-                        </button>
-
-                        <p style="font-size:0.75rem; color:var(--color-muted-foreground); margin-top:1rem;">
-                            By signing up, you agree to our terms and policies.
-                        </p>
-                    </form>
-                </div>
             </div>
         </div>
     </section>
@@ -149,6 +141,13 @@
             });
         });
     </script>
+
+    <script>
+    document.getElementById("goToCustomerForm").addEventListener("click", () => {
+        window.location.href = "./Pimpolio_Form/customer.html";
+    });
+    </script>
+
 
 </body>
 </html>
