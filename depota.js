@@ -31,7 +31,6 @@ if (loginForm) {
 const goToEmployeeForm = document.getElementById("goToEmployeeForm");
 if (goToCustomerForm) {
     goToCustomerForm.addEventListener("click", () => {
-        // Redirects users to the Inquiry form
         window.location.href = "./Magan_Form/employee.html"; 
     });
 }
