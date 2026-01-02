@@ -171,7 +171,6 @@ function UpdateRecord()
     echo json_encode(["status" => "success", "message" => "Record updated"]);
 }
 
-/* ================= DELETE ================= */
 
 function DeleteRecord()
 {
@@ -184,7 +183,6 @@ function DeleteRecord()
     echo json_encode(["status" => "success", "message" => "Record deleted"]);
 }
 
-/* ================= GET ================= */
 
 function GetRecord()
 {
