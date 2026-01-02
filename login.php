@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "depotaconnect.php"; // your DB connection file
+require_once "depotaconnect.php"; // DB connection
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = trim($_POST["username"]);
@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         die("All fields are required.");
     }
 
-    // Fetch user from "user" table
+    // Fetch user from the correct table
     $stmt = $conn->prepare("SELECT * FROM user WHERE username = :username AND role = :role LIMIT 1");
     $stmt->execute([
         ":username" => $username,
@@ -21,15 +21,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$user) {
-        die("Invalid username or role.");
+        die("Invalid username or role."); // triggers if user not found
     }
 
-    // Verify password hash
+    // Verify password
     if (!password_verify($password, $user["password_hash"])) {
-        die("Invalid password.");
+        die("Invalid password."); // triggers if wrong password
     }
 
-    // Optional: check account status
+    // Optional: check status
     if (isset($user["status"]) && $user["status"] !== "active") {
         die("Your account is inactive. Contact admin.");
     }
@@ -38,14 +38,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $_SESSION["username"] = $user["username"];
     $_SESSION["role"] = $user["role"];
 
-    // Redirect based on role
+    // Redirect
     if ($role === "customer") {
-        header("Location: customer/dashboard.php");
+        header("Location: Balatan_Form/inquiry.html");
         exit;
-    }
-
-    if ($role === "employee") {
-        header("Location: employee/dashboard.php");
+    } else if ($role === "employee") {
+        header("Location: Magan_Form/employee_to_inquiry_order.html");
         exit;
     }
 }

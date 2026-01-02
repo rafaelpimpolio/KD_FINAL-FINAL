@@ -20,15 +20,3 @@ if (goToCustomerForm) {
         window.location.href = "Pimpolio_Form/customer.html";
     });
 }
-
-
-const loginForm = document.querySelector("#login form");
-if (loginForm) {
-    loginForm.addEventListener("submit", (e) => {
-        e.preventDefault(); // Prevents the page from refreshing
-        
-        // Redirect to Inquiry.html after clicking Login
-         window.location.href = "./customer/customers.html";
-    
-    });
-}

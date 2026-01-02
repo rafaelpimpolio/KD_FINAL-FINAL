@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     if ($role === "employee") {
-        header("Location: employee/dashboard.php");
+        header("Location: Magan_Form");
         exit;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 require_once "../depotaconnect.php";
 
-$stmt = $conn->query("SELECT * FROM inquiries ORDER BY id DESC");
+$stmt = $conn->query("SELECT * FROM inquiry ORDER BY id DESC");
 $inquiries = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
