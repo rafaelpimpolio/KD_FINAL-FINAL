@@ -1,27 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Dashboard | KD Sportswear</title>
-    <link rel="stylesheet" href="depota.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Dashboard | KD Sportswear</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    table th, table td { border: 1px solid #ccc; padding: 8px; text-align: center; font-size: 0.9rem; }
+  </style>
 </head>
 <body>
-
-<nav class="navbar">
+  <nav class="navbar">
     <div class="container">
-        <a href="index.html" class="navbar-brand">KD Sportswear & Apparel</a>
+      <a href="../index.html" class="navbar-brand">KD Sportswear & Apparel</a>
     </div>
-</nav>
+  </nav>
 
-<section style="padding-top:120px; text-align:center;">
+  <section style="padding-top:80px; max-width:1200px; margin:auto;">
     <div class="container">
-        <h1>Welcome, Customer 👋</h1>
-        <p>You are logged in as a customer.</p>
+      <h1>Welcome, Customer 👋</h1>
+      <p>Here are your submitted inquiries.</p>
 
-        <a href="index.html" class="btn btn-primary">Go to Home</a>
+      <a href="submit_inquiry.html" class="btn btn-primary mb-3">Submit New Inquiry</a>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Status</th>
+            <th>Design Notes</th>
+            <th>Jersey Sando</th>
+            <th>Neck</th>
+            <th>Jersey Size</th>
+            <th>Longsleeve Size</th>
+            <th>T-shirt Neck</th>
+            <th>T-shirt Size</th>
+            <th>Polo Collar</th>
+            <th>Polo Options</th>
+            <th>Jersey Short</th>
+            <th>Short Size</th>
+            <th>Jogging Pants</th>
+            <th>Warmer</th>
+            <th>Sublimation</th>
+            <th>Other Service</th>
+            <th>Colors</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Example row, replace with PHP-generated rows from DB -->
+          <tr>
+            <td>1</td>
+            <td>PENDING</td>
+            <td>Custom design</td>
+            <td>Ordinary CUT</td>
+            <td>ROUND NECK</td>
+            <td>Male</td>
+            <td>Adult</td>
+            <td>ROUND NECK</td>
+            <td>Male</td>
+            <td>YONEX COLLAR</td>
+            <td>BUTTONS</td>
+            <td>NORMAL CUT</td>
+            <td>Adult</td>
+            <td>Adult</td>
+            <td>Male</td>
+            <td>PRINT ONLY</td>
+            <td>LANYARD</td>
+            <td>Red, Blue</td>
+            <td>
+              <button class="btn btn-danger btn-sm">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-</section>
-
+  </section>
 </body>
 </html>
