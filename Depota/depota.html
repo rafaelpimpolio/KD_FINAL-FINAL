@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Access | KD Sportswear & Apparel</title>
+    <meta name="description" content="Login or sign up as a customer or employee at KD Sportswear & Apparel.">
+    <link rel="stylesheet" href="depota.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">KD Sportswear & Apparel</a>
+        </div>
+    </nav>
+
+    <!-- Auth Section -->
+    <section id="auth">
+        <div class="container" style="max-width: 500px;">
+            <div class="section-header">
+                <h2>Account Access</h2>
+                <p>Login or create an account to continue</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <div class="tabs-list">
+                    <button class="tab-btn active" data-tab="login">Login</button>
+                    <button class="tab-btn" data-tab="signup">Sign Up</button>
+                </div>
+
+                <!-- Login -->
+                <div class="tab-content active" id="login">
+                    <form>
+                        <div class="form-group">
+                            <label for="login-role">Login As</label>
+                            <select id="login-role" required>
+                                <option value="">Select role</option>
+                                <option value="customer">Customer</option>
+                                <option value="employee">Employee</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="login-email">Email</label>
+                            <input type="email" id="login-email" placeholder="you@email.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" placeholder="••••••••" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            Login
+                        </button>
+
+                        <p style="text-align:center; margin-top:1rem; font-size:0.875rem;">
+                            Forgot your password? Contact admin.
+                        </p>
+                    </form>
+                </div>
+
+                <!-- Sign Up -->
+                <div class="tab-content" id="signup">
+                    <form>
+                        <div class="form-group">
+                            <label for="signup-role">Register As</label>
+                            <select id="signup-role" required>
+                                <option value="">Select role</option>
+                                <option value="customer">Customer</option>
+                                <option value="employee">Employee</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signup-name">Full Name</label>
+                            <input type="text" id="signup-name" placeholder="Your full name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signup-email">Email</label>
+                            <input type="email" id="signup-email" placeholder="you@email.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <input type="password" id="signup-password" placeholder="Create a password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signup-confirm">Confirm Password</label>
+                            <input type="password" id="signup-confirm" placeholder="Confirm password" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            Create Account
+                        </button>
+
+                        <p style="font-size:0.75rem; color:var(--color-muted-foreground); margin-top:1rem;">
+                            By signing up, you agree to our terms and policies.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-bottom" style="text-align:center;">
+                <p style="color: rgba(255,255,255,0.8); font-size:0.875rem;">
+                    © 2025 KD Sportswear & Apparel. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Simple Tabs Script -->
+    <script>
+        const tabButtons = document.querySelectorAll(".tab-btn");
+        const tabContents = document.querySelectorAll(".tab-content");
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                tabButtons.forEach(b => b.classList.remove("active"));
+                tabContents.forEach(c => c.classList.remove("active"));
+
+                btn.classList.add("active");
+                document.getElementById(btn.dataset.tab).classList.add("active");
+            });
+        });
+    </script>
+
+</body>
+</html>
