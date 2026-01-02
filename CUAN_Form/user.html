@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Forms</title>
+  <title>KD REGISTRATION USER</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -55,4 +55,5 @@
 
   <script src="crud.js"></script>
 </body>
+
 </html>
