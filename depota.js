@@ -24,7 +24,8 @@ if (loginForm) {
         e.preventDefault(); // Prevents the page from refreshing
         
         // Redirect to Inquiry.html after clicking Login
-        window.location.href = "./Balatan_Form/Inquiry.html";
+         window.location.href = "./customer/customers.html";
+    
     });
 }
 
