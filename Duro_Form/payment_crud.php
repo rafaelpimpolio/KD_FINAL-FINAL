@@ -23,9 +23,7 @@ switch ($action) {
         handleRead();
 }
 
-/* =========================
-   CREATE PAYMENT
-========================= */
+// CREATE PAYMENT
 function handleCreate() {
     global $conn;
 
@@ -78,9 +76,8 @@ function handleCreate() {
     }
 }
 
-/* =========================
-   READ PAYMENTS
-========================= */
+// READ PAYMENTS
+
 function handleRead() {
     global $conn;
 
@@ -115,9 +112,7 @@ function handleRead() {
     echo $html;
 }
 
-/* =========================
-   EDIT FORM
-========================= */
+// EDIT FORM
 function handleEditForm() {
     global $conn;
 
@@ -212,9 +207,8 @@ function handleEditForm() {
 <?php
 }
 
-/* =========================
-   UPDATE PAYMENT
-========================= */
+// UPDATE PAYMENT
+
 function handleUpdate() {
     global $conn;
 
@@ -256,9 +250,7 @@ function handleUpdate() {
     }
 }
 
-/* =========================
-   DELETE PAYMENT
-========================= */
+// DELETE PAYMENT
 function handleDelete() {
     global $conn;
 
@@ -278,9 +270,7 @@ function handleDelete() {
     }
 }
 
-/* =========================
-   ALERT
-========================= */
+// ALERT
 function showAlert($type, $message) {
 ?>
 <script>

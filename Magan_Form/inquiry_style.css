@@ -158,3 +158,17 @@ h2 {
     background-color: #c82333;
     color: #fff;
 }
+
+/* LOGOUT BUTTON STYLING */
+.logout-btn {
+    background-color: #dc3545 !important;
+    color: white !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #c82333 !important;
+    color: white !important;
+}

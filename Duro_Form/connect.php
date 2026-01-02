@@ -5,7 +5,7 @@ date_default_timezone_set('Asia/Manila');
 $host = 'localhost';
 $username = 'root';
 $password = '';
-$database = 'kd_database';   // change only if your DB name is different
+$database = 'kd_database';
 
 $conn = new mysqli($host, $username, $password, $database);
 
