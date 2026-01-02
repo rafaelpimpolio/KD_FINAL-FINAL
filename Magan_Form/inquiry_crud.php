@@ -29,7 +29,7 @@ switch ($action) {
 function readInquiries() {
     global $conn;
 
-    $sql = "SELECT inquiry_id, design_name, inquiry_date, design_file, initial_price, status, customer_id, employee_id FROM inquiry ORDER BY inquiry_id DESC";
+    $sql = "SELECT inquiry_id, design_name, inquiry_date, design_file, initial_price, status, size, fabric_type, color, product_type FROM inquiry ORDER BY inquiry_id DESC";
     $result = $conn->query($sql);
 
     $html = '';
@@ -42,6 +42,10 @@ function readInquiries() {
             $html .= '<td>' . htmlspecialchars($row['inquiry_id']) . '</td>';
             $html .= '<td>' . htmlspecialchars($row['design_name']) . '</td>';
             $html .= '<td>' . date('M d, Y', strtotime($row['inquiry_date'])) . '</td>';
+            $html .= '<td>' . (!empty($row['size']) ? htmlspecialchars($row['size']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['fabric_type']) ? htmlspecialchars($row['fabric_type']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['color']) ? htmlspecialchars($row['color']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['product_type']) ? htmlspecialchars($row['product_type']) : '-') . '</td>';
             $html .= '<td>₱' . number_format($row['initial_price'], 2) . '</td>';
             $html .= '<td><span class="badge ' . $statusClass . '">' . htmlspecialchars($row['status']) . '</span></td>';
             $html .= '<td>' . $fileDisplay . '</td>';
@@ -53,7 +57,7 @@ function readInquiries() {
             $html .= '</tr>';
         }
     } else {
-        $html = '<tr><td colspan="7" class="text-center text-muted">No inquiries found.</td></tr>';
+        $html = '<tr><td colspan="11" class="text-center text-muted">No inquiries found.</td></tr>';
     }
 
     echo $html;
