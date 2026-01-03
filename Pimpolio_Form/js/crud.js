@@ -1,167 +1,135 @@
-$('#customerForm').on('submit', function (e) {
-    e.preventDefault();
+$(document).ready(function () {
 
-    const form = this;
+    // ================== LOAD CUSTOMER LIST ==================
+    function DisplayCustomerList() {
+        $.ajax({
+            type: "POST",
+            url: "crud.php",
+            data: { func_name: "DisplayCustomer" },
+            success: function (res) {
+                let response = JSON.parse(res);
 
-    if (!form.checkValidity()) {
-        form.classList.add('was-validated');
-        return;
+                if (!response.success) {
+                    $.alert(response.message);
+                    return;
+                }
+
+                let tbody = $("#customerTable tbody").empty();
+                response.data.forEach(c => {
+                    tbody.append(`
+                        <tr>
+                            <td>${c.customer_id}</td>
+                            <td>${c.first_name}</td>
+                            <td>${c.last_name}</td>
+                            <td>${c.phone_number}</td>
+                            <td>${c.email}</td>
+                            <td>${c.barangay}</td>
+                            <td>${c.city_municipality}</td>
+                            <td>${c.province}</td>
+                            <td>${c.postal_code}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm btnEdit">EDIT</button>
+                                <button class="btn btn-danger btn-sm btnDelete">DELETE</button>
+                            </td>
+                        </tr>
+                    `);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("Error loading customers:", error);
+            }
+        });
     }
 
-    let formData = new FormData(form);
-    formData.append("func_name", "CreateCustomerAccount");
+    // Initial load
+    DisplayCustomerList();
 
-    $.ajax({
-        type: "POST",
-        url: "crud.php",
-        data: formData,
-        contentType: false,
-        processData: false
-    })
-    .done(function (msg) {
-        let message;
-        try { message = JSON.parse(msg); } catch { message = msg; }
+    // ================== SAVE / UPDATE ==================
+    $("#customerForm").on("submit", function (e) {
+        e.preventDefault();
 
-        $.alert({
-            title: 'Account Created',
-            content: message,
-            type: 'green',
-            theme: 'modern',
-            buttons: {
-                ok: {
-                    text: 'Proceed to Login',
-                    action: function () {
-                        window.location.href = "../depota.html?tab=login";
-                    }
-                }
+        let form = this;
+
+        if (!form.checkValidity()) {
+            form.classList.add("was-validated");
+            return;
+        }
+
+        let formData = new FormData(form);
+        formData.append(
+            "func_name",
+            $("#btnSaveCustomer").text() === "SAVE CHANGES"
+                ? "UpdateCustomer"
+                : "AddCustomer"
+        );
+
+        $.ajax({
+            type: "POST",
+            url: "crud.php",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                let response = JSON.parse(res);
+                $.alert(response.message);
+
+                // Reset form after save
+                form.reset();
+                $(form).removeClass("was-validated");
+
+                // Reset button and hidden ID
+                $("#btnSaveCustomer").text("CONFIRM");
+                $("#customerID").val("");
+
+                // Focus first input
+                $("#firstName").focus();
+
+                // Reload customer table
+                DisplayCustomerList();
+            },
+            error: function (xhr, status, error) {
+                console.error("Error saving customer:", error);
             }
         });
-
-        form.reset();
-        form.classList.remove('was-validated');
-    })
-    .fail(function (xhr) {
-        $.alert({
-            title: 'Error',
-            content: xhr.responseText,
-            type: 'red'
-        });
     });
-});
-<<<<<<< HEAD
 
-// ================== EDIT CUSTOMER ==================
-$(document).on("click", ".btnEdit", function(e) {
-    e.preventDefault();
-    let row = $(this).closest("tr");
+    // ================== EDIT ==================
+    $(document).on("click", ".btnEdit", function () {
+        let td = $(this).closest("tr").find("td");
 
-    $("#customerID").val(row.find("td:eq(0)").text().trim());
-    $("#firstName").val(row.find("td:eq(1)").text().trim());
-    $("#lastName").val(row.find("td:eq(2)").text().trim());
-    $("#phone").val(row.find("td:eq(3)").text().trim());
-    $("#email").val(row.find("td:eq(4)").text().trim());
-    $("#barangay").val(row.find("td:eq(5)").text().trim());
-    $("#city").val(row.find("td:eq(6)").text().trim());
-    $("#province").val(row.find("td:eq(7)").text().trim());
-    $("#postalCode").val(row.find("td:eq(8)").text().trim());
+        $("#customerID").val(td.eq(0).text());
+        $("#firstName").val(td.eq(1).text());
+        $("#lastName").val(td.eq(2).text());
+        $("#phone").val(td.eq(3).text());
+        $("#email").val(td.eq(4).text());
+        $("#barangay").val(td.eq(5).text());
+        $("#city").val(td.eq(6).text());
+        $("#province").val(td.eq(7).text());
+        $("#postalCode").val(td.eq(8).text());
 
-    $("#btnSaveCustomer").text("SAVE CHANGES");
-
-    $.alert({
-        title: 'Edit Mode',
-        content: 'You can now edit this customer and click SAVE CHANGES.',
-        type: 'blue',
-        theme: 'modern',
-        icon: 'fa fa-edit',
-        boxWidth: '30%',
-        useBootstrap: false,
-        buttons: { ok: { text: 'OK', btnClass: 'btn-blue' } }
+        $("#btnSaveCustomer").text("SAVE CHANGES");
     });
-});
 
-// ================== DELETE CUSTOMER ==================
-$(document).on("click", ".btnDelete", function(e) {
-    e.preventDefault();
-    let row = $(this).closest("tr");
-    let id = row.find("td:eq(0)").text().trim();
-    let name = row.find("td:eq(1)").text().trim() + " " + row.find("td:eq(2)").text().trim();
+    // ================== DELETE ==================
+    $(document).on("click", ".btnDelete", function () {
+        let row = $(this).closest("tr");
+        let id = row.find("td:eq(0)").text();
+        let name = row.find("td:eq(1)").text() + " " + row.find("td:eq(2)").text();
 
-    $.confirm({
-        title: 'Confirm Delete',
-        content: 'Do you want to delete <b>' + name + '</b>?',
-        type: 'red',
-        theme: 'modern',
-        icon: 'fa fa-trash',
-        boxWidth: '35%',
-        useBootstrap: false,
-        buttons: {
-            Yes: {
-                text: 'Yes, Delete',
-                btnClass: 'btn-red',
-                action: function() {
-                    $.ajax({
-                        type: "POST",
-                        url: "crud.php",
-                        data: { func_name: "DeleteCustomer", customerID: id }
-                    })
-                    .done(function(msg) {
-                        let message;
-                        try { message = JSON.parse(msg); } catch(e){ message = msg; }
-
-                        $.alert({
-                            title: 'Deleted',
-                            content: message,
-                            type: 'green',
-                            theme: 'modern',
-                            icon: 'fa fa-check',
-                            boxWidth: '30%',
-                            useBootstrap: false,
-                            buttons: { ok: { text: 'OK', btnClass: 'btn-green' } }
-                        });
-
+        $.confirm({
+            title: "Confirm Delete",
+            content: `Delete <b>${name}</b>?`,
+            buttons: {
+                Yes: function () {
+                    $.post("crud.php", { func_name: "DeleteCustomer", customerID: id }, function (res) {
+                        let response = JSON.parse(res);
+                        $.alert(response.message);
                         DisplayCustomerList();
                     });
-                }
-            },
-            No: {
-                text: 'Cancel',
-                btnClass: 'btn-secondary'
+                },
+                No: function () { }
             }
-        }
+        });
     });
+
 });
-
-$(document).ready(function () {
-    DisplayCustomerList();
-});
-
-function deleteCustomer(id) {
-    $.post(
-        "crud.php",
-        {
-            func_name: "DeleteCustomer",
-            customerID: id
-        },
-        function (res) {
-            let response;
-
-            try {
-                response = JSON.parse(res);
-            } catch (e) {
-                alert("Invalid server response");
-                return;
-            }
-
-            if (response.success) {
-                $.alert("Customer deleted successfully");
-                location.reload();
-            } else {
-                $.alert(response.error || "Delete failed");
-            }
-        }
-    );
-}
-
-
-=======
->>>>>>> d8b50dd3bf4c2b3cca1e1d17df4fcfec34ebc008

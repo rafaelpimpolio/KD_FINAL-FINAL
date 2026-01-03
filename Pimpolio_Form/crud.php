@@ -1,110 +1,76 @@
 <?php
 require "connect.php";
-
 $pdo = Database::Connection();
 
-<<<<<<< HEAD
-$func_name = $_POST['func_name'] ?? '';
+$func = $_POST['func_name'] ?? '';
 
-// Only allow known functions
-$allowedFunctions = ['DeleteCustomer'];
-
-if (in_array($func_name, $allowedFunctions)) {
-    echo call_user_func($func_name);
-} else {
-    $msg = "Function '" . $func_name . "' not allowed";
-    Database::WriteLog($msg);
-    echo json_encode(["error" => $msg]);
+$allowed = ["DisplayCustomer","AddCustomer","UpdateCustomer","DeleteCustomer"];
+if (!in_array($func, $allowed)) {
+    echo json_encode(["success"=>false,"message"=>"Invalid action"]);
+    exit;
 }
 
-// -----------------------------
-// DELETE CUSTOMER
-// -----------------------------
-function DeleteCustomer()
-{
-    $pdo = Database::Connection();
-    $id = $_POST['customerID'] ?? 0;
+call_user_func($func);
 
-    if (!$id) {
-        return json_encode(["error" => "Invalid customer ID"]);
-    }
-
-    $sql = "DELETE FROM customer WHERE customer_id = ?";
-
-    try {
-        Database::ManageRecord($pdo, $sql, [$id]);
-        return json_encode(["success" => true]);
-    } catch (Exception $e) {
-        Database::WriteLog("DeleteCustomer Error: " . $e->getMessage());
-        return json_encode(["error" => "Delete failed"]);
-=======
-if ($_POST['func_name'] === 'CreateCustomerAccount') {
-    echo CreateCustomerAccount();
-}
-
-function CreateCustomerAccount()
-{
+// ================= DISPLAY =================
+function DisplayCustomer() {
     global $pdo;
-
-    try {
-        $pdo->beginTransaction();
-
-        /* ---------- INSERT USER ---------- */
-        $sqlUser = "INSERT INTO user (
-                        username,
-                        password_hash,
-                        phone_number,
-                        date_created,
-                        role,
-                        status
-                    ) VALUES (?, ?, ?, NOW(), ?, ?)";
-
-        $stmtUser = $pdo->prepare($sqlUser);
-
-        $stmtUser->execute([
-            $_POST['username'],
-            password_hash($_POST['password'], PASSWORD_DEFAULT),
-            $_POST['phone'],
-            'customer',     // default role
-            'active'        // default status
-        ]);
-
-        $user_id = $pdo->lastInsertId();
-
-        /* ---------- INSERT CUSTOMER ---------- */
-        $sqlCustomer = "INSERT INTO customer (
-                            first_name,
-                            last_name,
-                            phone_number,
-                            email,
-                            barangay,
-                            city_municipality,
-                            province,
-                            postal_code,
-                            user_id
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-        $stmtCustomer = $pdo->prepare($sqlCustomer);
-        $stmtCustomer->execute([
-            $_POST['firstName'],
-            $_POST['lastName'],
-            $_POST['phone'],
-            $_POST['email'],
-            $_POST['barangay'],
-            $_POST['city'],
-            $_POST['province'],
-            $_POST['postalCode'],
-            $user_id
-        ]);
-
-        $pdo->commit();
-
-        return json_encode("Account successfully created!");
-
-    } catch (Exception $e) {
-        $pdo->rollBack();
-        return json_encode("Error: " . $e->getMessage());
->>>>>>> d8b50dd3bf4c2b3cca1e1d17df4fcfec34ebc008
-    }
+    $stmt = $pdo->query("SELECT * FROM customer ORDER BY customer_id DESC");
+    echo json_encode([
+        "success" => true,
+        "data" => $stmt->fetchAll(PDO::FETCH_ASSOC)
+    ]);
 }
-?>
+
+// ================= ADD =================
+function AddCustomer() {
+    global $pdo;
+    $sql = "INSERT INTO customer 
+        (first_name,last_name,phone_number,email,barangay,city_municipality,province,postal_code)
+        VALUES (?,?,?,?,?,?,?,?)";
+
+    $pdo->prepare($sql)->execute([
+        $_POST['firstName'],
+        $_POST['lastName'],
+        $_POST['phone'],
+        $_POST['email'],
+        $_POST['barangay'],
+        $_POST['city'],
+        $_POST['province'],
+        $_POST['postalCode']
+    ]);
+
+    echo json_encode(["success"=>true,"message"=>"Customer added successfully"]);
+}
+
+// ================= UPDATE =================
+function UpdateCustomer() {
+    global $pdo;
+    $sql = "UPDATE customer SET
+        first_name=?, last_name=?, phone_number=?, email=?,
+        barangay=?, city_municipality=?, province=?, postal_code=?
+        WHERE customer_id=?";
+
+    $pdo->prepare($sql)->execute([
+        $_POST['firstName'],
+        $_POST['lastName'],
+        $_POST['phone'],
+        $_POST['email'],
+        $_POST['barangay'],
+        $_POST['city'],
+        $_POST['province'],
+        $_POST['postalCode'],
+        $_POST['customerID']
+    ]);
+
+    echo json_encode(["success"=>true,"message"=>"Customer updated successfully"]);
+}
+
+// ================= DELETE =================
+function DeleteCustomer() {
+    global $pdo;
+    $pdo->prepare("DELETE FROM customer WHERE customer_id=?")
+        ->execute([$_POST['customerID']]);
+
+    echo json_encode(["success"=>true,"message"=>"Customer deleted successfully"]);
+}

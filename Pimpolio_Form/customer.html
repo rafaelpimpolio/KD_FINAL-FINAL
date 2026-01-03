@@ -22,6 +22,7 @@
                      <li><a href="../home.html#services" class="nav-link">Services</a></li>
                      <li><a href="../home.html#testimonials" class="nav-link">Testimonials</a></li>
                      <li><a href="../home.html#contact" class="nav-link">Contact</a></li>
+                     <li><a href="../forms.html" class="nav-link">Forms</a></li>
             </ul>
             <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
                 <span id="menuIcon">☰</span>
@@ -99,25 +100,34 @@
                 </div>
             </div>
 
-            <!-- Form Row 5: Username & Password -->
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
-                    <div class="invalid-feedback">Username is required.</div>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                    <div class="invalid-feedback">Password is required.</div>
-                </div>
-            </div>
-
-            <button class="btn btn-primary w-100" id="btnSaveCustomer" type="submit">Create Account</button>
+            <button class="btn btn-primary w-100" id="btnSaveCustomer" type="submit">CONFIRM</button>
         </form>
     </div>
 
     <hr class="my-4">
+
+    <!-- CUSTOMER LIST -->
+    <div class="table-responsive">
+        <h2 class="text-center mt-4" style="color: white;">Customer List</h2>
+        <table class="table table-striped" id="customerTable">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Barangay</th>
+                    <th>City</th>
+                    <th>Province</th>
+                    <th>Postal</th>
+                    <th style="width: 140px;">Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -172,8 +182,6 @@
 
     <!-- SCRIPTS -->
     <script src="js/jquery-min.js"></script>
-    <script src="js/jquery-confirm.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/crud.js"></script>
 </body>
 </html>

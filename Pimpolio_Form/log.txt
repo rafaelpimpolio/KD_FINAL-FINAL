@@ -677,3 +677,47 @@
 2026-01-02 12:11 pm - func_name = DisplayCustomer
 2026-01-02 1:09 pm - func_name = DisplayCustomer
 >>>>>>> d8b50dd3bf4c2b3cca1e1d17df4fcfec34ebc008
+2026-01-03 07:14:06 - Function 'DisplayCustomer' not allowed
+2026-01-03 07:14:19 - Function 'AddCustomer' not allowed
+2026-01-03 07:14:19 - Function 'DisplayCustomer' not allowed
+2026-01-03 7:24 am - POST DATA: {"func_name":"DisplayCustomer"}
+2026-01-03 7:24 am - Function 'DisplayCustomer' not allowed
+2026-01-03 7:24 am - POST DATA: {"func_name":"DisplayCustomer"}
+2026-01-03 7:24 am - Function 'DisplayCustomer' not allowed
+2026-01-03 7:25 am - POST DATA: {"customerID":"","firstName":"Rafael","lastName":"Pimpolio","phone":"09754153780","email":"akoadipadi@gmail.com","barangay":"Bonifacio","city":"San Fernando","province":"Camarines Sur","postalCode":"4415","func_name":"AddCustomer"}
+2026-01-03 7:25 am - Function 'AddCustomer' not allowed
+2026-01-03 7:25 am - POST DATA: {"func_name":"DisplayCustomer"}
+2026-01-03 7:25 am - Function 'DisplayCustomer' not allowed
+2026-01-03 7:41 am - POST DATA: {"func_name":"DisplayCustomer"}
+2026-01-03 7:41 am - POST DATA: {"func_name":"DisplayCustomer"}
+2026-01-03 7:41 am - POST DATA: {"func_name":"DisplayCustomer"}
+2026-01-03 7:41 am - POST DATA: {"func_name":"DisplayCustomer"}
+2026-01-03 7:41 am - POST DATA: {"func_name":"DisplayCustomer"}
+2026-01-03 7:41 am - POST DATA: {"func_name":"DisplayCustomer"}
+2026-01-03 7:41 am - POST DATA: {"func_name":"DisplayCustomer"}
+2026-01-03 7:41 am - POST DATA: {"func_name":"DisplayCustomer"}
+2026-01-03 7:41 am - POST DATA: {"customerID":"","firstName":"Rafael","lastName":"Pimpolio","phone":"09754153780","email":"akoadipadi@gmail.com","barangay":"Bonifacio","city":"San Fernando","province":"Camarines Sur","postalCode":"4415","func_name":"AddCustomer"}
+2026-01-03 7:41 am - AddCustomer Error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kd_sportswear`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
+2026-01-03 7:41 am - POST DATA: {"func_name":"DisplayCustomer"}
+2026-01-03 7:48 am - POST DATA: {"func_name":"DisplayCustomer"}
+2026-01-03 7:49 am - POST DATA: {"func_name":"DisplayCustomer"}
+2026-01-03 7:49 am - POST DATA: {"func_name":"DisplayCustomer"}
+2026-01-03 7:49 am - POST DATA: {"func_name":"DisplayCustomer"}
+2026-01-03 7:49 am - POST DATA: {"customerID":"","firstName":"Rafael","lastName":"Pimpolio","phone":"09754153780","email":"akoadipadi@gmail.com","barangay":"Bonifacio","city":"San Fernando","province":"Camarines Sur","postalCode":"4415","func_name":"AddCustomer"}
+2026-01-03 7:49 am - AddCustomer Error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kd_sportswear`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
+2026-01-03 7:49 am - POST DATA: {"customerID":"","firstName":"Rafael","lastName":"Pimpolio","phone":"09754153780","email":"akoadipadi@gmail.com","barangay":"Bonifacio","city":"San Fernando","province":"Camarines Sur","postalCode":"4415","func_name":"AddCustomer"}
+2026-01-03 7:49 am - AddCustomer Error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kd_sportswear`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
+2026-01-03 7:49 am - POST DATA: {"customerID":"","firstName":"Rafael","lastName":"Pimpolio","phone":"09754153780","email":"akoadipadi@gmail.com","barangay":"Bonifacio","city":"San Fernando","province":"Camarines Sur","postalCode":"4415","func_name":"AddCustomer"}
+2026-01-03 7:49 am - AddCustomer Error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kd_sportswear`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
+2026-01-03 7:49 am - POST DATA: {"customerID":"","firstName":"Rafael","lastName":"Pimpolio","phone":"09754153780","email":"akoadipadi@gmail.com","barangay":"Bonifacio","city":"San Fernando","province":"Camarines Sur","postalCode":"4415","func_name":"AddCustomer"}
+2026-01-03 7:49 am - AddCustomer Error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kd_sportswear`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
+2026-01-03 7:49 am - POST DATA: {"customerID":"","firstName":"Rafael","lastName":"Pimpolio","phone":"09754153780","email":"akoadipadi@gmail.com","barangay":"Bonifacio","city":"San Fernando","province":"Camarines Sur","postalCode":"4415","func_name":"AddCustomer"}
+2026-01-03 7:49 am - AddCustomer Error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kd_sportswear`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
+2026-01-03 7:49 am - POST DATA: {"customerID":"","firstName":"Rafael","lastName":"Pimpolio","phone":"09754153780","email":"akoadipadi@gmail.com","barangay":"Bonifacio","city":"San Fernando","province":"Camarines Sur","postalCode":"4415","func_name":"AddCustomer"}
+2026-01-03 7:49 am - AddCustomer Error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kd_sportswear`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
+2026-01-03 7:49 am - POST DATA: {"customerID":"","firstName":"Rafael","lastName":"Pimpolio","phone":"09754153780","email":"akoadipadi@gmail.com","barangay":"Bonifacio","city":"San Fernando","province":"Camarines Sur","postalCode":"4415","func_name":"AddCustomer"}
+2026-01-03 7:49 am - AddCustomer Error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kd_sportswear`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
+2026-01-03 7:49 am - POST DATA: {"customerID":"","firstName":"Rafael","lastName":"Pimpolio","phone":"09754153780","email":"akoadipadi@gmail.com","barangay":"Bonifacio","city":"San Fernando","province":"Camarines Sur","postalCode":"4415","func_name":"AddCustomer"}
+2026-01-03 7:49 am - AddCustomer Error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kd_sportswear`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
+2026-01-03 7:49 am - POST DATA: {"customerID":"","firstName":"Rafael","lastName":"Pimpolio","phone":"09754153780","email":"akoadipadi@gmail.com","barangay":"Bonifacio","city":"San Fernando","province":"Camarines Sur","postalCode":"4415","func_name":"AddCustomer"}
+2026-01-03 7:49 am - AddCustomer Error: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kd_sportswear`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`))
