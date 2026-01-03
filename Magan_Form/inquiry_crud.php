@@ -29,7 +29,7 @@ switch ($action) {
 function readInquiries() {
     global $conn;
 
-    $sql = "SELECT inquiry_id, design_name, inquiry_date, design_file, initial_price, status, size, fabric_type, color, product_type FROM inquiry ORDER BY inquiry_id DESC";
+    $sql = "SELECT inquiry_id, jerseySando, jerseySandoSize, materialType, colorSelection, others, jerseyNeck, longsleeves, tshirt, tshirtSize, poloSize, jerseyShort, shortSize, joggingPants, warmer, `sublimationDTF Ascending`, otherService, initial_price, status, created_at, customerFile FROM inquiry ORDER BY inquiry_id DESC";
     $result = $conn->query($sql);
 
     $html = '';
@@ -37,17 +37,29 @@ function readInquiries() {
     if ($result && $result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $statusClass = getStatusClass($row['status']);
-            $fileDisplay = !empty($row['design_file']) ? '<a href="' . htmlspecialchars($row['design_file']) . '" target="_blank" class="btn-link">View</a>' : '<span class="text-muted">-</span>';
+            $fileDisplay = !empty($row['customerFile']) ? '<a href="' . htmlspecialchars($row['customerFile']) . '" target="_blank" class="btn-link">View</a>' : '<span class="text-muted">-</span>';
+
             $html .= '<tr>';
             $html .= '<td>' . htmlspecialchars($row['inquiry_id']) . '</td>';
-            $html .= '<td>' . htmlspecialchars($row['design_name']) . '</td>';
-            $html .= '<td>' . date('M d, Y', strtotime($row['inquiry_date'])) . '</td>';
-            $html .= '<td>' . (!empty($row['size']) ? htmlspecialchars($row['size']) : '-') . '</td>';
-            $html .= '<td>' . (!empty($row['fabric_type']) ? htmlspecialchars($row['fabric_type']) : '-') . '</td>';
-            $html .= '<td>' . (!empty($row['color']) ? htmlspecialchars($row['color']) : '-') . '</td>';
-            $html .= '<td>' . (!empty($row['product_type']) ? htmlspecialchars($row['product_type']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['jerseySando']) ? htmlspecialchars($row['jerseySando']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['jerseySandoSize']) ? htmlspecialchars($row['jerseySandoSize']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['materialType']) ? htmlspecialchars($row['materialType']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['colorSelection']) ? htmlspecialchars($row['colorSelection']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['others']) ? htmlspecialchars($row['others']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['jerseyNeck']) ? htmlspecialchars($row['jerseyNeck']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['longsleeves']) ? htmlspecialchars($row['longsleeves']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['tshirt']) ? htmlspecialchars($row['tshirt']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['tshirtSize']) ? htmlspecialchars($row['tshirtSize']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['poloSize']) ? htmlspecialchars($row['poloSize']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['jerseyShort']) ? htmlspecialchars($row['jerseyShort']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['shortSize']) ? htmlspecialchars($row['shortSize']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['joggingPants']) ? htmlspecialchars($row['joggingPants']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['warmer']) ? htmlspecialchars($row['warmer']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['sublimationDTF Ascending']) ? htmlspecialchars($row['sublimationDTF Ascending']) : '-') . '</td>';
+            $html .= '<td>' . (!empty($row['otherService']) ? htmlspecialchars($row['otherService']) : '-') . '</td>';
             $html .= '<td>₱' . number_format($row['initial_price'], 2) . '</td>';
             $html .= '<td><span class="badge ' . $statusClass . '">' . htmlspecialchars($row['status']) . '</span></td>';
+            $html .= '<td>' . date('M d, Y', strtotime($row['created_at'])) . '</td>';
             $html .= '<td>' . $fileDisplay . '</td>';
             $html .= '<td>';
             $html .= '<div class="action-buttons">';
@@ -57,7 +69,7 @@ function readInquiries() {
             $html .= '</tr>';
         }
     } else {
-        $html = '<tr><td colspan="11" class="text-center text-muted">No inquiries found.</td></tr>';
+        $html = '<tr><td colspan="22" class="text-center text-muted">No inquiries found.</td></tr>';
     }
 
     echo $html;

@@ -38,8 +38,8 @@
 <!-- TWO COLUMN LAYOUT -->
 <div class="container-main">
     <div class="row">
-        <!-- LEFT SIDE: INQUIRIES TABLE -->
-        <div class="col-md-6">
+        <!-- FULL WIDTH: INQUIRIES TABLE -->
+        <div class="col-12">
             <div class="table-container">
                 <h2>Customer Inquiries</h2>
                 <div class="table-responsive">
@@ -47,14 +47,25 @@
                         <thead class="table-dark">
                         <tr>
                             <th>Inquiry ID</th>
-                            <th>Design Name</th>
-                            <th>Date</th>
+                            <th>Jersey Sando</th>
                             <th>Size</th>
-                            <th>Fabric Type</th>
+                            <th>Material</th>
                             <th>Color</th>
-                            <th>Product Type</th>
+                            <th>Others</th>
+                            <th>Neck</th>
+                            <th>Long Sleeves</th>
+                            <th>T-Shirt</th>
+                            <th>T-Shirt Size</th>
+                            <th>Polo Size</th>
+                            <th>Short</th>
+                            <th>Short Size</th>
+                            <th>Jogging</th>
+                            <th>Warmer</th>
+                            <th>Sublimation</th>
+                            <th>Other Service</th>
                             <th>Price</th>
                             <th>Status</th>
+                            <th>Date</th>
                             <th>File</th>
                             <th style="width: 100px;">Action</th>
                         </tr>
@@ -66,9 +77,11 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- RIGHT SIDE: ORDERS TABLE -->
-        <div class="col-md-6">
+    <div class="row mt-4">
+        <!-- FULL WIDTH: ORDERS TABLE -->
+        <div class="col-12">
             <div class="table-container">
                 <h2>Orders</h2>
                 <div class="table-responsive">
@@ -174,7 +187,7 @@
                 localStorage.clear();
                 sessionStorage.clear();
                 // Redirect to login/home page
-                window.location.href = '../depota.html';
+                window.location.href = '../index.html';
             }
         });
     });
