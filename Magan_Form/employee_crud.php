@@ -1,31 +1,6 @@
 <?php
 require_once __DIR__ . '/connect.php';
 
-// Helper function to generate unique employee ID
-function generateEmployeeID($conn) {
-    $unique = false;
-    $employee_id = '';
-
-    while (!$unique) {
-        // Generate random 6-digit ID
-        $employee_id = str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
-
-        // Check if it already exists
-        $checkSql = "SELECT id FROM employees WHERE employee_id = ?";
-        $checkStmt = $conn->prepare($checkSql);
-        $checkStmt->bind_param("s", $employee_id);
-        $checkStmt->execute();
-        $result = $checkStmt->get_result();
-
-        if ($result->num_rows === 0) {
-            $unique = true;
-        }
-        $checkStmt->close();
-    }
-
-    return $employee_id;
-}
-
 $action = isset($_GET['action']) ? $_GET['action'] : (isset($_POST['action']) ? $_POST['action'] : 'read');
 
 switch ($action) {
@@ -54,15 +29,12 @@ function handleCreate() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $first_name = htmlspecialchars(trim($_POST['first_name']));
         $last_name = htmlspecialchars(trim($_POST['last_name']));
-        $job_position = htmlspecialchars(trim($_POST['job_position']));
-        $phone_number = htmlspecialchars(trim($_POST['phone_number']));
+        $position = htmlspecialchars(trim($_POST['position']));
         $email = htmlspecialchars(trim($_POST['email']));
-
-        // Generate unique employee ID
-        $employee_id = generateEmployeeID($conn);
+        $user_id = isset($_POST['user_id']) ? intval($_POST['user_id']) : null;
 
         // Check if email already exists
-        $checkEmailSql = "SELECT id FROM employees WHERE email = ?";
+        $checkEmailSql = "SELECT employee_id FROM employee WHERE email = ?";
         $checkEmailStmt = $conn->prepare($checkEmailSql);
         $checkEmailStmt->bind_param("s", $email);
         $checkEmailStmt->execute();
@@ -70,24 +42,25 @@ function handleCreate() {
 
         if ($checkEmailResult->num_rows > 0) {
             showAlert("danger", "Email <strong>$email</strong> already exists. Please use a different email.");
-            writeLog("CREATE_FAILED", $employee_id, $first_name, $last_name, "Duplicate Email");
+            writeLog("CREATE_FAILED", "NEW", $first_name, $last_name, "Duplicate Email");
             $checkEmailStmt->close();
             return;
         }
         $checkEmailStmt->close();
 
-        $sql = "INSERT INTO employees (employee_id, first_name, last_name, job_position, phone_number, email)
-                VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO employee (first_name, last_name, position, email, user_id)
+                VALUES (?, ?, ?, ?, ?)";
 
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssss", $employee_id, $first_name, $last_name, $job_position, $phone_number, $email);
+        $stmt->bind_param("ssssi", $first_name, $last_name, $position, $email, $user_id);
 
         if ($stmt->execute()) {
-            writeLog("CREATE", $employee_id, $first_name, $last_name, "Position: $job_position | Email: $email");
+            $employee_id = $conn->insert_id;
+            writeLog("CREATE", (string)$employee_id, $first_name, $last_name, "Position: $position | Email: $email");
             showAlert("success", "Employee added successfully with ID: <strong>$employee_id</strong>");
         } else {
             showAlert("danger", "Error: " . $stmt->error);
-            writeLog("CREATE_FAILED", $employee_id, $first_name, $last_name, "Error: " . $stmt->error);
+            writeLog("CREATE_FAILED", "NEW", $first_name, $last_name, "Error: " . $stmt->error);
         }
         $stmt->close();
     }
@@ -96,7 +69,10 @@ function handleCreate() {
 function handleRead() {
     global $conn;
 
-    $sql = "SELECT id, employee_id, first_name, last_name, job_position, phone_number, email FROM employees ORDER BY id DESC";
+    $sql = "SELECT e.employee_id, e.first_name, e.last_name, e.position, e.email, e.user_id, u.username
+            FROM employee e
+            LEFT JOIN user u ON e.user_id = u.user_id
+            ORDER BY e.employee_id DESC";
     $result = $conn->query($sql);
 
     $html = '';
@@ -107,13 +83,13 @@ function handleRead() {
             $html .= '<td>' . htmlspecialchars($row['employee_id']) . '</td>';
             $html .= '<td>' . htmlspecialchars($row['first_name']) . '</td>';
             $html .= '<td>' . htmlspecialchars($row['last_name']) . '</td>';
-            $html .= '<td>' . htmlspecialchars($row['job_position']) . '</td>';
-            $html .= '<td>' . htmlspecialchars($row['phone_number']) . '</td>';
+            $html .= '<td>' . htmlspecialchars($row['position']) . '</td>';
             $html .= '<td>' . htmlspecialchars($row['email']) . '</td>';
+            $html .= '<td>' . htmlspecialchars($row['username'] ?? 'N/A') . '</td>';
             $html .= '<td>';
             $html .= '<div class="action-buttons">';
-            $html .= '<a href="employee_crud.php?action=edit&id=' . $row['id'] . '" class="btn btn-sm btn-warning">Edit</a> ';
-            $html .= '<a href="employee_crud.php?action=delete&id=' . $row['id'] . '" class="btn btn-sm btn-danger" onclick="return confirm(\'Are you sure?\')">Delete</a>';
+            $html .= '<a href="employee_crud.php?action=edit&id=' . $row['employee_id'] . '" class="btn btn-sm btn-warning">Edit</a> ';
+            $html .= '<a href="employee_crud.php?action=delete&id=' . $row['employee_id'] . '" class="btn btn-sm btn-danger" onclick="return confirm(\'Are you sure?\')">Delete</a>';
             $html .= '</div>';
             $html .= '</td>';
             $html .= '</tr>';
@@ -133,7 +109,7 @@ function handleEditForm() {
     }
 
     $id = intval($_GET['id']);
-    $sql = "SELECT * FROM employees WHERE id = ?";
+    $sql = "SELECT * FROM employee WHERE employee_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
     $stmt->execute();
@@ -159,7 +135,7 @@ function handleEditForm() {
             <div class="card shadow-sm p-4 mx-auto" style="max-width: 500px;">
                 <h3 class="text-center mb-4">Edit Employee</h3>
                 <form method="POST" action="employee_crud.php?action=update" class="needs-validation" novalidate>
-                    <input type="hidden" name="id" value="<?php echo $employee['id']; ?>">
+                    <input type="hidden" name="employee_id" value="<?php echo $employee['employee_id']; ?>">
 
                     <div class="mb-3">
                         <label class="form-label">First Name</label>
@@ -174,19 +150,13 @@ function handleEditForm() {
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Job Position</label>
-                        <select class="form-select" name="job_position" required>
-                            <option value="Manager" <?php echo $employee['job_position'] === 'Manager' ? 'selected' : ''; ?>>Manager</option>
-                            <option value="Supervisor" <?php echo $employee['job_position'] === 'Supervisor' ? 'selected' : ''; ?>>Supervisor</option>
-                            <option value="Staff" <?php echo $employee['job_position'] === 'Staff' ? 'selected' : ''; ?>>Staff</option>
+                        <label class="form-label">Position</label>
+                        <select class="form-select" name="position" required>
+                            <option value="Manager" <?php echo $employee['position'] === 'Manager' ? 'selected' : ''; ?>>Manager</option>
+                            <option value="Supervisor" <?php echo $employee['position'] === 'Supervisor' ? 'selected' : ''; ?>>Supervisor</option>
+                            <option value="Staff" <?php echo $employee['position'] === 'Staff' ? 'selected' : ''; ?>>Staff</option>
                         </select>
-                        <div class="invalid-feedback">Please select a job position.</div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Phone Number</label>
-                        <input type="tel" class="form-control" name="phone_number" value="<?php echo htmlspecialchars($employee['phone_number']); ?>" required pattern="09[0-9]{9}">
-                        <div class="invalid-feedback">Enter a valid PH mobile number.</div>
+                        <div class="invalid-feedback">Please select a position.</div>
                     </div>
 
                     <div class="mb-3">
@@ -226,57 +196,55 @@ function handleEditForm() {
 function handleUpdate() {
     global $conn;
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-        $id = intval($_POST['id']);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['employee_id'])) {
+        $employee_id = intval($_POST['employee_id']);
         $first_name = htmlspecialchars(trim($_POST['first_name']));
         $last_name = htmlspecialchars(trim($_POST['last_name']));
-        $job_position = htmlspecialchars(trim($_POST['job_position']));
-        $phone_number = htmlspecialchars(trim($_POST['phone_number']));
+        $position = htmlspecialchars(trim($_POST['position']));
         $email = htmlspecialchars(trim($_POST['email']));
 
         // Get old data for comparison
-        $selectSql = "SELECT * FROM employees WHERE id = ?";
+        $selectSql = "SELECT * FROM employee WHERE employee_id = ?";
         $selectStmt = $conn->prepare($selectSql);
-        $selectStmt->bind_param("i", $id);
+        $selectStmt->bind_param("i", $employee_id);
         $selectStmt->execute();
         $result = $selectStmt->get_result();
         $oldEmployee = $result->fetch_assoc();
         $selectStmt->close();
 
         // Check if email already exists (but not the same employee)
-        $checkEmailSql = "SELECT id FROM employees WHERE email = ? AND id != ?";
+        $checkEmailSql = "SELECT employee_id FROM employee WHERE email = ? AND employee_id != ?";
         $checkEmailStmt = $conn->prepare($checkEmailSql);
-        $checkEmailStmt->bind_param("si", $email, $id);
+        $checkEmailStmt->bind_param("si", $email, $employee_id);
         $checkEmailStmt->execute();
         $checkEmailResult = $checkEmailStmt->get_result();
 
         if ($checkEmailResult->num_rows > 0) {
             showAlert("danger", "Email <strong>$email</strong> is already used by another employee.");
-            writeLog("UPDATE_FAILED", $oldEmployee['employee_id'], $first_name, $last_name, "Duplicate Email");
+            writeLog("UPDATE_FAILED", (string)$employee_id, $first_name, $last_name, "Duplicate Email");
             $checkEmailStmt->close();
             return;
         }
         $checkEmailStmt->close();
 
-        $sql = "UPDATE employees SET first_name=?, last_name=?, job_position=?, phone_number=?, email=? WHERE id=?";
+        $sql = "UPDATE employee SET first_name=?, last_name=?, position=?, email=? WHERE employee_id=?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssssi", $first_name, $last_name, $job_position, $phone_number, $email, $id);
+        $stmt->bind_param("ssssi", $first_name, $last_name, $position, $email, $employee_id);
 
         if ($stmt->execute()) {
             $changes = [];
             if ($oldEmployee['first_name'] !== $first_name) $changes[] = "FirstName: {$oldEmployee['first_name']} → $first_name";
             if ($oldEmployee['last_name'] !== $last_name) $changes[] = "LastName: {$oldEmployee['last_name']} → $last_name";
-            if ($oldEmployee['job_position'] !== $job_position) $changes[] = "Position: {$oldEmployee['job_position']} → $job_position";
-            if ($oldEmployee['phone_number'] !== $phone_number) $changes[] = "Phone: {$oldEmployee['phone_number']} → $phone_number";
+            if ($oldEmployee['position'] !== $position) $changes[] = "Position: {$oldEmployee['position']} → $position";
             if ($oldEmployee['email'] !== $email) $changes[] = "Email: {$oldEmployee['email']} → $email";
 
             $changeDetails = implode(" | ", $changes);
-            writeLog("UPDATE", $oldEmployee['employee_id'], $first_name, $last_name, $changeDetails);
+            writeLog("UPDATE", (string)$employee_id, $first_name, $last_name, $changeDetails);
 
             showAlert("success", "Employee updated successfully.");
         } else {
             showAlert("danger", "Error: " . $stmt->error);
-            writeLog("UPDATE_FAILED", $oldEmployee['employee_id'], $first_name, $last_name, "Error: " . $stmt->error);
+            writeLog("UPDATE_FAILED", (string)$employee_id, $first_name, $last_name, "Error: " . $stmt->error);
         }
         $stmt->close();
     }
@@ -286,27 +254,27 @@ function handleDelete() {
     global $conn;
 
     if (isset($_GET['id'])) {
-        $id = intval($_GET['id']);
+        $employee_id = intval($_GET['id']);
 
-        $selectSql = "SELECT employee_id, first_name, last_name FROM employees WHERE id = ?";
+        $selectSql = "SELECT employee_id, first_name, last_name FROM employee WHERE employee_id = ?";
         $selectStmt = $conn->prepare($selectSql);
-        $selectStmt->bind_param("i", $id);
+        $selectStmt->bind_param("i", $employee_id);
         $selectStmt->execute();
         $result = $selectStmt->get_result();
         $employee = $result->fetch_assoc();
         $selectStmt->close();
 
         if ($employee) {
-            $deleteSql = "DELETE FROM employees WHERE id = ?";
+            $deleteSql = "DELETE FROM employee WHERE employee_id = ?";
             $deleteStmt = $conn->prepare($deleteSql);
-            $deleteStmt->bind_param("i", $id);
+            $deleteStmt->bind_param("i", $employee_id);
 
             if ($deleteStmt->execute()) {
-                writeLog("DELETE", $employee['employee_id'], $employee['first_name'], $employee['last_name'], "Permanently removed from database");
+                writeLog("DELETE", (string)$employee_id, $employee['first_name'], $employee['last_name'], "Permanently removed from database");
                 showAlert("success", "Employee deleted successfully.");
             } else {
                 showAlert("danger", "Error: " . $deleteStmt->error);
-                writeLog("DELETE_FAILED", $employee['employee_id'], $employee['first_name'], $employee['last_name'], "Error: " . $deleteStmt->error);
+                writeLog("DELETE_FAILED", (string)$employee_id, $employee['first_name'], $employee['last_name'], "Error: " . $deleteStmt->error);
             }
             $deleteStmt->close();
         } else {
