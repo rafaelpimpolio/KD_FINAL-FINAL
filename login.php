@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Redirect
     if ($role === "customer") {
-        header("Location: Balatan_Form/inquiry.html");
+        header("Location: Balatan_Form/customer.html");
         exit;
     } else if ($role === "employee") {
         header("Location: Magan_Form/employee_to_inquiry_order.html");
