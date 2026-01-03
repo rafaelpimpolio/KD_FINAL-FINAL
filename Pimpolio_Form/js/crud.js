@@ -176,3 +176,31 @@ $(document).ready(function () {
     DisplayCustomerList();
 });
 
+function deleteCustomer(id) {
+    $.post(
+        "crud.php",
+        {
+            func_name: "DeleteCustomer",
+            customerID: id
+        },
+        function (res) {
+            let response;
+
+            try {
+                response = JSON.parse(res);
+            } catch (e) {
+                alert("Invalid server response");
+                return;
+            }
+
+            if (response.success) {
+                $.alert("Customer deleted successfully");
+                location.reload();
+            } else {
+                $.alert(response.error || "Delete failed");
+            }
+        }
+    );
+}
+
+
