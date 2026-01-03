@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Access | KD Sportswear & Apparel</title>
+    <meta name="description" content="Login or sign up as a customer or employee at KD Sportswear & Apparel.">
+    <link rel="stylesheet" href="depota.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">KD Sportswear & Apparel</a>
+        </div>
+    </nav>
+
+    <!-- Auth Section -->
+    <section id="auth">
+        <div class="container" style="max-width: 500px;">
+            <div class="section-header">
+                <h2>Account Access</h2>
+                <p>Login or create an account to continue</p>
+            </div>
+
+            <div class="tabs">
+                <div class="tabs-list">
+                    <button class="tab-btn active" data-tab="login">Login</button>
+                    <button class="tab-btn" data-tab="signup">Sign Up</button>
+                </div>
+
+<!-- Login -->
+<div class="tab-content active" id="login">
+    <form method="POST" action="login.php">
+        <div class="form-group">
+            <label for="login-role">Login As</label>
+            <select name="role" id="login-role" required>
+                <option value="">Select role</option>
+                <option value="customer">Customer</option>
+                <option value="employee">Employee</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="login-username">Username</label>
+            <input type="text" name="username" id="login-username" placeholder="Enter your username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" name="password" id="login-password" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+
+        <p style="text-align:center; margin-top:1rem; font-size:0.875rem;">
+            Forgot your password? Contact admin.
+        </p>
+    </form>
+</div>
+
+
+
+    <!-- Sign Up -->
+    <div class="tab-content" id="signup">
+        <div style="text-align:center;">
+            <p style="margin-bottom:1rem;">
+                Create a customer account by filling out our registration form.
+            </p>
+
+            <button id="goToCustomerForm" class="btn btn-primary" style="width:100%;">
+                Proceed to Customer Registration
+            </button>
+        </div>
+    </div>
+
+     <footer>
+        <div class="container">
+            <div class="footer-bottom" style="text-align:center;">
+                <p style="color: rgba(255,255,255,0.8); font-size:0.875rem;">
+                    © 2025 KD Sportswear & Apparel. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- External JS -->
+    <script src="depota.js" defer></script>
+</body>
+</html>

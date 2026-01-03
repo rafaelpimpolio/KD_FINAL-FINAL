@@ -31,46 +31,34 @@ function handleCreate() {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        $transaction_id      = htmlspecialchars(trim($_POST['transaction_id']));
-        $payment_reference   = htmlspecialchars(trim($_POST['payment_reference']));
-        $transaction_status  = htmlspecialchars(trim($_POST['transaction_status']));
-        $method_payment      = htmlspecialchars(trim($_POST['method_payment']));
-        $payment_date        = htmlspecialchars(trim($_POST['payment_date']));
-        $amount              = floatval($_POST['amount']);
-        $balance             = floatval($_POST['balance']);
-
-        // Check duplicate payment reference
-        $checkSql = "SELECT payment_id FROM payments WHERE payment_reference = ?";
-        $checkStmt = $conn->prepare($checkSql);
-        $checkStmt->bind_param("s", $payment_reference);
-        $checkStmt->execute();
-        $checkResult = $checkStmt->get_result();
-
-        if ($checkResult->num_rows > 0) {
-            showAlert("danger", "Payment Reference <strong>$payment_reference</strong> already exists.");
-            $checkStmt->close();
-            return;
-        }
-        $checkStmt->close();
+        $method_of_payment = htmlspecialchars(trim($_POST['method_of_payment']));
+        $total_amount      = floatval($_POST['total_amount']);
+        $downpayment       = floatval($_POST['downpayment']);
+        $balance           = floatval($_POST['balance']);
+        $status            = htmlspecialchars(trim($_POST['status']));
+        $customer_id       = intval($_POST['customer_id']);
+        $order_id          = intval($_POST['order_id']);
+        $employee_id       = intval($_POST['employee_id']);
 
         $sql = "INSERT INTO payments
-                (transaction_id, payment_reference, transaction_status, method_payment, payment_date, amount, balance)
-                VALUES (?, ?, ?, ?, ?, ?, ?)";
+                (method_of_payment, total_amount, downpayment, balance, status, customer_id, order_id, employee_id)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $conn->prepare($sql);
         $stmt->bind_param(
-            "issssdd",
-            $transaction_id,
-            $payment_reference,
-            $transaction_status,
-            $method_payment,
-            $payment_date,
-            $amount,
-            $balance
+            "sdddsi ii",
+            $method_of_payment,
+            $total_amount,
+            $downpayment,
+            $balance,
+            $status,
+            $customer_id,
+            $order_id,
+            $employee_id
         );
 
         if ($stmt->execute()) {
-            showAlert("success", "Payment recorded successfully.");
+            showAlert("success", "Payment added successfully.");
         } else {
             showAlert("danger", "Error: " . $stmt->error);
         }
@@ -93,23 +81,25 @@ function handleRead() {
         while($row = $result->fetch_assoc()) {
 
             $html .= '<tr>';
-            $html .= '<td>' . htmlspecialchars($row['payment_id']) . '</td>';
-            $html .= '<td>' . htmlspecialchars($row['transaction_id']) . '</td>';
-            $html .= '<td>' . htmlspecialchars($row['payment_reference']) . '</td>';
-            $html .= '<td>' . htmlspecialchars($row['transaction_status']) . '</td>';
-            $html .= '<td>' . htmlspecialchars($row['method_payment']) . '</td>';
-            $html .= '<td>' . htmlspecialchars($row['payment_date']) . '</td>';
-            $html .= '<td>' . htmlspecialchars($row['amount']) . '</td>';
-            $html .= '<td>' . htmlspecialchars($row['balance']) . '</td>';
+            $html .= '<td>'.$row['payment_id'].'</td>';
+            $html .= '<td>'.$row['method_of_payment'].'</td>';
+            $html .= '<td>'.$row['total_amount'].'</td>';
+            $html .= '<td>'.$row['downpayment'].'</td>';
+            $html .= '<td>'.$row['balance'].'</td>';
+            $html .= '<td>'.$row['date'].'</td>';
+            $html .= '<td>'.$row['status'].'</td>';
+            $html .= '<td>'.$row['customer_id'].'</td>';
+            $html .= '<td>'.$row['order_id'].'</td>';
+            $html .= '<td>'.$row['employee_id'].'</td>';
             $html .= '<td>
-                        <a href="payment_crud.php?action=edit&id=' . $row['payment_id'] . '" class="btn btn-sm btn-warning">Edit</a>
-                        <a href="payment_crud.php?action=delete&id=' . $row['payment_id'] . '" class="btn btn-sm btn-danger"
+                        <a href="payment_crud.php?action=edit&id='.$row['payment_id'].'" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="payment_crud.php?action=delete&id='.$row['payment_id'].'" class="btn btn-danger btn-sm"
                            onclick="return confirm(\'Are you sure?\')">Delete</a>
                       </td>';
             $html .= '</tr>';
         }
     } else {
-        $html = '<tr><td colspan="9" class="text-center text-muted">No payment records found.</td></tr>';
+        $html = '<tr><td colspan="11" class="text-center">No records found</td></tr>';
     }
 
     echo $html;
@@ -121,92 +111,64 @@ function handleRead() {
 function handleEditForm() {
     global $conn;
 
-    if (!isset($_GET['id'])) {
-        die("Payment not found!");
-    }
+
 
     $id = intval($_GET['id']);
     $sql = "SELECT * FROM payments WHERE payment_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
     $stmt->execute();
-    $result = $stmt->get_result();
-    $payment = $result->fetch_assoc();
-    $stmt->close();
+    $payment = $stmt->get_result()->fetch_assoc();
 
-    if (!$payment) {
+    $stmt->close();
+        if (!isset($_GET['id'])) {
         die("Payment not found!");
     }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+    
 <head>
     <meta charset="UTF-8">
     <title>Edit Payment</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body class="bg-light">
-
 <div class="container mt-5">
-    <div class="card p-4 shadow-sm mx-auto" style="max-width: 550px;">
-        <h3 class="text-center mb-4">Edit Payment</h3>
+<form method="POST" action="payment_crud.php?action=update" class="card p-4">
+<input type="hidden" name="payment_id" value="<?= $payment['payment_id'] ?>">
 
-        <form method="POST" action="payment_crud.php?action=update" class="needs-validation" novalidate>
-            <input type="hidden" name="payment_id" value="<?= $payment['payment_id'] ?>">
+<label>Method of Payment</label>
+<input type="text" name="method_of_payment" class="form-control" value="<?= $payment['method_of_payment'] ?>">
 
-            <div class="mb-3">
-                <label>Transaction ID</label>
-                <input type="number" class="form-control" name="transaction_id"
-                       value="<?= htmlspecialchars($payment['transaction_id']) ?>" required>
-            </div>
+<label>Total Amount</label>
+<input type="number" name="total_amount" class="form-control" value="<?= $payment['total_amount'] ?>">
 
-            <div class="mb-3">
-                <label>Payment Reference</label>
-                <input type="text" class="form-control" name="payment_reference"
-                       value="<?= htmlspecialchars($payment['payment_reference']) ?>" required>
-            </div>
+<label>Downpayment</label>
+<input type="number" name="downpayment" class="form-control" value="<?= $payment['downpayment'] ?>">
 
-            <div class="mb-3">
-                <label>Status</label>
-                <select class="form-select" name="transaction_status" required>
-                    <option <?= $payment['transaction_status']=="Pending"?"selected":"" ?>>Pending</option>
-                    <option <?= $payment['transaction_status']=="Completed"?"selected":"" ?>>Completed</option>
-                    <option <?= $payment['transaction_status']=="Failed"?"selected":"" ?>>Failed</option>
-                </select>
-            </div>
+<label>Balance</label>
+<input type="number" name="balance" class="form-control" value="<?= $payment['balance'] ?>">
 
-            <div class="mb-3">
-                <label>Payment Method</label>
-                <select class="form-select" name="method_payment" required>
-                    <option <?= $payment['method_payment']=="Cash"?"selected":"" ?>>Cash</option>
-                    <option <?= $payment['method_payment']=="GCash"?"selected":"" ?>>GCash</option>
-                    <option <?= $payment['method_payment']=="Bank Transfer"?"selected":"" ?>>Bank Transfer</option>
-                </select>
-            </div>
+<label>Status</label>
+<select name="status" class="form-control">
+    <option <?= $payment['status']=="pending"?"selected":"" ?>>pending</option>
+    <option <?= $payment['status']=="partial"?"selected":"" ?>>partial</option>
+    <option <?= $payment['status']=="paid"?"selected":"" ?>>paid</option>
+</select>
 
-            <div class="mb-3">
-                <label>Payment Date</label>
-                <input type="date" class="form-control" name="payment_date"
-                       value="<?= $payment['payment_date'] ?>" required>
-            </div>
+<label>Customer ID</label>
+<input type="number" name="customer_id" class="form-control" value="<?= $payment['customer_id'] ?>">
 
-            <div class="mb-3">
-                <label>Amount</label>
-                <input type="number" class="form-control" name="amount"
-                       value="<?= $payment['amount'] ?>" required min="1">
-            </div>
+<label>Order ID</label>
+<input type="number" name="order_id" class="form-control" value="<?= $payment['order_id'] ?>">
 
-            <div class="mb-3">
-                <label>Balance</label>
-                <input type="number" class="form-control" name="balance"
-                       value="<?= $payment['balance'] ?>" required min="0">
-            </div>
+<label>Employee ID</label>
+<input type="number" name="employee_id" class="form-control" value="<?= $payment['employee_id'] ?>">
 
-            <button class="btn btn-primary w-100">Update Payment</button>
-        </form>
-    </div>
+<button class="btn btn-primary mt-3">Update</button>
+</form>
 </div>
-
 </body>
 </html>
 <?php
@@ -218,42 +180,37 @@ function handleEditForm() {
 function handleUpdate() {
     global $conn;
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $sql = "UPDATE payments SET
+            method_of_payment=?,
+            total_amount=?,
+            downpayment=?,
+            balance=?,
+            status=?,
+            customer_id=?,
+            order_id=?,
+            employee_id=?
+            WHERE payment_id=?";
 
-        $id                 = intval($_POST['payment_id']);
-        $transaction_id     = htmlspecialchars(trim($_POST['transaction_id']));
-        $payment_reference  = htmlspecialchars(trim($_POST['payment_reference']));
-        $transaction_status = htmlspecialchars(trim($_POST['transaction_status']));
-        $method_payment     = htmlspecialchars(trim($_POST['method_payment']));
-        $payment_date       = htmlspecialchars(trim($_POST['payment_date']));
-        $amount             = floatval($_POST['amount']);
-        $balance            = floatval($_POST['balance']);
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param(
+        "sdddsi iii",
+        $_POST['method_of_payment'],
+        $_POST['total_amount'],
+        $_POST['downpayment'],
+        $_POST['balance'],
+        $_POST['status'],
+        $_POST['customer_id'],
+        $_POST['order_id'],
+        $_POST['employee_id'],
+        $_POST['payment_id']
+    );
 
-        $sql = "UPDATE payments SET
-                transaction_id=?, payment_reference=?, transaction_status=?, method_payment=?,
-                payment_date=?, amount=?, balance=?
-                WHERE payment_id=?";
-
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param(
-            "issssddi",
-            $transaction_id,
-            $payment_reference,
-            $transaction_status,
-            $method_payment,
-            $payment_date,
-            $amount,
-            $balance,
-            $id
-        );
-
-        if ($stmt->execute()) {
-            showAlert("success", "Payment updated successfully.");
-        } else {
-            showAlert("danger", "Error: " . $stmt->error);
-        }
-        $stmt->close();
+    if ($stmt->execute()) {
+        showAlert("success", "Payment updated.");
+    } else {
+        showAlert("danger", "Update failed.");
     }
+    $stmt->close();
 }
 
 /* =========================
@@ -262,20 +219,14 @@ function handleUpdate() {
 function handleDelete() {
     global $conn;
 
-    if (isset($_GET['id'])) {
-        $id = intval($_GET['id']);
+    $id = intval($_GET['id']);
+    $stmt = $conn->prepare("DELETE FROM payments WHERE payment_id=?");
+    $stmt->bind_param("i", $id);
 
-        $sql = "DELETE FROM payments WHERE payment_id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-
-        if ($stmt->execute()) {
-            showAlert("success", "Payment deleted successfully.");
-        } else {
-            showAlert("danger", "Error deleting payment.");
-        }
-        $stmt->close();
+    if ($stmt->execute()) {
+        showAlert("success", "Payment deleted.");
     }
+    $stmt->close();
 }
 
 /* =========================
@@ -284,12 +235,10 @@ function handleDelete() {
 function showAlert($type, $message) {
 ?>
 <script>
-    alert("<?= strip_tags($message) ?>");
-    window.location.href = "payment-form.html";
+alert("<?= $message ?>");
+window.location.href="payment-form.html";
 </script>
-<?php
-    exit();
-}
+<?php exit(); }
 
 $conn->close();
 ?>

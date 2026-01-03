@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KD Sportswear & Apparel - Orders & Inquiries</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="inquiry_style.css">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar" id="navbar">
+    <div class="container">
+        <a href="../home.html#home" class="navbar-brand">KD Sportswear & Apparel</a>
+        <ul class="navbar-menu" id="navbarMenu">
+            <li><a href="../home.html#home" class="nav-link">Home</a></li>
+            <li><a href="../home.html#about" class="nav-link">About</a></li>
+            <li><a href="../home.html#latest-designs" class="nav-link">Latest Designs</a></li>
+            <li><a href="../home.html#gallery" class="nav-link">Gallery</a></li>
+            <li><a href="../home.html#services" class="nav-link">Services</a></li>
+            <li><a href="../home.html#testimonials" class="nav-link">Testimonials</a></li>
+            <li><a href="../home.html#contact" class="nav-link">Contact</a></li>
+            <li><a href="../index.html" class="nav-link logout-btn" id="logoutBtn">Logout</a></li>
+        </ul>
+        <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
+            <span id="menuIcon">☰</span>
+        </button>
+    </div>
+</nav>
+
+<!-- HEADER -->
+<div class="header">
+    <h1>KD SPORTSWEAR & APPAREL</h1>
+    <p class="sub">Sublimation • Custom Jerseys • Apparel Printing</p>
+</div>
+
+<!-- TWO COLUMN LAYOUT -->
+<div class="container-main">
+    <div class="row">
+        <!-- FULL WIDTH: INQUIRIES TABLE -->
+        <div class="col-12">
+            <div class="table-container">
+                <h2>Customer Inquiries</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped" id="inquiryTable">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>Inquiry ID</th>
+                            <th>Jersey Sando</th>
+                            <th>Size</th>
+                            <th>Material</th>
+                            <th>Color</th>
+                            <th>Others</th>
+                            <th>Neck</th>
+                            <th>Long Sleeves</th>
+                            <th>T-Shirt</th>
+                            <th>T-Shirt Size</th>
+                            <th>Polo Size</th>
+                            <th>Short</th>
+                            <th>Short Size</th>
+                            <th>Jogging</th>
+                            <th>Warmer</th>
+                            <th>Sublimation</th>
+                            <th>Other Service</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>File</th>
+                            <th style="width: 100px;">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="inquiryTableBody">
+                        <!-- Inquiries will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <!-- FULL WIDTH: ORDERS TABLE -->
+        <div class="col-12">
+            <div class="table-container">
+                <h2>Orders</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped" id="ordersTable">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Inquiry ID</th>
+                            <th style="width: 100px;">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                        <!-- Orders will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h3>KD Sportswear & Apparel</h3>
+                <p>Custom apparel design shop creating unique t-shirts and jerseys since 2023.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#latest-designs">Latest Designs</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li>Custom T-Shirts</li>
+                    <li>Team Jerseys</li>
+                    <li>Community Shirts</li>
+                    <li>Special Orders</li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li>J. Hernandez Avenue,</li>
+                    <li>Sta. Cruz, Naga City</li>
+                    <li style="margin-top: 0.5rem;">0998 976 5742</li>
+                    <li style="display: flex; align-items: center; gap: 0.5rem;">
+                        kdsportswear2023@gmail.com
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.875rem; margin: 0;">© 2025 KD Sportswear & Apparel. All rights reserved.</p>
+            <div class="footer-social">
+                <a href="https://www.facebook.com/kdsportswearandapparel" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><img src="../images/facebook.png" alt=""></a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="../images/instagram.png" alt=""></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Load inquiries and orders when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load inquiries
+        fetch('inquiry_crud.php?action=read_inquiries')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('inquiryTableBody').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading inquiries:', error));
+
+        // Load orders
+        fetch('inquiry_crud.php?action=read_orders')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('ordersTableBody').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading orders:', error));
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('Are you sure you want to logout?')) {
+                // Clear session/local storage if needed
+                localStorage.clear();
+                sessionStorage.clear();
+                // Redirect to login/home page
+                window.location.href = '../index.html';
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

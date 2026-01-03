@@ -1,18 +1,23 @@
 <?php
 class Database
 {
+<<<<<<< HEAD
     // --- Database Credentials ---
+=======
+>>>>>>> d8b50dd3bf4c2b3cca1e1d17df4fcfec34ebc008
     private static $dbName = 'kd_sportswear';
     private static $dbHost = 'localhost';
     private static $dbUsername = 'root';
     private static $dbPassword = '';
 
-    // --- PDO Connection Holder ---
     private static $cont = null;
 
+<<<<<<< HEAD
     // -----------------------------
     //  CONNECT TO DATABASE (SINGLETON)
     // -----------------------------
+=======
+>>>>>>> d8b50dd3bf4c2b3cca1e1d17df4fcfec34ebc008
     public static function Connection()
     {
         if (self::$cont === null) {
@@ -30,6 +35,7 @@ class Database
         }
         return self::$cont;
     }
+<<<<<<< HEAD
 
     // -----------------------------
     //  EXECUTE INSERT / UPDATE / DELETE
@@ -58,5 +64,7 @@ class Database
         fwrite($file, date("Y-m-d g:i a") . " - " . $msg . "\n");
         fclose($file);
     }
+=======
+>>>>>>> d8b50dd3bf4c2b3cca1e1d17df4fcfec34ebc008
 }
 ?>

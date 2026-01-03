@@ -1,7 +1,7 @@
 <?php
 class Database
 {
-    static $dbName = 'kd_form_db';
+    static $dbName = 'kd_database';
     static $dbHost = 'localhost';
     static $dbUsername = 'root';
     static $dbPassword = '';
