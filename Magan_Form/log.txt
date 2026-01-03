@@ -1,0 +1,1 @@
+[2026-01-03 08:41:00] Action: DELETE | Employee ID: 21 | Name: Ivan Magan | Permanently removed from database
