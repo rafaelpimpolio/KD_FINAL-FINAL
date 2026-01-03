@@ -1,3 +1,4 @@
+// Tabs
 const tabButtons = document.querySelectorAll(".tab-btn");
 const tabContents = document.querySelectorAll(".tab-content");
 
@@ -11,27 +12,11 @@ tabButtons.forEach(btn => {
     });
 });
 
+// Go to customer registration
 const goToCustomerForm = document.getElementById("goToCustomerForm");
 if (goToCustomerForm) {
     goToCustomerForm.addEventListener("click", () => {
-        window.location.href = "./Pimpolio_Form/customer.html";
-    });
-}
-
-const loginForm = document.querySelector("#login form");
-if (loginForm) {
-    loginForm.addEventListener("submit", (e) => {
-        e.preventDefault(); // Prevents the page from refreshing
-        
-        // Redirect to Inquiry.html after clicking Login
-        window.location.href = "./Balatan_Form/Inquiry.html";
-    });
-}
-
-const goToEmployeeForm = document.getElementById("goToEmployeeForm");
-if (goToCustomerForm) {
-    goToCustomerForm.addEventListener("click", () => {
-        // Redirects users to the Inquiry form
-        window.location.href = "./Magan_Form/employee.html"; 
+        // Make sure the path is correct relative to this file
+        window.location.href = "Pimpolio_Form/customer.html";
     });
 }

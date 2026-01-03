@@ -30,37 +30,37 @@
                     <button class="tab-btn" data-tab="signup">Sign Up</button>
                 </div>
 
-                <!-- Login -->
-                <div class="tab-content active" id="login">
-                    <form>
-                        <div class="form-group">
-                            <label for="login-role">Login As</label>
-                            <select id="login-role" required>
-                                <option value="">Select role</option>
-                                <option value="customer">Customer</option>
-                                <option value="employee">Employee</option>
-                            </select>
-                        </div>
+<!-- Login -->
+<div class="tab-content active" id="login">
+    <form method="POST" action="login.php">
+        <div class="form-group">
+            <label for="login-role">Login As</label>
+            <select name="role" id="login-role" required>
+                <option value="">Select role</option>
+                <option value="customer">Customer</option>
+                <option value="employee">Employee</option>
+            </select>
+        </div>
 
-                        <div class="form-group">
-                            <label for="login-email">Email</label>
-                            <input type="email" id="login-email" placeholder="you@email.com" required>
-                        </div>
+        <div class="form-group">
+            <label for="login-username">Username</label>
+            <input type="text" name="username" id="login-username" placeholder="Enter your username" required>
+        </div>
 
-                        <div class="form-group">
-                            <label for="login-password">Password</label>
-                            <input type="password" id="login-password" placeholder="••••••••" required>
-                        </div>
+        <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" name="password" id="login-password" placeholder="••••••••" required>
+        </div>
 
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">
-                            Login
-                        </button>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
 
-                        <p style="text-align:center; margin-top:1rem; font-size:0.875rem;">
-                            Forgot your password? Contact admin.
-                        </p>
-                    </form>
-                </div>
+        <p style="text-align:center; margin-top:1rem; font-size:0.875rem;">
+            Forgot your password? Contact admin.
+        </p>
+    </form>
+</div>
+
+
 
     <!-- Sign Up -->
     <div class="tab-content" id="signup">

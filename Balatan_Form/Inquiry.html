@@ -21,6 +21,8 @@
         <li><a href="../home.html#testimonials" class="nav-link">Testimonials</a></li>
         <li><a href="../home.html#contact" class="nav-link">Contact</a></li>
         <li><a href="../forms.html" class="nav-link">Forms</a></li>
+        <li><a href="#" class="nav-link logout-btn" id="logoutBtn">Logout</a></li>
+
       </ul>
       <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
         <span id="menuIcon">☰</span>
@@ -33,61 +35,178 @@
     <p class="sub">Sublimation • Custom Jerseys • Apparel Printing</p>
   </div>
 
-<form id="kdForm" enctype="multipart/form-data" method="POST" action="submit_inquiry.php">
-  <input type="hidden" name="customer_id" value="<!-- autofill from session -->" />
+  <form id="kdForm" enctype="multipart/form-data">
+    <input type="hidden" name="id" id="recordId" />
 
-  <label for="design_name">Design Name</label>
-  <input type="text" name="design_name" id="design_name" required />
+    <h1 class="kd">KD inquiry form</h1>
+    <h3 class="kd">Fill in your details and see all records below.</h3>
 
-  <label for="design_file">Upload Design</label>
-  <input type="file" name="design_file" id="design_file" accept=".jpg,.png,.jpeg,.pdf" required />
+    <textarea name="customer" id="customer" rows="5" placeholder="Customer's design"></textarea>
+    <input type="file" name="customerFile" id="customerFile" />
 
-  <label for="product_type">Product Type</label>
-  <select name="product_type" id="product_type" required>
-    <option value="">-- Select Product --</option>
-    <option value="jersey">Jersey</option>
-    <option value="tshirt">T-Shirt</option>
-    <option value="polo">Polo Shirt</option>
-    <option value="joggingPants">Jogging Pants</option>
-    <option value="accessory">Accessory</option>
-  </select>
+    <div class="section-row">
+      <div class="section-column">
+        <h4>Tops</h4>
 
-  <label for="size">Size</label>
-  <select name="size" id="size" required>
-    <option value="">-- Select Size --</option>
-    <option value="XS">XS</option>
-    <option value="S">S</option>
-    <option value="M">M</option>
-    <option value="L">L</option>
-    <option value="XL">XL</option>
-    <option value="XXL">XXL</option>
-  </select>
+        <label for="jerseySando">Jersey Sando</label>
+        <select name="jerseySando" id="jerseySando">
+          <option value="">-- None --</option>
+          <option value="jerseySandoOrdinary">Ordinary CUT</option>
+          <option value="jerseySandoNBA">NBA CUT</option>
+          <option value="jerseySandoNoRib">REVERSIBLE W/O RIBBINGS</option>
+          <option value="jerseySandoRib">REVERSIBLE W RIBBINGS</option>
+        </select>
 
-  <label for="fabric_type">Fabric Type</label>
-  <select name="fabric_type" id="fabric_type" required>
-    <option value="">-- Select Fabric --</option>
-    <option value="polydex">Polydex</option>
-    <option value="cottonBlend">Cotton Blend</option>
-    <option value="triBlend">Tri-Blend</option>
-    <option value="performance">Performance</option>
-  </select>
+        <label for="jerseyNeck">Neck</label>
+        <select name="jerseyNeck" id="jerseyNeck">
+          <option value="">-- None --</option>
+          <option value="jerseyRound">ROUND NECK</option>
+          <option value="jerseyV">V-NECK</option>
+          <option value="jerseyW">W-NECK</option>
+        </select>
 
-  <label>Color</label>
-  <div class="color-selection">
-    <label><input type="checkbox" name="color[]" value="red" /> Red</label>
-    <label><input type="checkbox" name="color[]" value="blue" /> Blue</label>
-    <label><input type="checkbox" name="color[]" value="green" /> Green</label>
-    <label><input type="checkbox" name="color[]" value="yellow" /> Yellow</label>
-    <label><input type="checkbox" name="color[]" value="black" /> Black</label>
-    <label><input type="checkbox" name="color[]" value="white" /> White</label>
-  </div>
+        <label>Size</label>
+        <div class="radio-group">
+          <label><input type="radio" name="jerseySandoSize" value="sandoMale" /> MALE SIZE</label>
+          <label><input type="radio" name="jerseySandoSize" value="sandoFemale" /> FEMALE SIZE</label>
+          <label><input type="radio" name="jerseySandoSize" value="sandoKids" /> KIDS SIZE</label>
+        </div>
 
-  <input type="submit" value="Submit Inquiry" />
-</form>
+        <label>Longsleeves</label>
+        <div class="radio-group">
+          <label><input type="radio" name="longsleeves" value="longsleevesMale" /> MALE SIZE</label>
+          <label><input type="radio" name="longsleeves" value="longsleevesFemale" /> FEMALE SIZE</label>
+          <label><input type="radio" name="longsleeves" value="longsleevesKid" /> KIDS SIZE</label>
+        </div>
 
+        <label for="tshirt">T-shirt</label>
+        <select name="tshirt" id="tshirt">
+          <option value="">-- None --</option>
+          <option value="tshirtRound">ROUND NECK</option>
+          <option value="tshirtV">V-NECK</option>
+          <option value="tshirtFull">FULL COLLAR</option>
+          <option value="tshirtHalf">HALF COLLAR</option>
+        </select>
 
+        <label>T-shirt Size</label>
+        <div class="radio-group">
+          <label><input type="radio" name="tshirtSize" value="tshirtMale" /> MALE SIZE</label>
+          <label><input type="radio" name="tshirtSize" value="tshirtFemale" /> FEMALE SIZE</label>
+          <label><input type="radio" name="tshirtSize" value="tshirtKid" /> KIDS SIZE</label>
+        </div>
 
-  <!-- <h2 style="text-align: center; color: white;">All Records</h2>
+        <label for="poloSize">Polo Shirt</label>
+        <select name="poloSize" id="poloSize">
+          <option value="">-- None --</option>
+          <option value="poloYonex">YONEX COLLAR</option>
+          <option value="poloKnitted">V-NECK</option>
+          <option value="poloFull">KNITTED COLLAR</option>
+          <option value="poloHalf">CHINESE COLLAR</option>
+        </select>
+
+        <label for="others">Others</label>
+        <select name="others" id="others">
+          <option value="">-- None --</option>
+          <option value="othersButton">BUTTONS</option>
+          <option value="othersZipper">ZIPPER</option>
+        </select>
+      </div>
+
+      <div class="section-column">
+        <h4>Bottoms</h4>
+
+        <label for="jerseyShort">Jersey Short</label>
+        <select name="jerseyShort" id="jerseyShort">
+          <option value="">-- None --</option>
+          <option value="shortNormal">NORMAL CUT</option>
+          <option value="shortKnee">ABOVE THE KNEE</option>
+          <option value="shortUnisex">UNISEX</option>
+          <option value="shortCycling">CYCLING</option>
+        </select>
+
+        <label>Short Size</label>
+        <div class="radio-group">
+          <label><input type="radio" name="shortSize" value="shortAdult" /> ADULT SIZE</label>
+          <label><input type="radio" name="shortSize" value="shortKids" /> KIDS SIZE</label>
+        </div>
+
+        <label>Jogging Pants</label>
+        <div class="radio-group">
+          <label><input type="radio" name="joggingPants" value="joggingAdult" /> ADULT SIZE</label>
+          <label><input type="radio" name="joggingPants" value="joggingKid" /> KIDS SIZE</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-row">
+      <div class="section-column">
+        <h4>Accessories</h4>
+
+        <label>Warmer</label>
+        <div class="radio-group">
+          <label><input type="radio" name="warmer" value="warmerMale" /> MALE CUT SIZE</label>
+          <label><input type="radio" name="warmer" value="warmerFemale" /> FEMALE CUT SIZE</label>
+          <label><input type="radio" name="warmer" value="warmerKid" /> KIDS CUT SIZE</label>
+        </div>
+
+        <label for="sublimationDTF">Sublimation and DTF</label>
+        <select name="sublimationDTF" id="sublimationDTF">
+          <option value="">-- None --</option>
+          <option value="printOnly">PRINT ONLY</option>
+          <option value="printAndPress">PRINT AND PRESS ONLY</option>
+        </select>
+
+        <label for="otherService">Other services</label>
+        <select name="otherService" id="otherService">
+          <option value="">-- None --</option>
+          <option value="lanyard">LANYARD</option>
+          <option value="meshCap">MESH CAP</option>
+          <option value="banners">BANNERS</option>
+          <option value="armSleeve">ARM SLEEVE</option>
+          <option value="mugs">MUGS</option>
+          <option value="layout">LAYOUT ONLY</option>
+        </select>
+      </div>
+
+      <div class="section-column">
+        <h4>Material Type & Colors</h4>
+
+        <label class="material-label" for="materialPolydex">
+          <input type="radio" class="material-radio" id="materialPolydex" name="materialType" value="polydex" />
+          100% Polydex
+        </label>
+
+        <label class="material-label" for="materialCottonBlend">
+          <input type="radio" class="material-radio" id="materialCottonBlend" name="materialType" value="cottonBlend" />
+          Cotton Blend (50/50 cotton-polyester, durable)
+        </label>
+
+        <label class="material-label" for="materialTriBlend">
+          <input type="radio" class="material-radio" id="materialTriBlend" name="materialType" value="triBlend" />
+          Tri-Blend (ultra-soft, vintage look)
+        </label>
+
+        <label class="material-label" for="materialPerformance">
+          <input type="radio" class="material-radio" id="materialPerformance" name="materialType" value="performance" />
+          Performance Fabric (moisture-wicking, athletic)
+        </label>
+
+        <h4>Colors</h4>
+        <div class="color-selection">
+          <label><input type="checkbox" name="colorSelection[]" value="red" /> Red</label>
+          <label><input type="checkbox" name="colorSelection[]" value="blue" /> Blue</label>
+          <label><input type="checkbox" name="colorSelection[]" value="green" /> Green</label>
+          <label><input type="checkbox" name="colorSelection[]" value="yellow" /> Yellow</label>
+          <label><input type="checkbox" name="colorSelection[]" value="black" /> Black</label>
+          <label><input type="checkbox" name="colorSelection[]" value="white" /> White</label>
+        </div>
+      </div>
+    </div>
+
+    <input type="submit" value="Submit" />
+  </form>
+
+  <h2 style="text-align: center; color: white;">All Records</h2>
 
   <table border="1" cellpadding="5" cellspacing="0" id="recordsTable">
     <thead>
@@ -102,7 +221,7 @@
       </tr>
     </thead>
     <tbody></tbody>
-  </table> -->
+  </table>
 
   <footer>
         <div class="container">
@@ -156,5 +275,22 @@
     </footer>
 
   <script src="Forms.js"></script>
+
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Logout functionality
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('Are you sure you want to logout?')) {
+                // Clear session (optional if using PHP sessions)
+                // Redirect to login page
+                window.location.href = '../depota.html'; 
+            }
+        });
+    }
+});
+</script>
 </body>
 </html>
