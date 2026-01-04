@@ -31,7 +31,7 @@ function handleCreate() {
         $last_name = htmlspecialchars(trim($_POST['last_name']));
         $position = htmlspecialchars(trim($_POST['position']));
         $email = htmlspecialchars(trim($_POST['email']));
-        $user_id = isset($_POST['user_id']) ? intval($_POST['user_id']) : null;
+        $user_id = intval($_POST['user_id']);
 
         // Check if email already exists
         $checkEmailSql = "SELECT employee_id FROM employee WHERE email = ?";
@@ -48,21 +48,36 @@ function handleCreate() {
         }
         $checkEmailStmt->close();
 
-        $sql = "INSERT INTO employee (first_name, last_name, position, email, user_id)
-                VALUES (?, ?, ?, ?, ?)";
+        // Check if user_id is already linked to another employee
+        $checkUserSql = "SELECT employee_id FROM employee WHERE user_id = ?";
+        $checkUserStmt = $conn->prepare($checkUserSql);
+        $checkUserStmt->bind_param("i", $user_id);
+        $checkUserStmt->execute();
+        $checkUserResult = $checkUserStmt->get_result();
 
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssi", $first_name, $last_name, $position, $email, $user_id);
+        if ($checkUserResult->num_rows > 0) {
+            showAlert("danger", "This user is already linked to another employee.");
+            writeLog("CREATE_FAILED", "NEW", $first_name, $last_name, "User already assigned");
+            $checkUserStmt->close();
+            return;
+        }
+        $checkUserStmt->close();
 
-        if ($stmt->execute()) {
+        // Insert into employee table
+        $employeeSql = "INSERT INTO employee (first_name, last_name, position, email, user_id)
+                        VALUES (?, ?, ?, ?, ?)";
+        $employeeStmt = $conn->prepare($employeeSql);
+        $employeeStmt->bind_param("ssssi", $first_name, $last_name, $position, $email, $user_id);
+
+        if ($employeeStmt->execute()) {
             $employee_id = $conn->insert_id;
-            writeLog("CREATE", (string)$employee_id, $first_name, $last_name, "Position: $position | Email: $email");
+            writeLog("CREATE", (string)$employee_id, $first_name, $last_name, "Position: $position | Email: $email | User ID: $user_id");
             showAlert("success", "Employee added successfully with ID: <strong>$employee_id</strong>");
         } else {
-            showAlert("danger", "Error: " . $stmt->error);
-            writeLog("CREATE_FAILED", "NEW", $first_name, $last_name, "Error: " . $stmt->error);
+            showAlert("danger", "Error: " . $employeeStmt->error);
+            writeLog("CREATE_FAILED", "NEW", $first_name, $last_name, "Error: " . $employeeStmt->error);
         }
-        $stmt->close();
+        $employeeStmt->close();
     }
 }
 
@@ -71,7 +86,7 @@ function handleRead() {
 
     $sql = "SELECT e.employee_id, e.first_name, e.last_name, e.position, e.email, e.user_id, u.username
             FROM employee e
-            LEFT JOIN user u ON e.user_id = u.user_id
+            INNER JOIN user u ON e.user_id = u.user_id
             ORDER BY e.employee_id DESC";
     $result = $conn->query($sql);
 
@@ -85,7 +100,7 @@ function handleRead() {
             $html .= '<td>' . htmlspecialchars($row['last_name']) . '</td>';
             $html .= '<td>' . htmlspecialchars($row['position']) . '</td>';
             $html .= '<td>' . htmlspecialchars($row['email']) . '</td>';
-            $html .= '<td>' . htmlspecialchars($row['username'] ?? 'N/A') . '</td>';
+            $html .= '<td>' . htmlspecialchars($row['username']) . '</td>';
             $html .= '<td>';
             $html .= '<div class="action-buttons">';
             $html .= '<a href="employee_crud.php?action=edit&id=' . $row['employee_id'] . '" class="btn btn-sm btn-warning">Edit</a> ';
@@ -109,7 +124,9 @@ function handleEditForm() {
     }
 
     $id = intval($_GET['id']);
-    $sql = "SELECT * FROM employee WHERE employee_id = ?";
+    $sql = "SELECT e.*, u.username FROM employee e
+            INNER JOIN user u ON e.user_id = u.user_id
+            WHERE e.employee_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
     $stmt->execute();
@@ -119,6 +136,14 @@ function handleEditForm() {
 
     if (!$employee) {
         die("Employee not found!");
+    }
+
+    // Get all available users
+    $userSql = "SELECT user_id, username FROM user WHERE role = 'employee' ORDER BY username";
+    $userResult = $conn->query($userSql);
+    $users = [];
+    while($user = $userResult->fetch_assoc()) {
+        $users[] = $user;
     }
 
     ?>
@@ -165,6 +190,19 @@ function handleEditForm() {
                         <div class="invalid-feedback">Please enter a valid email address.</div>
                     </div>
 
+                    <div class="mb-3">
+                        <label class="form-label">User Account</label>
+                        <select class="form-select" name="user_id" required>
+                            <option value="">Select User</option>
+                            <?php foreach ($users as $user): ?>
+                                <option value="<?php echo $user['user_id']; ?>" <?php echo $user['user_id'] == $employee['user_id'] ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($user['username']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <div class="invalid-feedback">Please select a user account.</div>
+                    </div>
+
                     <div class="d-flex gap-2">
                         <button class="btn btn-primary flex-grow-1" type="submit">Update Employee</button>
                         <a href="employee.html" class="btn btn-secondary">Cancel</a>
@@ -202,6 +240,7 @@ function handleUpdate() {
         $last_name = htmlspecialchars(trim($_POST['last_name']));
         $position = htmlspecialchars(trim($_POST['position']));
         $email = htmlspecialchars(trim($_POST['email']));
+        $user_id = intval($_POST['user_id']);
 
         // Get old data for comparison
         $selectSql = "SELECT * FROM employee WHERE employee_id = ?";
@@ -227,9 +266,26 @@ function handleUpdate() {
         }
         $checkEmailStmt->close();
 
-        $sql = "UPDATE employee SET first_name=?, last_name=?, position=?, email=? WHERE employee_id=?";
+        // Check if new user_id is already linked to another employee
+        if ($user_id !== $oldEmployee['user_id']) {
+            $checkUserSql = "SELECT employee_id FROM employee WHERE user_id = ? AND employee_id != ?";
+            $checkUserStmt = $conn->prepare($checkUserSql);
+            $checkUserStmt->bind_param("ii", $user_id, $employee_id);
+            $checkUserStmt->execute();
+            $checkUserResult = $checkUserStmt->get_result();
+
+            if ($checkUserResult->num_rows > 0) {
+                showAlert("danger", "This user is already linked to another employee.");
+                writeLog("UPDATE_FAILED", (string)$employee_id, $first_name, $last_name, "User already assigned");
+                $checkUserStmt->close();
+                return;
+            }
+            $checkUserStmt->close();
+        }
+
+        $sql = "UPDATE employee SET first_name=?, last_name=?, position=?, email=?, user_id=? WHERE employee_id=?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssi", $first_name, $last_name, $position, $email, $employee_id);
+        $stmt->bind_param("ssssii", $first_name, $last_name, $position, $email, $user_id, $employee_id);
 
         if ($stmt->execute()) {
             $changes = [];
@@ -237,6 +293,7 @@ function handleUpdate() {
             if ($oldEmployee['last_name'] !== $last_name) $changes[] = "LastName: {$oldEmployee['last_name']} → $last_name";
             if ($oldEmployee['position'] !== $position) $changes[] = "Position: {$oldEmployee['position']} → $position";
             if ($oldEmployee['email'] !== $email) $changes[] = "Email: {$oldEmployee['email']} → $email";
+            if ($oldEmployee['user_id'] !== $user_id) $changes[] = "User ID: {$oldEmployee['user_id']} → $user_id";
 
             $changeDetails = implode(" | ", $changes);
             writeLog("UPDATE", (string)$employee_id, $first_name, $last_name, $changeDetails);
