@@ -1,74 +1,76 @@
 <?php
 require "connect.php";
-
 $pdo = Database::Connection();
 
-if ($_POST['func_name'] === 'CreateCustomerAccount') {
-    echo CreateCustomerAccount();
+$func = $_POST['func_name'] ?? '';
+
+$allowed = ["DisplayCustomer","AddCustomer","UpdateCustomer","DeleteCustomer"];
+if (!in_array($func, $allowed)) {
+    echo json_encode(["success"=>false,"message"=>"Invalid action"]);
+    exit;
 }
 
-function CreateCustomerAccount()
-{
+call_user_func($func);
+
+// ================= DISPLAY =================
+function DisplayCustomer() {
     global $pdo;
-
-    try {
-        $pdo->beginTransaction();
-
-        /* ---------- INSERT USER ---------- */
-        $sqlUser = "INSERT INTO user (
-                        username,
-                        password_hash,
-                        phone_number,
-                        date_created,
-                        role,
-                        status
-                    ) VALUES (?, ?, ?, NOW(), ?, ?)";
-
-        $stmtUser = $pdo->prepare($sqlUser);
-
-        $stmtUser->execute([
-            $_POST['username'],
-            password_hash($_POST['password'], PASSWORD_DEFAULT),
-            $_POST['phone'],
-            'customer',     // default role
-            'active'        // default status
-        ]);
-
-        $user_id = $pdo->lastInsertId();
-
-        /* ---------- INSERT CUSTOMER ---------- */
-        $sqlCustomer = "INSERT INTO customer (
-                            first_name,
-                            last_name,
-                            phone_number,
-                            email,
-                            barangay,
-                            city_municipality,
-                            province,
-                            postal_code,
-                            user_id
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-        $stmtCustomer = $pdo->prepare($sqlCustomer);
-        $stmtCustomer->execute([
-            $_POST['firstName'],
-            $_POST['lastName'],
-            $_POST['phone'],
-            $_POST['email'],
-            $_POST['barangay'],
-            $_POST['city'],
-            $_POST['province'],
-            $_POST['postalCode'],
-            $user_id
-        ]);
-
-        $pdo->commit();
-
-        return json_encode("Account successfully created!");
-
-    } catch (Exception $e) {
-        $pdo->rollBack();
-        return json_encode("Error: " . $e->getMessage());
-    }
+    $stmt = $pdo->query("SELECT * FROM customer ORDER BY customer_id DESC");
+    echo json_encode([
+        "success" => true,
+        "data" => $stmt->fetchAll(PDO::FETCH_ASSOC)
+    ]);
 }
-?>
+
+// ================= ADD =================
+function AddCustomer() {
+    global $pdo;
+    $sql = "INSERT INTO customer 
+        (first_name,last_name,phone_number,email,barangay,city_municipality,province,postal_code)
+        VALUES (?,?,?,?,?,?,?,?)";
+
+    $pdo->prepare($sql)->execute([
+        $_POST['firstName'],
+        $_POST['lastName'],
+        $_POST['phone'],
+        $_POST['email'],
+        $_POST['barangay'],
+        $_POST['city'],
+        $_POST['province'],
+        $_POST['postalCode']
+    ]);
+
+    echo json_encode(["success"=>true,"message"=>"Customer added successfully"]);
+}
+
+// ================= UPDATE =================
+function UpdateCustomer() {
+    global $pdo;
+    $sql = "UPDATE customer SET
+        first_name=?, last_name=?, phone_number=?, email=?,
+        barangay=?, city_municipality=?, province=?, postal_code=?
+        WHERE customer_id=?";
+
+    $pdo->prepare($sql)->execute([
+        $_POST['firstName'],
+        $_POST['lastName'],
+        $_POST['phone'],
+        $_POST['email'],
+        $_POST['barangay'],
+        $_POST['city'],
+        $_POST['province'],
+        $_POST['postalCode'],
+        $_POST['customerID']
+    ]);
+
+    echo json_encode(["success"=>true,"message"=>"Customer updated successfully"]);
+}
+
+// ================= DELETE =================
+function DeleteCustomer() {
+    global $pdo;
+    $pdo->prepare("DELETE FROM customer WHERE customer_id=?")
+        ->execute([$_POST['customerID']]);
+
+    echo json_encode(["success"=>true,"message"=>"Customer deleted successfully"]);
+}

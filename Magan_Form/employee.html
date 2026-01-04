@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KD Sportswear & Apparel - Orders & Inquiries</title>
+    <title>KD Sportswear & Apparel - Employee Form</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="inquiry_style.css">
+    <link rel="stylesheet" href="employee_style.css">
 </head>
 <body>
 <!-- Navigation -->
@@ -21,7 +21,7 @@
             <li><a href="../home.html#services" class="nav-link">Services</a></li>
             <li><a href="../home.html#testimonials" class="nav-link">Testimonials</a></li>
             <li><a href="../home.html#contact" class="nav-link">Contact</a></li>
-            <li><a href="../index.html" class="nav-link logout-btn" id="logoutBtn">Logout</a></li>
+            <li><a href="../forms.html" class="nav-link">Forms</a></li>
         </ul>
         <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
             <span id="menuIcon">☰</span>
@@ -38,65 +38,67 @@
 <!-- TWO COLUMN LAYOUT -->
 <div class="container-main">
     <div class="row">
-        <!-- FULL WIDTH: INQUIRIES TABLE -->
-        <div class="col-12">
-            <div class="table-container">
-                <h2>Customer Inquiries</h2>
-                <div class="table-responsive">
-                    <table class="table table-striped" id="inquiryTable">
-                        <thead class="table-dark">
-                        <tr>
-                            <th>Inquiry ID</th>
-                            <th>Jersey Sando</th>
-                            <th>Size</th>
-                            <th>Material</th>
-                            <th>Color</th>
-                            <th>Others</th>
-                            <th>Neck</th>
-                            <th>Long Sleeves</th>
-                            <th>T-Shirt</th>
-                            <th>T-Shirt Size</th>
-                            <th>Polo Size</th>
-                            <th>Short</th>
-                            <th>Short Size</th>
-                            <th>Jogging</th>
-                            <th>Warmer</th>
-                            <th>Sublimation</th>
-                            <th>Other Service</th>
-                            <th>Price</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                            <th>File</th>
-                            <th style="width: 100px;">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody id="inquiryTableBody">
-                        <!-- Inquiries will be loaded here -->
-                        </tbody>
-                    </table>
-                </div>
+        <!-- LEFT SIDE: FORM CONTAINER -->
+        <div class="col-md-4">
+            <div class="form-container">
+                <h2>Employee Details</h2>
+
+                <form class="needs-validation" method="POST" action="employee_crud.php?action=create" novalidate>
+
+                    <div class="mb-3">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-control" name="first_name" required pattern="[A-Za-z ]+" placeholder="Enter First Name">
+                        <div class="invalid-feedback">First name should contain only letters.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-control" name="last_name" required pattern="[A-Za-z ]+" placeholder="Enter Last Name">
+                        <div class="invalid-feedback">Last name should contain only letters.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Position</label>
+                        <select class="form-select" name="position" required>
+                            <option value="">Select Position</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Supervisor">Supervisor</option>
+                            <option value="Staff">Staff</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a position.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-control" name="email" required placeholder="Enter Valid Email">
+                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                    </div>
+
+                    <button class="btn btn-primary w-100" type="submit">CONFIRM</button>
+
+                </form>
             </div>
         </div>
-    </div>
 
-    <div class="row mt-4">
-        <!-- FULL WIDTH: ORDERS TABLE -->
-        <div class="col-12">
+        <!-- RIGHT SIDE: EMPLOYEE LIST -->
+        <div class="col-md-8">
             <div class="table-container">
-                <h2>Orders</h2>
+                <h2>Employee List</h2>
                 <div class="table-responsive">
-                    <table class="table table-striped" id="ordersTable">
+                    <table class="table table-striped" id="employeeTable">
                         <thead class="table-dark">
                         <tr>
-                            <th>Order ID</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Inquiry ID</th>
+                            <th>Employee ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Position</th>
+                            <th>Email</th>
+                            <th>Username</th>
                             <th style="width: 100px;">Action</th>
                         </tr>
                         </thead>
-                        <tbody id="ordersTableBody">
-                        <!-- Orders will be loaded here -->
+                        <tbody id="employeeTableBody">
+                        <!-- Employees will be loaded here -->
                         </tbody>
                     </table>
                 </div>
@@ -159,37 +161,32 @@
 
 <!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    (() => {
+        'use strict';
+        const forms = document.querySelectorAll('.needs-validation');
+
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>
 
 <script>
-    // Load inquiries and orders when page loads
+    // Load employees when page loads
     document.addEventListener('DOMContentLoaded', function() {
-        // Load inquiries
-        fetch('inquiry_crud.php?action=read_inquiries')
+        fetch('employee_crud.php?action=read')
             .then(response => response.text())
             .then(data => {
-                document.getElementById('inquiryTableBody').innerHTML = data;
+                document.getElementById('employeeTableBody').innerHTML = data;
             })
-            .catch(error => console.error('Error loading inquiries:', error));
-
-        // Load orders
-        fetch('inquiry_crud.php?action=read_orders')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('ordersTableBody').innerHTML = data;
-            })
-            .catch(error => console.error('Error loading orders:', error));
-
-        // Logout functionality
-        document.getElementById('logoutBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            if (confirm('Are you sure you want to logout?')) {
-                // Clear session/local storage if needed
-                localStorage.clear();
-                sessionStorage.clear();
-                // Redirect to login/home page
-                window.location.href = '../index.html';
-            }
-        });
+            .catch(error => console.error('Error:', error));
     });
 </script>
 

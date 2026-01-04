@@ -70,7 +70,7 @@ h2 {
 
 /* CUSTOMER TABLE FONT COLOR */
 #customerTable tbody td {
-    color: black;
+    color: #ffffff; /* white text for readability */
     font-weight: 500;
 }
 
