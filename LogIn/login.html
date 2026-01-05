@@ -30,10 +30,7 @@
             </div>
 
             <div class="tab-content active" id="login">
-                <form method="POST" action="crud.php">
-
-                    <input type="hidden" name="action" value="login" />
-
+                <form>
                     <div class="form-group">
                         <label>Login As</label>
                         <select name="role" required>
@@ -58,10 +55,7 @@
             </div>
 
             <div class="tab-content" id="signup">
-                <form id="signupForm" method="POST" action="crud.php">
-
-                    <input type="hidden" name="action" value="signup" />
-
+                <form id="signupForm">
                     <h3>Create Customer Account</h3>
 
                     <h4>Customer Details</h4>
@@ -71,7 +65,6 @@
                             <label>First Name</label>
                             <input type="text" name="first_name" required />
                         </div>
-
                         <div class="form-group">
                             <label>Last Name</label>
                             <input type="text" name="last_name" required />
@@ -81,15 +74,8 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Phone Number</label>
-                            <input
-                                type="tel"
-                                name="phone"
-                                pattern="^[0-9]{11}$"
-                                placeholder="09XXXXXXXXX"
-                                required
-                            />
+                            <input type="tel" name="phone" pattern="^[0-9]{11}$" placeholder="09XXXXXXXXX" required />
                         </div>
-
                         <div class="form-group">
                             <label>Email</label>
                             <input type="email" name="email" required />
@@ -101,7 +87,6 @@
                             <label>Barangay</label>
                             <input type="text" name="barangay" required />
                         </div>
-
                         <div class="form-group">
                             <label>City / Municipality</label>
                             <input type="text" name="city" required />
@@ -113,15 +98,9 @@
                             <label>Province</label>
                             <input type="text" name="province" required />
                         </div>
-
                         <div class="form-group">
                             <label>Postal Code</label>
-                            <input
-                                type="text"
-                                name="postal_code"
-                                pattern="^[0-9]{4}$"
-                                required
-                            />
+                            <input type="text" name="postal_code" pattern="^[0-9]{4}$" required />
                         </div>
                     </div>
 
@@ -132,7 +111,6 @@
                             <label>Username</label>
                             <input type="text" name="username" required />
                         </div>
-
                         <div class="form-group">
                             <label>Password</label>
                             <input type="password" name="password" required />
@@ -140,13 +118,10 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Create Account</button>
-
-                    <div
-                        id="signupNotification"
-                        style="display:none; margin-top: 1rem; font-weight: 600;"
-                    ></div>
+                    <div id="signupNotification" style="display:none; margin-top:1rem; font-weight:600;"></div>
                 </form>
             </div>
+
         </div>
     </div>
 </section>

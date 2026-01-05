@@ -1,45 +1,68 @@
-const tabButtons = document.querySelectorAll(".tab-btn");
-const tabContents = document.querySelectorAll(".tab-content");
+document.addEventListener("DOMContentLoaded", function () {
 
-tabButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-        tabButtons.forEach((b) => b.classList.remove("active"));
-        tabContents.forEach((c) => c.classList.remove("active"));
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabContents = document.querySelectorAll(".tab-content");
 
-        btn.classList.add("active");
-        document.getElementById(btn.dataset.tab).classList.add("active");
-    });
-});
+    tabButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const targetTab = this.dataset.tab;
 
-const signupForm = document.getElementById("signupForm");
-const signupNotification = document.getElementById("signupNotification");
+            tabButtons.forEach(btn => btn.classList.remove("active"));
+            tabContents.forEach(content => content.classList.remove("active"));
 
-signupForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const formData = new FormData(signupForm);
-
-    fetch("crud.php", {
-        method: "POST",
-        body: formData,
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.success) {
-                signupNotification.style.color = "green";
-                signupNotification.textContent = "Account created successfully!";
-                signupNotification.style.display = "block";
-                signupForm.reset();
-            } else {
-                signupNotification.style.color = "red";
-                signupNotification.textContent = "Error: " + (data.message || "Signup failed");
-                signupNotification.style.display = "block";
-            }
-        })
-        .catch(() => {
-            signupNotification.style.color = "red";
-            signupNotification.textContent = "An unexpected error occurred. Please try again.";
-            signupNotification.style.display = "block";
+            this.classList.add("active");
+            document.getElementById(targetTab).classList.add("active");
         });
-});
+    });
 
+    const loginForm = document.querySelector("#login form");
+
+    loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const role = this.querySelector("select[name='role']").value;
+        const username = this.querySelector("input[name='username']").value;
+        const password = this.querySelector("input[name='password']").value;
+
+        if (!role || !username || !password) {
+            alert("Please fill all fields.");
+            return;
+        }
+
+        if (role === "customer") {
+            window.location.href = "CustomerDashboard/customer_dashboard.html";
+        } else if (role === "employee") {
+            window.location.href = "EmployeeDashboard/employee_dashboard.html";
+        } else {
+            alert("Invalid role selected.");
+        }
+    });
+
+    const signupForm = document.getElementById("signupForm");
+
+    signupForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const inputs = this.querySelectorAll("input");
+        let allFilled = true;
+
+        inputs.forEach(input => {
+            if (!input.value) {
+                allFilled = false;
+            }
+        });
+
+        if (!allFilled) {
+            alert("Please fill all fields in the signup form.");
+            return;
+        }
+
+        const notification = document.getElementById("signupNotification");
+        notification.style.display = "block";
+        notification.textContent = "Account created successfully! You can now log in.";
+
+        this.reset();
+        document.querySelector(".tab-btn[data-tab='login']").click();
+    });
+
+});
