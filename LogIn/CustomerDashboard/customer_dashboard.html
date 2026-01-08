@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="customers.css">
+    <title>Document</title>
+</head>
+<body>
+
+   <section id="inquiries-section">
+    <div class="container auth-card">
+        <div class="section-header">
+            <h2>Inquiries</h2>
+            <p>View your previous inquiries or submit a new one.</p>
+        </div>
+
+        <div class="tabs">
+            <div class="tabs-list">
+                <button class="tab-btn active" data-tab="view-inquiries">View Inquiries</button>
+                <button class="tab-btn" data-tab="submit-inquiry">Submit Inquiry</button>
+            </div>
+
+            <div class="tab-content active" id="view-inquiries">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="inquiriesTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Customer Design</th>
+                                <th>Service Details</th>
+                                <th>Status</th>
+                                <th>Submitted At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-content" id="submit-inquiry">
+                <div class="form-header">
+                    <h1 class="apparel">KD Sportswear and Apparel</h1>
+                    <p class="sub">Sublimation • Custom Jerseys • Apparel Printing</p>
+                </div>
+
+                <form id="kdForm" enctype="multipart/form-data">
+                    <input type="hidden" name="id" id="recordId" />
+
+                    <h1 class="kd">KD inquiry form</h1>
+                    <h3 class="kd">Fill in your details and see all records below.</h3>
+
+                    <textarea name="customer" id="customer" rows="5" placeholder="Customer's design"></textarea>
+                    <input type="file" name="customerFile" id="customerFile" />
+
+                    <div class="section-row">
+                        <div class="section-column">
+                            <h4>Tops</h4>
+
+                            <label for="jerseySando">Jersey Sando</label>
+                            <select name="jerseySando" id="jerseySando">
+                                <option value="">-- None --</option>
+                                <option value="jerseySandoOrdinary">Ordinary CUT</option>
+                                <option value="jerseySandoNBA">NBA CUT</option>
+                                <option value="jerseySandoNoRib">REVERSIBLE W/O RIBBINGS</option>
+                                <option value="jerseySandoRib">REVERSIBLE W RIBBINGS</option>
+                            </select>
+
+                            <label for="jerseyNeck">Neck</label>
+                            <select name="jerseyNeck" id="jerseyNeck">
+                                <option value="">-- None --</option>
+                                <option value="jerseyRound">ROUND NECK</option>
+                                <option value="jerseyV">V-NECK</option>
+                                <option value="jerseyW">W-NECK</option>
+                            </select>
+
+                            <label>Size</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="jerseySandoSize" value="sandoMale" /> MALE SIZE</label>
+                                <label><input type="radio" name="jerseySandoSize" value="sandoFemale" /> FEMALE SIZE</label>
+                                <label><input type="radio" name="jerseySandoSize" value="sandoKids" /> KIDS SIZE</label>
+                            </div>
+
+                            <label>Longsleeves</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="longsleeves" value="longsleevesMale" /> MALE SIZE</label>
+                                <label><input type="radio" name="longsleeves" value="longsleevesFemale" /> FEMALE SIZE</label>
+                                <label><input type="radio" name="longsleeves" value="longsleevesKid" /> KIDS SIZE</label>
+                            </div>
+
+                            <label for="tshirt">T-shirt</label>
+                            <select name="tshirt" id="tshirt">
+                                <option value="">-- None --</option>
+                                <option value="tshirtRound">ROUND NECK</option>
+                                <option value="tshirtV">V-NECK</option>
+                                <option value="tshirtFull">FULL COLLAR</option>
+                                <option value="tshirtHalf">HALF COLLAR</option>
+                            </select>
+
+                            <label>T-shirt Size</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="tshirtSize" value="tshirtMale" /> MALE SIZE</label>
+                                <label><input type="radio" name="tshirtSize" value="tshirtFemale" /> FEMALE SIZE</label>
+                                <label><input type="radio" name="tshirtSize" value="tshirtKid" /> KIDS SIZE</label>
+                            </div>
+                        </div>
+
+                        <div class="section-column">
+                            <h4>Bottoms</h4>
+                            <label for="jerseyShort">Jersey Short</label>
+                            <select name="jerseyShort" id="jerseyShort">
+                                <option value="">-- None --</option>
+                                <option value="shortNormal">NORMAL CUT</option>
+                                <option value="shortKnee">ABOVE THE KNEE</option>
+                                <option value="shortUnisex">UNISEX</option>
+                                <option value="shortCycling">CYCLING</option>
+                            </select>
+
+                            <label>Short Size</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="shortSize" value="shortAdult" /> ADULT SIZE</label>
+                                <label><input type="radio" name="shortSize" value="shortKids" /> KIDS SIZE</label>
+                            </div>
+
+                            <label>Jogging Pants</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="joggingPants" value="joggingAdult" /> ADULT SIZE</label>
+                                <label><input type="radio" name="joggingPants" value="joggingKid" /> KIDS SIZE</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-row">
+                        <div class="section-column">
+                            <h4>Accessories</h4>
+                            <label>Warmer</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="warmer" value="warmerMale" /> MALE CUT SIZE</label>
+                                <label><input type="radio" name="warmer" value="warmerFemale" /> FEMALE CUT SIZE</label>
+                                <label><input type="radio" name="warmer" value="warmerKid" /> KIDS CUT SIZE</label>
+                            </div>
+
+                            <label for="sublimationDTF">Sublimation and DTF</label>
+                            <select name="sublimationDTF" id="sublimationDTF">
+                                <option value="">-- None --</option>
+                                <option value="printOnly">PRINT ONLY</option>
+                                <option value="printAndPress">PRINT AND PRESS ONLY</option>
+                            </select>
+                        </div>
+
+                        <div class="section-column">
+                            <h4>Material Type & Colors</h4>
+                            <label><input type="radio" name="materialType" value="polydex" /> 100% Polydex</label>
+                            <label><input type="radio" name="materialType" value="cottonBlend" /> Cotton Blend</label>
+                            <label><input type="radio" name="materialType" value="triBlend" /> Tri-Blend</label>
+                            <label><input type="radio" name="materialType" value="performance" /> Performance Fabric</label>
+
+                            <h4>Colors</h4>
+                            <div class="color-selection">
+                                <label><input type="checkbox" name="colorSelection[]" value="red" /> Red</label>
+                                <label><input type="checkbox" name="colorSelection[]" value="blue" /> Blue</label>
+                                <label><input type="checkbox" name="colorSelection[]" value="green" /> Green</label>
+                                <label><input type="checkbox" name="colorSelection[]" value="yellow" /> Yellow</label>
+                                <label><input type="checkbox" name="colorSelection[]" value="black" /> Black</label>
+                                <label><input type="checkbox" name="colorSelection[]" value="white" /> White</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="submit" value="Submit" />
+                    <div id="inquiryNotification" style="margin-top:1rem; display:none; font-weight:600;"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="customer.js" defer></script>
+
+</body>
+</html>

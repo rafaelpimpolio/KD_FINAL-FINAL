@@ -74,6 +74,14 @@
                         <div class="invalid-feedback">Please enter a valid email address.</div>
                     </div>
 
+                    <div class="mb-3">
+                        <label class="form-label">User Account</label>
+                        <select class="form-select" name="user_id" id="userSelect" required>
+                            <option value="">Select User</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a user account.</div>
+                    </div>
+
                     <button class="btn btn-primary w-100" type="submit">CONFIRM</button>
 
                 </form>
@@ -187,7 +195,25 @@
                 document.getElementById('employeeTableBody').innerHTML = data;
             })
             .catch(error => console.error('Error:', error));
+
+        // Load users for the dropdown
+        loadUsers();
     });
+
+    function loadUsers() {
+        fetch('get_users.php')
+            .then(response => response.json())
+            .then(data => {
+                const select = document.getElementById('userSelect');
+                data.forEach(user => {
+                    const option = document.createElement('option');
+                    option.value = user.user_id;
+                    option.textContent = user.username;
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error loading users:', error));
+    }
 </script>
 
 </body>
